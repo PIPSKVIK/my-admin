@@ -1,0 +1,42 @@
+$lg-desktop-width: 1200px;
+$md-desktop-width: 992px;
+$sm-tablets-width: 768px;
+$sm-mobile-width: 480px;
+$extra-sm-mobile-width: 320px;
+
+/*==========  Desktop First  ==========*/
+
+/* Большие устройства | 1200px или менее */
+@mixin lg-desktop {
+  @media only screen and (max-width: #{$lg-desktop-width}) {
+    @content;
+  }
+}
+
+/* Средние  | 992px или менее */
+@mixin md-desktop {
+  @media only screen and (max-width: #{$md-desktop-width}) {
+    @content;
+  }
+}
+
+/* Небольшие планшетные устройства | 768px или менее */
+@mixin sm-tablets {
+  @media only screen and (max-width: #{$sm-tablets-width}) {
+    @content;
+  }
+}
+
+/* Небольшие мобильные устройства | 480px или менее */
+@mixin sm-mobile {
+  @media only screen and (max-width: #{$sm-mobile-width}) {
+    @content;
+  }
+}
+
+/* Самые маленькие мобильные устройства | 320px или менее */
+@mixin esm-mobile {
+  @media only screen and (max-width: #{$extra-sm-mobile-width}) {
+    @content;
+  }
+}
