@@ -9,11 +9,11 @@ const drowerIconHandler = () => {
 
 <template>
   <nav
-    class="add-nav-drawer"
-    :class="{ 'add-nav-drawer--hide': !showDrowerIcon }"
+    class="app-nav-drawer"
+    :class="{ 'app-nav-drawer--hide': !showDrowerIcon }"
   >
-    <div class="add-nav-drawer__content">
-      <div class="add-nav-drawer__content-header">
+    <div class="app-nav-drawer__content">
+      <div class="app-nav-drawer__content-header">
         <Button
           @click="drowerIconHandler"
           v-if="showDrowerIcon"
@@ -27,10 +27,10 @@ const drowerIconHandler = () => {
           class="p-button-rounded p-button-text"
         />
       </div>
-      <div class="add-nav-drawer__content-items">
+      <div class="app-nav-drawer__content-items">
         <Button
           label="my-budget"
-          class="p-button-text p-button-help p-button-plain add-nav-drawer__content-items-link"
+          class="p-button-text p-button-help p-button-plain app-nav-drawer__content-items-link"
           icon="pi pi-dollar"
           iconPos="right"
           :disabled="!showDrowerIcon"
@@ -38,12 +38,18 @@ const drowerIconHandler = () => {
       </div>
     </div>
   </nav>
+  <header class="app-header">
+    <div class="app-header__wraper">
+      <Button label="Submit" icon="pi pi-check" iconPos="right" />
+    </div>
+  </header>
 </template>
 
 <style lang="scss" scoped>
 @import "@/styles/media";
 
-$b: ".add-nav-drawer";
+$b: ".app-nav-drawer";
+$h: ".app-header";
 
 #{$b} {
   height: 100vh;
@@ -77,6 +83,29 @@ $b: ".add-nav-drawer";
   &__content-items-link {
     width: 100%;
     padding-right: 30px;
+  }
+}
+
+#{$h} {
+  height: 64px;
+  margin-top: 0px;
+  transform: translateY(0px);
+  left: 260px;
+  right: 0px;
+  position: absolute;
+
+  @include lg-desktop {
+    left: 100px;
+  }
+
+  &__wraper {
+    max-width: 900px;
+    margin: 0 auto;
+
+    @include lg-desktop {
+      margin: 0;
+      max-width: 100%;
+    }
   }
 }
 </style>
