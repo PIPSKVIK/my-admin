@@ -27,7 +27,14 @@ const drowerIconHandler = () => {
           class="p-button-rounded p-button-text"
         />
       </div>
-      <div class="add-nav-drawer__content-item"></div>
+      <div class="add-nav-drawer__content-items">
+        <Button
+          label="my-budget"
+          class="p-button-text p-button-plain add-nav-drawer__content-items-link"
+          icon="pi pi-dollar"
+          iconPos="right"
+        />
+      </div>
     </div>
   </nav>
 </template>
@@ -64,6 +71,10 @@ $b: ".add-nav-drawer";
     display: flex;
     justify-content: flex-end;
     padding: 20px 20px 8px 24px;
+  }
+
+  &__content-items-link {
+    width: 100%;
   }
 }
 </style>

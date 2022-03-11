@@ -24,11 +24,13 @@ import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import SplitButton from "primevue/splitbutton";
 import Toast from "primevue/toast";
+import Menu from "primevue/menu";
 
 app.component("Button", Button);
 app.component("InputText", InputText);
 app.component("SplitButton", SplitButton);
 app.component("Toast", Toast);
+app.component("Menu", Menu);
 // __________Prime__________
 
 app.mount("#app");
