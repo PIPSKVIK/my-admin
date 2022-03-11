@@ -15,3 +15,11 @@
   --radius-small: 2px;
   --radius-big: 10px;
 }
+
+// Usage Media
+
+//@include lg-desktop {} // 1200px или менее
+//@include md-desktop {} // 992px или менее
+//@include sm-tablets {} // 768px или менее
+//@include sm-mobile {} // 480px или менее
+//@include esm-mobile {} // 320px или менее

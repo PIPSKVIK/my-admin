@@ -1,0 +1,55 @@
+/// создает блоки с определенным соотношением сторон
+/// @param {number} $width - `width` элемента
+/// @param {number} $height - `height` элемента
+/// @param {boolean} $pseudo - если false, то `padding-top` будет применен к самому элементу, а не к псевдоэлементу
+/// внутри него, применимо только в случае, когда блок будет совпадать по ширине с родительским
+/// Use
+/// @include aspect-ratio(148, 108);
+@mixin aspect-ratio($width: 1, $height: $width, $pseudo: true) {
+  @if $pseudo {
+    &::after {
+      content: "";
+      display: block;
+      padding-top: 1 / ($width / $height) * 100%;
+    }
+  } @else {
+    display: block;
+    padding-top: 1 / ($width / $height) * 100%;
+  }
+}
+
+/// центрирует элемент с помощью `position: absolute` и `transform`
+/// @param {string} $axis - определяет, выравнивать по двум осям или по одной
+/// Use
+/// @include center-abs();
+@mixin center-abs($axis: both) {
+  @if $axis == both {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else if $axis == w {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  } @else if $axis == h {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+/// скрывает элемент без использования `display: none` и `visibility: hidden`, используется на кастомизируемых инпутах,
+/// когда нужно скрыть сам элемент
+/// Use
+/// @include visually-hidden();
+@mixin visually-hidden() {
+  position: absolute;
+  left: -9999px;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  -webkit-appearance: none;
+}
