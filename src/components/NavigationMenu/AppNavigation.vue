@@ -17,22 +17,23 @@ const drowerIconHandler = () => {
         <Button
           @click="drowerIconHandler"
           v-if="showDrowerIcon"
-          icon="pi pi-times"
-          class="p-button-rounded p-button-danger p-button-text"
+          icon="pi pi-angle-double-left"
+          class="p-button-rounded p-button-text"
         />
         <Button
           v-else
           @click="drowerIconHandler"
-          icon="pi pi-check"
+          icon="pi pi-angle-double-right"
           class="p-button-rounded p-button-text"
         />
       </div>
       <div class="add-nav-drawer__content-items">
         <Button
           label="my-budget"
-          class="p-button-text p-button-plain add-nav-drawer__content-items-link"
+          class="p-button-text p-button-help p-button-plain add-nav-drawer__content-items-link"
           icon="pi pi-dollar"
           iconPos="right"
+          :disabled="!showDrowerIcon"
         />
       </div>
     </div>
@@ -75,6 +76,7 @@ $b: ".add-nav-drawer";
 
   &__content-items-link {
     width: 100%;
+    padding-right: 30px;
   }
 }
 </style>
