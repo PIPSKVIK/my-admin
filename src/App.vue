@@ -1,10 +1,7 @@
-<script setup>
-import CompositionExample from '@/components/CompositionExample.vue'
-</script>
+<script setup></script>
 
 <template>
   <div id="app">
-    <CompositionExample />
     <RouterView />
   </div>
 </template>

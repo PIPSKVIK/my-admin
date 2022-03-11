@@ -1,22 +1,24 @@
-<script setup></script>
+<script setup>
+import { AppNavigation } from '@/components/NavigationMenu'
+</script>
 
 <template>
   <section class="main-layout">
-    <div class="nav-menu">
-      <div class="nav-menu__list">Home page</div>
-    </div>
+    <AppNavigation />
   </section>
 </template>
 
 <style lang="scss" scoped>
-$b: ".nav-menu";
+$b: ".main-layout";
 
 #{$b} {
-  height: calc(100% - 57px);
-  background-color: var(--color-background-dark);
-
-  &__list {
-    padding: 8px 20px 8px;
-  }
+  flex: 1 1 auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 100%;
+  position: relative;
 }
 </style>
