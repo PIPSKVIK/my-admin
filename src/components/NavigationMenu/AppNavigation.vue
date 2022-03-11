@@ -1,15 +1,17 @@
 <script setup>
-import { ref  } from 'vue';
+import { windowResize } from "@/helpers";
+const { showDrowerIcon } = windowResize(1200);
 
-const showDrowerIcon = ref(true);
 const drowerIconHandler = () => {
-  showDrowerIcon.value = !showDrowerIcon.value
-}
-
+  showDrowerIcon.value = !showDrowerIcon.value;
+};
 </script>
 
 <template>
-  <nav class="add-nav-drawer" :class="{'add-nav-drawer--hide': !showDrowerIcon}">
+  <nav
+    class="add-nav-drawer"
+    :class="{ 'add-nav-drawer--hide': !showDrowerIcon }"
+  >
     <div class="add-nav-drawer__content">
       <div class="add-nav-drawer__content-header">
         <Button
@@ -46,6 +48,7 @@ $b: ".add-nav-drawer";
   transition-duration: 0.4s !important;
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1), ease !important;
   will-change: box-shadow, transform !important;
+  border-radius: 0 var(--radius-big) var(--radius-big) 0;
 
   &--hide {
     transform: translateX(-70%);
