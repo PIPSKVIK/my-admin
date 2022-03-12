@@ -1,10 +1,25 @@
 <script setup>
+import { useRouter } from "vue-router";
+import { onMounted } from "vue";
 import { windowResize } from "@/helpers";
-const { showDrowerIcon } = windowResize(1200);
+import { btnLinks } from "@/constants/drawerMenuLinks";
+
+const router = useRouter();
+const triggerSize = 1200;
+const { showDrowerIcon } = windowResize(triggerSize);
 
 const drowerIconHandler = () => {
   showDrowerIcon.value = !showDrowerIcon.value;
 };
+const pouterPush = (urlName) => {
+  router.push({ name: urlName });
+};
+
+onMounted(() => {
+  window.innerWidth <= triggerSize
+    ? (showDrowerIcon.value = false)
+    : (showDrowerIcon.value = true);
+});
 </script>
 
 <template>
@@ -29,25 +44,21 @@ const drowerIconHandler = () => {
       </div>
       <div class="app-nav-drawer__content-items">
         <Button
-          label="my-budget"
+          v-for="(link, idx) in btnLinks"
+          :key="idx"
+          :label="link.label"
           class="p-button-text p-button-help p-button-plain app-nav-drawer__content-items-link"
-          icon="pi pi-dollar"
+          :icon="link.icon"
           iconPos="right"
           :disabled="!showDrowerIcon"
+          @click="pouterPush(link.url_name)"
         />
       </div>
     </div>
   </nav>
-  <header class="app-header">
-    <div class="app-header__wraper">
-      <Button label="Submit" icon="pi pi-check" iconPos="right" />
-    </div>
-  </header>
 </template>
 
 <style lang="scss" scoped>
-@import "@/styles/media";
-
 $b: ".app-nav-drawer";
 $h: ".app-header";
 
@@ -58,11 +69,13 @@ $h: ".app-header";
   width: 260px;
   max-height: calc(100% - 0px);
   background-color: var(--color-background-dark);
+  overflow-y: auto;
 
   transition-duration: 0.4s !important;
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1), ease !important;
   will-change: box-shadow, transform !important;
   border-radius: 0 var(--radius-big) var(--radius-big) 0;
+  z-index: 100;
 
   &--hide {
     transform: translateX(-70%);
@@ -70,8 +83,8 @@ $h: ".app-header";
 
   &__container {
     height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    // overflow-y: auto;
+    // overflow-x: hidden;
   }
 
   &__content-header {
@@ -83,29 +96,6 @@ $h: ".app-header";
   &__content-items-link {
     width: 100%;
     padding-right: 30px;
-  }
-}
-
-#{$h} {
-  height: 64px;
-  margin-top: 0px;
-  transform: translateY(0px);
-  left: 260px;
-  right: 0px;
-  position: absolute;
-
-  @include lg-desktop {
-    left: 100px;
-  }
-
-  &__wraper {
-    max-width: 900px;
-    margin: 0 auto;
-
-    @include lg-desktop {
-      margin: 0;
-      max-width: 100%;
-    }
   }
 }
 </style>

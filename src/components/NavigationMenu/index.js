@@ -1,3 +1,4 @@
-import AppNavigation from "./AppNavigation.vue";
+import AppHeaderMenu from "./AppHeaderMenu.vue";
+import AppDrowerMenu from "./AppDrowerMenu.vue";
 
-export { AppNavigation };
+export { AppHeaderMenu, AppDrowerMenu };

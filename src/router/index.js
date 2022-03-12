@@ -1,20 +1,20 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomePage from "@/views/HomePage.vue";
+import { MyBudgetPage, HomePage } from "../views";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "Home",
+      name: "HomePage",
       component: HomePage,
+    },
+    {
+      path: "/my-budget",
+      name: "MyBudget",
+      component: MyBudgetPage,
     },
   ],
 });
-
-// import { RouterView } from "vue-router";
-{
-  /* <RouterView /> */
-}
 
 export default router;
