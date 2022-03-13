@@ -1,10 +1,17 @@
 <script setup>
-import { AppDrowerMenu, AppHeaderMenu } from "@/components/NavigationMenu";
 import { RouterView } from "vue-router";
+import { onMounted } from "vue";
+import { AppDrowerMenu, AppHeaderMenu } from "@/components/NavigationMenu";
 import { windowResize } from "@/helpers";
 
 const triggerSize = 1200;
 const { showDrowerIcon } = windowResize(triggerSize);
+
+onMounted(() => {
+  window.innerWidth <= triggerSize
+    ? (showDrowerIcon.value = false)
+    : (showDrowerIcon.value = true);
+});
 </script>
 
 <template>

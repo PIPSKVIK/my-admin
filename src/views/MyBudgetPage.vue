@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div>Me budget Page</div>
+  <section>Me budget Page</section>
 </template>
 
 <style lang="scss" scoped></style>
