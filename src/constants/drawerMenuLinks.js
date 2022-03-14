@@ -11,4 +11,9 @@ export const btnLinks = ref([
     icon: "pi pi-dollar",
     url_name: "MyBudget",
   },
+  {
+    label: "my-notifications",
+    icon: 'pi pi-caret-down',
+    url_name: "MyNotifications",
+  }
 ]);

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { MyBudgetPage, HomePage } from "../views";
+import { MyBudgetPage, HomePage, MyNotifications } from "../views";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +14,11 @@ const router = createRouter({
       name: "MyBudget",
       component: MyBudgetPage,
     },
+    {
+      path: "/my-notifications",
+      name: 'MyNotifications',
+      component: MyNotifications,
+    }
   ],
 });
 

@@ -1,8 +1,16 @@
 <script setup>
+import { useRouter } from "vue-router";
 import { AppHeaderDropMenu } from "@/components/HeaderMenu";
 import { close } from "@/helpers";
 
 const { isVisible, trigger } = close(".app-notification__drop");
+
+const router = useRouter();
+
+const pouterPush = () => {
+  router.push('/my-notifications');
+  isVisible.value = false;
+};
 
 const notListMock = [
   { title: 'New user registered.', subtitle: '5 hours ago', date: 'Yesterday' },
@@ -47,7 +55,7 @@ const notListMock = [
         </template>
         <template #bottom>
           <div class="app-notification__bottom">
-            <Button label="Read All Notifications" class="app-notification__bottom-btn p-button-raised" />
+            <Button @click="pouterPush" label="Read All Notifications" class="app-notification__bottom-btn p-button-raised" />
           </div>
         </template>
       </AppHeaderDropMenu>
