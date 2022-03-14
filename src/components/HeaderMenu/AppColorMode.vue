@@ -4,7 +4,7 @@ import { ref } from "vue";
 const lightMode = ref(true);
 const changeLightMode = () => {
   lightMode.value = !lightMode.value;
-  if (lightMode.value === false) {
+  if (lightMode.value === true) {
     document.documentElement.setAttribute("data-theme", "dark");
   } else {
     document.documentElement.setAttribute("data-theme", "light");
