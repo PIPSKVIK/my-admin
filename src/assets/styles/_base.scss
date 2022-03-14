@@ -1,14 +1,72 @@
+@import "./media";
+
+html {
+  font-size: var(--root-font-size)px;
+  scroll-behavior: smooth;
+}
+
 body {
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
   transition: color 0.5s, background 0.5s;
-  line-height: 1.6;
+  line-height: var(--line-height);
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-  Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-  sans-serif;
-  font-size: 15px;
+    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: var(--font-size);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.seporator {
+  display: block;
+  max-width: 100%;
+  height: 0;
+  max-height: 0;
+  border: solid;
+  border-width: thin 0 0 0;
+  transition: inherit;
+  border-color: var(--color-separator);
+  margin: 0;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+h2 {
+  font-size: 1.3rem;
+}
+h3 {
+  font-size: 1.1rem;
+}
+h4 {
+  font-size: 1rem;
+}
+h5 {
+  font-size: 0.9rem;
+}
+h6 {
+  font-size: 0.8rem;
+}
+
+.p-1 {
+  font-size: 1rem;
+}
+.p-2 {
+  font-size: 0.9rem;
+}
+.p-3 {
+  font-size: 0.8rem;
+}
+
+.s-1 {
+  font-size: 0.8rem;
+}
+.s-2 {
+  font-size: 0.7rem;
+}
+.s-3 {
+  font-size: 0.6rem;
 }

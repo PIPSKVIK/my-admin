@@ -1,15 +1,27 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 const lightMode = ref(true);
 const changeLightMode = () => {
   lightMode.value = !lightMode.value;
   if (lightMode.value === true) {
     document.documentElement.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
   } else {
     document.documentElement.setAttribute("data-theme", "light");
+    localStorage.setItem("theme", "light");
   }
 };
+
+onMounted(() => {
+  const currentTheme = localStorage.getItem("theme")
+    ? localStorage.getItem("theme")
+    : null;
+  if (currentTheme) {
+    document.documentElement.setAttribute("data-theme", currentTheme);
+  }
+  currentTheme === 'dark' ? lightMode.value = true : lightMode.value = false;
+});
 </script>
 <template>
   <div class="app-color">

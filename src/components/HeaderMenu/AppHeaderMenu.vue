@@ -1,13 +1,20 @@
 <script setup>
 import { ref } from "vue";
-import { AppColorMode, AppHeaderSearch } from "@/components/HeaderMenu";
+import {
+  AppColorMode,
+  AppHeaderSearch,
+  AppNotification,
+} from "@/components/HeaderMenu";
 </script>
 
 <template>
   <header class="app-header">
     <div class="app-header__wraper">
       <AppHeaderSearch />
-      <AppColorMode />
+      <div class="app-header__right">
+        <AppColorMode />
+        <AppNotification />
+      </div>
     </div>
   </header>
 </template>
@@ -40,6 +47,10 @@ $b: ".app-header";
       margin: 0;
       max-width: 100%;
     }
+  }
+
+  &__right {
+    display: flex;
   }
 }
 </style>

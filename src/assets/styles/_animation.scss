@@ -1,3 +1,4 @@
+// slide-fade
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }
@@ -10,6 +11,7 @@
   opacity: 0;
 }
 
+// fade
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
