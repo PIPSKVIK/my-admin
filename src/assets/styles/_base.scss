@@ -34,39 +34,75 @@ body {
 
 h1 {
   font-size: 1.5rem;
+  @include sm-tablets {
+    font-size: 1.3rem;
+  }
 }
 h2 {
   font-size: 1.3rem;
+  @include sm-tablets {
+    font-size: 1.1rem;
+  }
 }
 h3 {
   font-size: 1.1rem;
+  @include sm-tablets {
+    font-size: 1rem;
+  }
 }
 h4 {
   font-size: 1rem;
+  @include sm-tablets {
+    font-size: 0.9rem;
+  }
 }
 h5 {
   font-size: 0.9rem;
+  @include sm-tablets {
+    font-size: 0.8rem;
+  }
 }
 h6 {
   font-size: 0.8rem;
+  @include sm-tablets {
+    font-size: 0.7rem;
+  }
 }
 
 .p-1 {
   font-size: 1rem;
+  @include sm-tablets {
+    font-size: 0.9rem;
+  }
 }
 .p-2 {
   font-size: 0.9rem;
+  @include sm-tablets {
+    font-size: 0.8rem;
+  }
 }
 .p-3 {
   font-size: 0.8rem;
+  @include sm-tablets {
+    font-size: 0.7rem;
+  }
 }
 
 .s-1 {
   font-size: 0.8rem;
+  @include sm-tablets {
+    font-size: 0.7rem;
+  }
 }
 .s-2 {
   font-size: 0.7rem;
+  @include sm-tablets {
+    font-size: 0.6rem;
+  }
 }
 .s-3 {
   font-size: 0.6rem;
+  @include sm-tablets {
+    font-size: 0.5rem;
+  }
 }

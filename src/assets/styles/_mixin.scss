@@ -53,3 +53,9 @@
   opacity: 0;
   -webkit-appearance: none;
 }
+
+
+/// Дефолтная анимация для hover и тд.
+@mixin anim-default {
+  transition: all 0.3s linear;
+}

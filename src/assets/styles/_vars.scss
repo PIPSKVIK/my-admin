@@ -1,6 +1,7 @@
 :root {
   --color-background: #28243d;
   --color-background-soft: #312d4b;
+  --color-background-soft-hover: #3d3957;
   --color-background-dark: #1f1d31;
 
   --color-text: #e7e3fc;
@@ -22,11 +23,14 @@
   --root-font-size: 100;
   --font-size: 18px;
   --line-height: 1.6;
+
+  --btn-color: #9155fd;
 }
 
 [data-theme="light"] {
   --color-background: #f4f5fa;
   --color-background-soft: #ffffff;
+  --color-background-soft-hover: #f9f9fa;
   --color-background-dark: #1f1d31;
 
   --color-text: #313131;

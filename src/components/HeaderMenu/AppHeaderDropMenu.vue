@@ -1,31 +1,10 @@
-<script setup>
-defineProps({
-  top: {
-    type: Boolean,
-    default: true,
-  },
-  center: {
-    type: Boolean,
-    default: false,
-  },
-  bottom: {
-    type: Boolean,
-    default: false,
-  }
-});
-</script>
+<script setup></script>
 
 <template>
   <div class="app-header-drop">
-    <div v-if="top" class="app-header-drop__block">
-      <slot name="top" />
-    </div>
-    <div v-if="center" class="app-header-drop__block">
-      <slot name="center" />
-    </div>
-    <div v-if="bottom" class="app-header-drop__block">
-      <slot name="bottom" />
-    </div>
+    <slot name="top" />
+    <slot name="center" />
+    <slot name="bottom" />
   </div>
 </template>
 
@@ -46,13 +25,6 @@ $b: ".app-header-drop";
     top: 55px;
     min-width: calc(100% - 1rem);
     transition: min-width 0.3s linear;
-  }
-
-  &__block {
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
   }
 }
 </style>
