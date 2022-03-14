@@ -3,11 +3,8 @@
   --color-background-soft: #312d4b;
   --color-background-dark: #1f1d31;
 
-  --color-background-light: #ffffff;
-
   --color-text: #e7e3fc;
   --color-text-soft: #e7e3fcad;
-  --color-text-black: #000000;
 
   --color-white: #ffffff;
   --color-white-soft: #f8f8f8;
@@ -16,6 +13,19 @@
   --radius-small: 2px;
   --radius-default: 5px;
   --radius-big: 10px;
+}
+
+[data-theme="dark"] {
+  --color-background: #f4f5fa; //light
+  --color-background-soft: #b1acd1;
+  --color-background-dark: #1f1d31;
+
+  --color-text: #313131;
+  --color-text-soft: #1a1a1aad;
+
+  --color-white: #000000;
+  --color-white-soft: #3a3a3a;
+  --color-white-mute: #2c2c2c;
 }
 
 // Usage Media

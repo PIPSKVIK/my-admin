@@ -83,8 +83,6 @@ $h: ".app-header";
 
   &__container {
     height: 100%;
-    // overflow-y: auto;
-    // overflow-x: hidden;
   }
 
   &__content-header {
@@ -96,6 +94,7 @@ $h: ".app-header";
   &__content-items-link {
     width: 100%;
     padding-right: 30px;
+    color: var(--color-text);
   }
 }
 </style>
