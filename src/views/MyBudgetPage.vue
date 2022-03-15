@@ -1,9 +1,13 @@
-<script setup></script>
+<script setup>
+import { AppTabLink } from '@/components/UiAdmin/Buttons'
+</script>
 
 <template>
   <section class="my-budget">
     <h1 class="my-budget__title">My budget</h1>
-    <div class="my-budget__wrap"></div>
+    <div class="my-budget__wrap">
+      <AppTabLink to="/my-budget" />
+    </div>
   </section>
 </template>
 
