@@ -1,15 +1,27 @@
 <script setup>
-defineProps({
+import { computed } from "vue";
+
+const props = defineProps({
   to: {
     type: [String, Object],
     default: "" || {},
   },
+  active: {
+    type: String,
+    default: "",
+  },
+});
+
+const classStyle = computed(() => {
+  return {
+    "router-link-active": props.active,
+  };
 });
 </script>
 
 <template>
-  <router-link :to="to" class="router-link" exact>
-    Test
+  <router-link :to="to" :class="['router-link', classStyle]" exact>
+    <slot />
   </router-link>
 </template>
 
