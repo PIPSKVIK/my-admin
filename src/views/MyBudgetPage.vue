@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { AppTabLink } from "@/components/UiAdmin/Buttons";
 
@@ -8,14 +8,21 @@ const activeTab = ref("categories");
 const tabs = ref([
   { value: "categories", label: "Categories", invalid: true },
   { value: "counter", label: "Сounter", invalid: true },
-  { value: "history", label: "Рistory", invalid: true },
+  { value: "history", label: "History", invalid: true },
   { value: "planning", label: "Planning", invalid: true },
   { value: "new-entry", label: "NewEntry", invalid: true },
 ]);
 
-const testHeandler = () => {
-  console.log(activeTab.value);
-};
+
+watch(
+  () => route.query.tab,
+  (newValue, oldValue) => {
+    if (!newValue || !tabs.value.map((t) => t.value).includes(newValue))
+      return (activeTab.value = tabs.value[0].value)
+    activeTab.value = newValue
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
@@ -27,10 +34,7 @@ const testHeandler = () => {
           v-for="tab in tabs"
           :key="tab.value"
           :to="{ path: '/my-budget', query: { tab: tab.value } }"
-          :class="{
-            'router-link-active': tab.value === activeTab,
-          }"
-          @click="testHeandler"
+          :active="tab.value === activeTab"
         >
           {{ tab.label }}
         </AppTabLink>
