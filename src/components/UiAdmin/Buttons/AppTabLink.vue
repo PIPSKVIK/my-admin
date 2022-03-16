@@ -4,27 +4,23 @@ import { computed } from "vue";
 const props = defineProps({
   to: {
     type: [String, Object],
-    default: "" || {},
+    default: "" || {}
   },
   active: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
 
 const classStyle = computed(() => {
   return {
-    "tab-link--active": props.active,
+    "tab-link--active": props.active
   };
 });
 </script>
 
 <template>
-  <router-link
-    :to="to"
-    class="tab-link"
-    :class="classStyle"
-  >
+  <router-link :to="to" class="tab-link" :class="classStyle">
     <slot />
   </router-link>
 </template>

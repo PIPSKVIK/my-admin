@@ -1,7 +1,14 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { AppTabLink } from "@/components/UiAdmin/Buttons";
+import {
+  counter,
+  categories,
+  history,
+  newEntry,
+  planning
+} from "@/components/Pages/PageMyBudget/Tabs";
 
 const route = useRoute();
 const activeTab = ref("categories");
@@ -10,19 +17,18 @@ const tabs = ref([
   { value: "counter", label: "Сounter", invalid: true },
   { value: "history", label: "History", invalid: true },
   { value: "planning", label: "Planning", invalid: true },
-  { value: "new-entry", label: "NewEntry", invalid: true },
+  { value: "new-entry", label: "NewEntry", invalid: true }
 ]);
-
 
 watch(
   () => route.query.tab,
-  (newValue, oldValue) => {
-    if (!newValue || !tabs.value.map((t) => t.value).includes(newValue))
-      return (activeTab.value = tabs.value[0].value)
-    activeTab.value = newValue
+  newValue => {
+    if (!newValue || !tabs.value.map(t => t.value).includes(newValue))
+      return (activeTab.value = tabs.value[0].value);
+    activeTab.value = newValue;
   },
   { immediate: true }
-)
+);
 </script>
 
 <template>
@@ -39,7 +45,11 @@ watch(
           {{ tab.label }}
         </AppTabLink>
       </div>
-      <div class="my-budget__body"></div>
+      <div class="my-budget__body">
+        <component
+          :is="route.query.tab"
+        ></component>
+      </div>
     </div>
   </section>
 </template>
