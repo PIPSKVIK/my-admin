@@ -2,7 +2,7 @@
 import { RouterView } from "vue-router";
 import { onMounted } from "vue";
 import { AppDrowerMenu } from "@/components/NavigationMenu";
-import { AppHeaderMenu } from '@/components/HeaderMenu';
+import { AppHeaderMenu } from "@/components/HeaderMenu";
 import { windowResize } from "@/helpers";
 
 const triggerSize = 1200;

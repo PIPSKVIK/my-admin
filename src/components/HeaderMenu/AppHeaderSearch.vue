@@ -27,6 +27,11 @@ $b: ".app-search";
   display: flex;
   align-items: center;
   min-height: 45px;
+  width: 50%;
+
+  @include md-desktop {
+    width: 100%;
+  }
 
   &__btn {
     margin-right: 10px;

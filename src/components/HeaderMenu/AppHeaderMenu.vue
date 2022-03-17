@@ -3,7 +3,7 @@ import { ref } from "vue";
 import {
   AppColorMode,
   AppHeaderSearch,
-  AppNotification,
+  AppNotification
 } from "@/components/HeaderMenu";
 </script>
 
@@ -23,6 +23,7 @@ import {
 $b: ".app-header";
 
 #{$b} {
+  position: relative;
   margin-top: 0px;
   transform: translateY(0px);
   left: 260px;
