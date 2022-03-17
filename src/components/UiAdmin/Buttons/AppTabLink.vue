@@ -29,13 +29,17 @@ const classStyle = computed(() => {
 $b: ".tab-link";
 
 #{$b} {
-  color: var(--color-text);
+  color: var(--color-text-soft);
   font-weight: 600;
-  margin-right: 10px;
   text-decoration: none;
+  text-transform: uppercase;
+  @include anim-default;
+  &:hover {
+    color: var(--btn-color);
+  }
 
   &--active {
-    color: red;
+    color: var(--btn-color);
     position: relative;
     &::before {
       content: "";
@@ -44,7 +48,7 @@ $b: ".tab-link";
       left: 0;
       width: 100%;
       height: 1px;
-      background-color: red;
+      background-color: var(--btn-color);
     }
   }
 }

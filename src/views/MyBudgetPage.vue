@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute } from 'vue-router'
 import { AppTabLink } from "@/components/UiAdmin/Buttons";
 import {
   counter,
@@ -11,21 +11,22 @@ import {
 } from "@/components/Pages/PageMyBudget/Tabs";
 
 const route = useRoute();
-const activeTab = ref("categories");
-const tabs = ref([
-  { value: "categories", label: "Categories", invalid: true },
-  { value: "counter", label: "Сounter", invalid: true },
-  { value: "history", label: "History", invalid: true },
-  { value: "planning", label: "Planning", invalid: true },
-  { value: "new-entry", label: "NewEntry", invalid: true }
-]);
-
+const currentTab = ref('categories')
+const tabs = {
+  categories,
+  counter,
+  history,
+  planning,
+  newEntry
+}
 watch(
   () => route.query.tab,
   newValue => {
-    if (!newValue || !tabs.value.map(t => t.value).includes(newValue))
-      return (activeTab.value = tabs.value[0].value);
-    activeTab.value = newValue;
+    if (newValue === undefined) {
+      currentTab.value = 'categories'
+    } else {
+      currentTab.value = newValue;
+    }
   },
   { immediate: true }
 );
@@ -37,18 +38,20 @@ watch(
     <div class="my-budget__wrap">
       <div class="my-budget__nav">
         <AppTabLink
-          v-for="tab in tabs"
-          :key="tab.value"
-          :to="{ path: '/my-budget', query: { tab: tab.value } }"
-          :active="tab.value === activeTab"
+          v-for="(_, tab) in tabs"
+          :key="tab"
+          :to="{
+            path: '/my-budget',
+            query: { tab: tab }
+          }"
+          :class="['my-budget__nav-tab', { active: currentTab === tab }]"
+          :active="tab === currentTab"
         >
-          {{ tab.label }}
-        </AppTabLink>
+        {{ tab }}
+      </AppTabLink>
       </div>
       <div class="my-budget__body">
-        <component
-          :is="route.query.tab"
-        ></component>
+        <component :is="tabs[currentTab]" class="tab"></component>
       </div>
     </div>
   </section>
@@ -60,6 +63,7 @@ $b: ".my-budget";
 #{$b} {
   &__title {
     margin-bottom: 1rem;
+    text-align: center;
   }
   &__wrap {
     width: 100%;
@@ -67,6 +71,11 @@ $b: ".my-budget";
     border-radius: var(--radius-big);
     background-color: var(--color-background-soft);
     box-shadow: var(--box-shadow-drop-menu);
+  }
+  &__nav-tab {
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
   }
 }
 </style>

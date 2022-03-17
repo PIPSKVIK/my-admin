@@ -1,9 +1,18 @@
 <script setup></script>
 
 <template>
-  <section class="my-notifications">
-    <h1>Notifications</h1>
+  <section class="my-notif">
+    <h1 class="my-notif__title">Notifications</h1>
   </section>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+$b: ".my-notif";
+
+#{$b} {
+  &__title {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
+</style>

@@ -2,8 +2,17 @@
 
 <template>
   <section class="home-page">
-    <h1>Home Page</h1>
+    <h1 class="home-page__title">Home Page</h1>
   </section>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+$b: '.home-page';
+
+#{$b} {
+  &__title {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
+</style>
