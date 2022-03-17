@@ -33,6 +33,9 @@ $b: ".app-header";
   @include lg-desktop {
     left: 80px;
   }
+  @include sm-mobile {
+    left: 0;
+  }
 
   &__wraper {
     max-width: 1400px;

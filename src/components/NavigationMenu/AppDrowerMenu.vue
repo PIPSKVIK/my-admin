@@ -79,6 +79,9 @@ $h: ".app-header";
 
   &--hide {
     transform: translateX(-70%);
+    @include sm-mobile {
+      transform: translateX(-100%);
+    }
   }
 
   &__container {

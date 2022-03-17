@@ -72,6 +72,13 @@ $b: ".my-budget";
     background-color: var(--color-background-soft);
     box-shadow: var(--box-shadow-drop-menu);
   }
+  &__nav {
+    margin-bottom: 2rem;
+    @include md-desktop {
+      display: flex;
+      flex-direction: column;
+    }
+  }
   &__nav-tab {
     &:not(:last-child) {
       margin-right: 10px;

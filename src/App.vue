@@ -54,6 +54,9 @@ $m: ".app-main";
   width: 100%;
   &--hide {
     padding-left: 78px;
+    @include sm-mobile {
+      padding-left: 0;
+    }
   }
 
   &__wrap {
