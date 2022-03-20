@@ -21,19 +21,38 @@
         class="w-full p-button-outlined p-button-help"
       />
     </form>
+		<Toast />
   </section>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { useToast } from "primevue/usetoast";
 
+const toast = useToast();
 const email = ref("");
 const password = ref("");
+
 const formSubmit = () => {
-  console.log({
-    email: email.value,
-    password: password.value
-  });
+  if (email.value && password.value) {
+		console.log({
+			email: email.value,
+			password: password.value
+		});
+		toast.add({
+			severity: "success",
+			summary: "Logged in",
+			detail: "You are logged in",
+			life: 10000,
+		})
+	} else {
+		toast.add({
+			severity: "error",
+			summary: "Warn",
+			detail: "Something went wrong",
+			life: 10000,
+		})
+	}
 };
 </script>
 

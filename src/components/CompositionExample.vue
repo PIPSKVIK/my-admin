@@ -1,14 +1,14 @@
 <script setup>
 // Примеры!
 import { useToast } from "primevue/usetoast"; // Импортируем тоаст!
-const $toast = useToast(); // Присваиваем данную функцию к какой-то переменной!
+const toast = useToast(); // Присваиваем данную функцию к какой-то переменной!
 
 const items = [
   {
     label: "Update",
     icon: "pi pi-refresh",
     command: () => {
-      $toast.add({
+      toast.add({
         severity: "success",
         summary: "Updated",
         detail: "Data Updated",
@@ -20,7 +20,7 @@ const items = [
     label: "Delete",
     icon: "pi pi-times",
     command: () => {
-      $toast.add({
+      toast.add({
         severity: "warn",
         summary: "Delete",
         detail: "Data Deleted",
