@@ -1,24 +1,27 @@
 <script setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 
-const submitForm = () => {
-  console.log("form");
-};
-const name = ref("");
-const limit = ref("");
+const form = reactive({
+  name: '',
+  limit: ''
+})
 </script>
 
 <template>
   <div class="categories">
+
     <div class="categories__create">
-      <form @click.prevent="submitForm" class="mr-1 mb-desktop-mb-1 categories__create-form">
+      <form
+        @click.prevent="submitForm"
+        class="mr-1 mb-desktop-mb-1 categories__create-form"
+      >
         <h2 class="mb-1 categories__create-title">Create</h2>
         <span class="mb-1 p-float-label">
-          <InputText id="inputtext" type="text" v-model="name" />
+          <InputText id="inputtext" type="text" v-model="form.name" />
           <label for="inputtext">name</label>
         </span>
         <span class="mb-1 p-float-label">
-          <InputText id="inputtext" type="text" v-model="limit" />
+          <InputText id="inputtext" type="text" v-model="form.limit" />
           <label for="inputtext">limit</label>
         </span>
         <Button label="Create" class="p-button-outlined p-button-help" />

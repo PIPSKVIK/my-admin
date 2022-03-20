@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { MyBudgetPage, HomePage, MyNotifications } from "../views";
+import {
+  MyBudgetPage,
+  HomePage,
+  MyNotifications,
+  SignIn,
+  SignUp
+} from "../views";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,19 +13,29 @@ const router = createRouter({
     {
       path: "/",
       name: "HomePage",
-      component: HomePage,
+      component: HomePage
     },
     {
       path: "/my-budget",
       name: "MyBudget",
-      component: MyBudgetPage,
+      component: MyBudgetPage
     },
     {
       path: "/my-notifications",
       name: "MyNotifications",
-      component: MyNotifications,
+      component: MyNotifications
     },
-  ],
+    {
+      path: "/signin",
+      name: "SignIn",
+      component: SignIn
+    },
+    {
+      path: "/signup",
+      name: "SignUp",
+      component: SignUp
+    }
+  ]
 });
 
 export default router;

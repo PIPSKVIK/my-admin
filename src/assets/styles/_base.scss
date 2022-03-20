@@ -32,10 +32,7 @@ body {
   margin: 0;
 }
 
-.input-res {
-  background-color: transparent;
-}
-
+// marging / padding
 h1 {
   font-size: 1.5rem;
   @include sm-tablets {
@@ -136,7 +133,15 @@ h6 {
   }
 }
 
-// primeVue class
+// special class
+.input-res {
+  background-color: transparent;
+}
+.w-full {
+  width: 100%;
+}
+
+
 
 // reset input style
 .p-inputtext {
