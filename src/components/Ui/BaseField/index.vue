@@ -3,7 +3,8 @@
     <label
       :class="[
         'base-input__label',
-        { 'disabled': disabled }
+        { disabled: disabled },
+        { error: error }
       ]"
       v-if="name"
       :for="name"
@@ -13,9 +14,11 @@
     <input
       :class="[
         'base-input__input',
-        { 'disabled': disabled }
+        { disabled: disabled },
+        { error: error }
       ]"
-      :id="name" type="text"
+      :id="name"
+      :type="type"
       :disabled="disabled"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
@@ -24,22 +27,27 @@
 </template>
 
 <script setup>
-// defineEmits({
-//   emits: ['update:modelValue']
-// })
 defineProps({
   name: {
     type: String,
-    default: "",
+    default: ""
   },
   disabled: {
     type: Boolean,
-    default: false,
+    default: false
   },
   modelValue: {
     type: String,
-    default: '',
+    default: "",
     required: true
+  },
+  error: {
+    type: Boolean,
+    default: false
+  },
+  type: {
+    type: String,
+    default: "text",
   }
 });
 </script>
@@ -59,6 +67,9 @@ $b: ".base-input";
     &.disabled {
       color: var(--input-disable);
     }
+    &.error {
+      color: var(--color-error);
+    }
   }
 
   &__input {
@@ -76,6 +87,13 @@ $b: ".base-input";
     }
     &.disabled {
       border-color: var(--input-disable);
+    }
+    &.error {
+      border-color: var(--color-error);
+
+      &:focus:not(:disabled) {
+        outline-color: var(--color-error);
+      }
     }
   }
 }

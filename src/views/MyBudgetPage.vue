@@ -51,7 +51,7 @@ watch(
       </AppTabLink>
       </div>
       <div class="my-budget__body">
-        <component :is="tabs[currentTab]" class="tab"></component>
+        <component :is="tabs[currentTab]"></component>
       </div>
     </div>
   </section>

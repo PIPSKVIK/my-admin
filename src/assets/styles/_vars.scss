@@ -6,6 +6,7 @@
 
   --color-text: #e7e3fc;
   --color-text-soft: #e7e3fcad;
+  --color-text-black: #000000;
 
   --color-white: #ffffff;
   --color-white-soft: #f8f8f8;
@@ -26,10 +27,20 @@
 
   // btn
   --btn-color: #9155fd;
+  --btn-color-hover: #772efd;
+  --btn-color-green: #198754;
+  --btn-color-green-hover: #157347;
+  --btn-color-red: #dc3545;
+  --btn-color-red-hover: #bb2d3b;
+  --btn-color-yellow: #ffc107;
+  --btn-color-yellow-hover: #ffca2c;
 
   // input - outline color
   --input-outline: #9155fd;
   --input-disable: #484747;
+
+  // status color
+  --color-error: #ee0252;
 }
 
 [data-theme="light"] {
@@ -37,19 +48,15 @@
   --color-background-soft: #ffffff;
   --color-background-soft-hover: #f9f9fa;
   --color-background-dark: #1f1d31;
-
   --color-text: #313131;
   --color-text-soft: #1a1a1aad;
-
   --color-white: #000000;
   --color-white-soft: #3a3a3a;
   --color-white-mute: #2c2c2c;
-
   --box-shadow-drop-menu: 0 4px 14px 0 rgb(94 86 105 / 14%);
-
   --color-separator: rgba(94,86,105,.14);
-
   --input-disable: #c9c9c9;
+  --color-error: #ff0000;
 }
 
 // Usage Media
