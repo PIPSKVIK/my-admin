@@ -1,34 +1,36 @@
 <script setup>
+import { BaseField } from "@/components/Ui";
 import { ref, reactive } from "vue";
 
-const form = reactive({
-  name: '',
-  limit: ''
-})
+const name = ref("");
+const limit = ref("");
+const submitForm = () => {
+  console.log(name.value, limit.value);
+};
 </script>
 
 <template>
   <div class="categories">
-
-    <div class="categories__create">
+    <BaseField name="test" v-model:modelValue="name" />
+    <!-- <div class="categories__create">
       <form
         @click.prevent="submitForm"
         class="mr-1 mb-desktop-mb-1 categories__create-form"
       >
         <h2 class="mb-1 categories__create-title">Create</h2>
         <span class="mb-1 p-float-label">
-          <InputText id="inputtext" type="text" v-model="form.name" />
+          <InputText id="inputtext" type="text" v-model="name" />
           <label for="inputtext">name</label>
         </span>
         <span class="mb-1 p-float-label">
-          <InputText id="inputtext" type="text" v-model="form.limit" />
+          <InputText id="inputtext" type="text" v-model="limit" />
           <label for="inputtext">limit</label>
         </span>
         <Button label="Create" class="p-button-outlined p-button-help" />
       </form>
-    </div>
+    </div> -->
 
-    <div class="categories__edit">
+    <!-- <div class="categories__edit">
       <form @click.prevent="submitForm" class="categories__create-form">
         <h2 class="mb-1 categories__create-title">Create</h2>
         <span class="mb-1 p-float-label">
@@ -41,7 +43,7 @@ const form = reactive({
         </span>
         <Button label="Create" class="p-button-outlined p-button-help" />
       </form>
-    </div>
+    </div> -->
   </div>
 </template>
 

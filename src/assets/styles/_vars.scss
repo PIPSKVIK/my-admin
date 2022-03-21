@@ -24,7 +24,12 @@
   --font-size: 18px;
   --line-height: 1.6;
 
+  // btn
   --btn-color: #9155fd;
+
+  // input - outline color
+  --input-outline: #9155fd;
+  --input-disable: #484747;
 }
 
 [data-theme="light"] {
@@ -42,7 +47,9 @@
 
   --box-shadow-drop-menu: 0 4px 14px 0 rgb(94 86 105 / 14%);
 
-  --color-separator: rgba(94,86,105,.14);;
+  --color-separator: rgba(94,86,105,.14);
+
+  --input-disable: #c9c9c9;
 }
 
 // Usage Media
