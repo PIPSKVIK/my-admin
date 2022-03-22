@@ -4,14 +4,16 @@ import { ref } from "vue";
 
 const name = ref("");
 const limit = ref("");
-const submitForm = () => {};
+const submitForm = () => {
+  console.log('re');
+};
 </script>
 
 <template>
   <div class="categories">
     <div>
       <BaseField class="mb-1" name="test" v-model="name" />
-      <BaseButton yellow>
+      <BaseButton >
         button
       </BaseButton>
     </div>

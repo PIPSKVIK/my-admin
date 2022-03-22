@@ -20,6 +20,7 @@
       :id="name"
       :type="type"
       :disabled="disabled"
+      :placeholder="name"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
     />
@@ -80,6 +81,10 @@ $b: ".base-input";
     border-radius: var(--radius-default);
     font-size: 1rem;
     color: var(--color-text);
+
+    &::placeholder {
+      color: var(--input-placeholder-color);
+    }
 
     &:focus:not(:disabled) {
       outline: 2px solid var(--input-outline);

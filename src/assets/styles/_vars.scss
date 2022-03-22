@@ -38,9 +38,13 @@
   // input - outline color
   --input-outline: #9155fd;
   --input-disable: #484747;
+  --input-placeholder-color: rgb(172, 172, 172);
 
   // status color
   --color-error: #ee0252;
+
+  // loader color
+  --loader-color: #e33920;
 }
 
 [data-theme="light"] {
