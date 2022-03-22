@@ -44,7 +44,7 @@ onMounted(() => {
         <BaseLink
           v-for="(link, idx) in btnLinks"
           :key="idx"
-          :to="{ name: link.url_name }"
+          :to="link.path"
           drowerMenu
         >
           {{ link.label }}
