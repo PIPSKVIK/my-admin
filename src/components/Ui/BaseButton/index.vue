@@ -1,7 +1,11 @@
 <template>
   <button :class="['base-button', colorElement, sizeElement]" v-bind="$attrs">
     <slot />
-		<BaseLoader size="20" class="base-button__loader ml-1" :visible="isLoading" />
+    <BaseLoader
+      size="20"
+      class="base-button__loader ml-1"
+      :visible="isLoading"
+    />
   </button>
 </template>
 
@@ -10,18 +14,18 @@ import { computed } from "vue";
 import { BaseLoader } from "@/components/Ui";
 
 const props = defineProps({
-	color: {
-		type: String,
-		default: ""
-	},
-	size: {
-		type: String,
-		default: ""
-	},
-	isLoading: {
-		type: Boolean,
-		default: false
-	}
+  color: {
+    type: String,
+    default: "",
+  },
+  size: {
+    type: String,
+    default: "",
+  },
+  isLoading: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const colorElement = computed(() => `base-button__${props.color}`);
@@ -32,9 +36,9 @@ const sizeElement = computed(() => `base-button__${props.size}`);
 $b: ".base-button";
 
 #{$b} {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--btn-color);
   border: none;
   padding: 0.5rem 1rem;
@@ -44,6 +48,7 @@ $b: ".base-button";
   font-size: 1rem;
   font-weight: 600;
   transition: background-color 0.2s ease;
+
   &:hover {
     background-color: var(--btn-color-hover);
   }
@@ -83,12 +88,12 @@ $b: ".base-button";
     }
   }
 
-	&__full {
-		width: 100%;
-	}
-	&__md {
-		width: 50%;
-	}
+  &__full {
+    width: 100%;
+  }
+  &__md {
+    width: 50%;
+  }
   &__sm {
     width: 33%;
   }

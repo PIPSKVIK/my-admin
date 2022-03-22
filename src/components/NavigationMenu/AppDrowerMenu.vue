@@ -3,6 +3,8 @@ import { useRouter } from "vue-router";
 import { onMounted } from "vue";
 import { windowResize } from "@/helpers";
 import { btnLinks } from "@/constants/drawerMenuLinks";
+import { BaseLink, BaseIcon } from '@/components/Ui'
+import { HomeIcon } from '@/components/icons'
 
 const router = useRouter();
 const triggerSize = 1200;
@@ -11,10 +13,6 @@ const { showDrowerIcon } = windowResize(triggerSize);
 const drowerIconHandler = () => {
   showDrowerIcon.value = !showDrowerIcon.value;
 };
-const pouterPush = (urlName) => {
-  router.push({ name: urlName });
-};
-
 onMounted(() => {
   window.innerWidth <= triggerSize
     ? (showDrowerIcon.value = false)
@@ -43,19 +41,24 @@ onMounted(() => {
         />
       </div>
       <div class="app-nav-drawer__content-items">
-        <Button
+        <BaseLink
           v-for="(link, idx) in btnLinks"
           :key="idx"
-          :label="link.label"
-          class="p-button-text p-button-help p-button-plain app-nav-drawer__content-items-link"
-          :icon="link.icon"
-          iconPos="right"
-          :disabled="!showDrowerIcon"
-          @click="pouterPush(link.url_name)"
-        />
+          :to="{ name: link.url_name }"
+          drowerMenu
+        >
+          {{ link.label }}
+        </BaseLink>
       </div>
     </div>
   </nav>
+  <!-- <BaseIcon
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+  >
+    <HomeIcon />
+  </BaseIcon> -->
 </template>
 
 <style lang="scss" scoped>
@@ -94,10 +97,12 @@ $h: ".app-header";
     padding: 20px 20px 8px 24px;
   }
 
-  &__content-items-link {
-    width: 100%;
-    padding-right: 30px;
-    color: var(--color-text);
+  &__content-items {
+    display: flex;
+    flex-direction: column;
+    & a:not(:last-child) {
+      margin-bottom: 0.2rem;
+    }
   }
 }
 </style>
