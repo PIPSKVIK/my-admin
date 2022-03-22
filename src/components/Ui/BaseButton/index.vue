@@ -89,5 +89,14 @@ $b: ".base-button";
 	&__md {
 		width: 50%;
 	}
+  &__sm {
+    width: 33%;
+  }
+
+  &__full-mob {
+    @include sm-tablets {
+      width: 100%;
+    }
+  }
 }
 </style>

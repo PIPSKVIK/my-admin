@@ -135,6 +135,20 @@ h6 {
     margin-bottom: 1rem;
   }
 }
+.mb-desktop-mb-2 {
+  @include md-desktop {
+    margin-bottom: 2rem;
+  }
+}
+
+.mr-res {
+  @include sm-tablets {
+    margin-right: 0;
+  }
+  @include md-desktop {
+    margin-right: 0;
+  }
+}
 
 // special class
 .input-res {

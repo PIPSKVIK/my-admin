@@ -61,7 +61,7 @@ $b: ".base-input";
   position: relative;
 
   &__label {
-    top: -25px;
+    top: -22px;
     position: absolute;
     font-size: 0.8rem;
 

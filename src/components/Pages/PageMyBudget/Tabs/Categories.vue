@@ -4,36 +4,36 @@ import { ref } from "vue";
 
 const name = ref("");
 const limit = ref("");
-const submitForm = () => {
-  console.log('re');
+const submitCreateForm = () => {
+  console.log("Create");
+};
+const submitEditForm = () => {
+  console.log("Edit");
 };
 </script>
 
 <template>
   <div class="categories">
-    <div>
-      <BaseField class="mb-1" name="test" v-model="name" />
-      <BaseButton >
-        button
-      </BaseButton>
-    </div>
-    <!-- <div class="categories__create">
+    <div class="categories__create">
       <form
-        @click.prevent="submitForm"
-        class="mr-1 mb-desktop-mb-1 categories__create-form"
+        @click.prevent="submitCreateForm"
+        class="mr-2 mr-res mb-desktop-mb-2 categories__create-form"
       >
-        <h2 class="mb-1 categories__create-title">Create</h2>
-        <span class="mb-1 p-float-label">
-          <InputText id="inputtext" type="text" v-model="name" />
-          <label for="inputtext">name</label>
-        </span>
-        <span class="mb-1 p-float-label">
-          <InputText id="inputtext" type="text" v-model="limit" />
-          <label for="inputtext">limit</label>
-        </span>
-        <Button label="Create" class="p-button-outlined p-button-help" />
+        <BaseField class="mb-2" name="name" v-model="name" />
+        <BaseField class="mb-1" name="limit" v-model="limit" />
+        <BaseButton type="submit" size="full-mob">Create</BaseButton>
       </form>
-    </div> -->
+    </div>
+    <div class="categories__edit">
+      <form
+        @click.prevent="submitEditForm"
+        class="mb-desktop-mb-1 categories__edit-form"
+      >
+        <BaseField class="mb-2" name="name" v-model="name" />
+        <BaseField class="mb-1" name="limit" v-model="limit" />
+        <BaseButton type="submit" size="full-mob">Edit</BaseButton>
+      </form>
+    </div>
   </div>
 </template>
 
