@@ -1,49 +1,34 @@
 <template>
   <section class="signup">
-    <form class="signup__form" @click.prevent="formSubmit">
-      <h2 class="signup__form-title mb-2">Signup</h2>
-      <span class="mb-1 p-float-label">
-        <InputText id="inputtext" type="text" v-model="email" @click.stop />
-        <label for="inputtext">email</label>
-      </span>
-      <span class="mb-1 p-float-label">
-        <InputText
-          id="inputtext"
-          type="text"
-          v-model="password"
-          @click.stop
-        />
-        <label for="inputtext">password</label>
-      </span>
-      <span class="mb-1 p-float-label">
-        <InputText
-          id="inputtext"
-          type="text"
-          v-model="name"
-          @click.stop
-        />
-        <label for="inputtext">name</label>
-      </span>
-      <Button
-        type="submit"
-        label="Login"
-        class="w-full p-button-outlined p-button-help"
-      />
+    <form class="signup__form">
+      <h1 class="signup__form-title">Adventure starts here 🚀</h1>
+      <p class="signup__form-subtitle mb-2">Make your app management easy and fun!</p>
+      <BaseField class="mb-2" name="UserName" inputSize="1" v-model="name" />
+      <BaseField class="mb-2" name="email" inputSize="1" v-model="email" />
+      <BaseField class="mb-1" name="password" inputSize="1" v-model="password" />
+      <BaseButton class="mb-2" size="full" @click.prevent="formSubmit">
+        Sign Up
+      </BaseButton>
+      <div class="signup__redirect">
+        <span class="mr-1">Already have an account?</span>
+        <router-link class="signup__redirect-link" to="/signin">Sign in instead</router-link>
+      </div>
     </form>
   </section>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { BaseField, BaseButton } from '@/components/Ui'
 
+const name = ref("");
 const email = ref("");
 const password = ref("");
-const name = ref("");
 const formSubmit = () => {
   console.log({
+    name: name.value,
     email: email.value,
     password: password.value,
-    name: name.value
   });
 };
 </script>
@@ -59,17 +44,30 @@ $b: ".signup";
   justify-content: center;
 
   &__form {
-    min-width: 600px;
-    padding: 1rem;
+    min-width: 500px;
+    padding: 3rem 2rem;
     background-color: var(--color-background-soft);
     border-radius: var(--radius-default);
-
     @include md-desktop {
       min-width: 100%;
     }
   }
-  &__form-title {
+  &__form-subtitle {
+    color: var(--color-text-soft);
+    font-size: 0.8rem;
+  }
+
+  &__redirect {
     text-align: center;
+  }
+  &__redirect-link {
+    text-decoration: none;
+    color: var(--btn-color-yellow);
+    @include anim-default;
+    &:hover {
+      color: var(--btn-color-yellow-hover);
+      text-decoration: underline;
+    }
   }
 }
 </style>

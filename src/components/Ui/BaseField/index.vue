@@ -12,6 +12,7 @@
       {{ name }}
     </label>
     <input
+      :style="{ 'padding': `${inputSize}rem` }"
       :class="[
         'base-input__input',
         { disabled: disabled },
@@ -49,6 +50,10 @@ defineProps({
   type: {
     type: String,
     default: "text",
+  },
+  inputSize: {
+    type: [Number, String,],
+    default: ''
   }
 });
 </script>

@@ -1,58 +1,35 @@
 <template>
   <section class="signin">
-    <form class="signin__form" @click.prevent="formSubmit">
-      <h2 class="signin__form-title mb-2">SignIn</h2>
-      <span class="mb-1 p-float-label">
-        <InputText id="inputtext" type="text" v-model="email" @click.stop />
-        <label for="inputtext">email</label>
-      </span>
-      <span class="mb-1 p-float-label">
-        <InputText
-          id="inputtext"
-          type="text"
-          v-model="password"
-          @click.stop
-        />
-        <label for="inputtext">password</label>
-      </span>
-      <Button
-        type="submit"
-        label="Login"
-        class="w-full p-button-outlined p-button-help"
-      />
+    <form class="signin__form">
+      <h1>Welcome to my-admin!👋🏻 </h1>
+      <p class="mb-2 signin__form-subtitle">Please sign-in to your account and start the adventure</p>
+      <BaseField class="mb-2" name="email" v-model="email" inputSize="1" />
+      <BaseField class="mb-1" name="password" v-model="password" inputSize="1" />
+      <BaseButton class="mb-1" size="full" @click.prevent="formSubmit">
+        Sign In
+      </BaseButton>
+      <div class="signin__redirect">
+        <span class="mr-1">New on our platform?</span>
+        <router-link class="signin__redirect-link" to="/signup">Create an account</router-link>
+      </div>
     </form>
-		<Toast />
   </section>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { useToast } from "primevue/usetoast";
+import { BaseField, BaseButton } from "@/components/Ui";
 
-const toast = useToast();
 const email = ref("");
 const password = ref("");
 
 const formSubmit = () => {
   if (email.value && password.value) {
-		console.log({
-			email: email.value,
-			password: password.value
-		});
-		toast.add({
-			severity: "success",
-			summary: "Logged in",
-			detail: "You are logged in",
-			life: 10000,
-		})
-	} else {
-		toast.add({
-			severity: "error",
-			summary: "Warn",
-			detail: "Something went wrong",
-			life: 10000,
-		})
-	}
+    console.log({
+      email: email.value,
+      password: password.value
+    });
+  }
 };
 </script>
 
@@ -67,17 +44,32 @@ $b: ".signin";
   justify-content: center;
 
   &__form {
-    min-width: 600px;
-    padding: 1rem;
+    min-width: 500px;
+    padding: 3rem 2rem;
     background-color: var(--color-background-soft);
     border-radius: var(--radius-default);
+    box-shadow: var(--box-shadow-drop-menu);
 
     @include md-desktop {
       min-width: 100%;
     }
   }
-  &__form-title {
+  &__form-subtitle {
+    color: var(--color-text-soft);
+    font-size: 0.8rem;
+  }
+
+  &__redirect {
     text-align: center;
+  }
+  &__redirect-link {
+    text-decoration: none;
+    color: var(--btn-color-yellow);
+    @include anim-default;
+    &:hover {
+      color: var(--btn-color-yellow-hover);
+      text-decoration: underline;
+    }
   }
 }
 </style>
