@@ -1,16 +1,26 @@
 <template>
   <section class="signin">
     <form class="signin__form">
-      <h1>Welcome to my-admin!👋🏻 </h1>
-      <p class="mb-2 signin__form-subtitle">Please sign-in to your account and start the adventure</p>
+      <h1>Welcome to my-admin!👋🏻</h1>
+      <p class="mb-2 signin__form-subtitle">
+        Please sign-in to your account and start the adventure
+      </p>
       <BaseField class="mb-2" name="email" v-model="email" inputSize="1" />
-      <BaseField class="mb-1" name="password" v-model="password" inputSize="1" />
+      <BaseField
+        class="mb-1"
+        name="password"
+        v-model="password"
+        inputSize="1"
+        type="password"
+      />
       <BaseButton class="mb-1" size="full" @click.prevent="formSubmit">
         Sign In
       </BaseButton>
       <div class="signin__redirect">
         <span class="mr-1">New on our platform?</span>
-        <router-link class="signin__redirect-link" to="/signup">Create an account</router-link>
+        <router-link class="signin__redirect-link" to="/signup"
+          >Create an account</router-link
+        >
       </div>
     </form>
   </section>
@@ -25,10 +35,6 @@ const password = ref("");
 
 const formSubmit = () => {
   if (email.value && password.value) {
-    console.log({
-      email: email.value,
-      password: password.value
-    });
   }
 };
 </script>

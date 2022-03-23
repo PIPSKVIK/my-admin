@@ -46,6 +46,7 @@ $m: ".app-main";
   min-height: 100vh;
   max-width: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 #{$m} {
@@ -80,14 +81,14 @@ $m: ".app-main";
 // route - transition
 .route-enter-from {
   opacity: 0;
-  transform: translateY(100px);
+  transform: translateX(100px);
 }
 .route-enter-active {
   transition: all 0.3s ease-out;
 }
 .route-leave-to {
   opacity: 0;
-  transform: translateY(-100px);
+  transform: translateX(-100px);
 }
 .route-leave-active {
   transition: all 0.3s ease-in;
