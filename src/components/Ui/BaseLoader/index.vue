@@ -42,7 +42,7 @@ const props = defineProps({
     right: 0;
     left: 0;
     z-index: 999999;
-    background-color: rgb(2 2 2 / 60%);
+    // background-color: rgb(2 2 2 / 10%);
   }
 }
 </style>

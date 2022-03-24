@@ -23,30 +23,33 @@
         >
       </div>
     </form>
+    <BaseLoader full :visible="isLoading" />
   </section>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { BaseField, BaseButton } from "@/components/Ui";
-import { useStore } from 'vuex';
+import { BaseField, BaseButton, BaseLoader } from "@/components/Ui";
+import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
 const router = useRouter();
 const store = useStore();
-
+const isLoading = ref(false);
 
 const formSubmit = async () => {
+  isLoading.value = true
   try {
-    await store.dispatch('auth/signin', {
+    await store.dispatch("auth/signin", {
       email: email.value,
       password: password.value,
-    })
-    router.push('/');
+    });
+    isLoading.value = false
+    router.push("/");
   } catch (error) {
-    console.log(error );
+    console.log(error);
   }
 };
 </script>
