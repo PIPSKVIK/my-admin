@@ -29,12 +29,24 @@
 <script setup>
 import { ref } from "vue";
 import { BaseField, BaseButton } from "@/components/Ui";
+import { useStore } from 'vuex';
+import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
+const router = useRouter();
+const store = useStore();
 
-const formSubmit = () => {
-  if (email.value && password.value) {
+
+const formSubmit = async () => {
+  try {
+    await store.dispatch('auth/signin', {
+      email: email.value,
+      password: password.value,
+    })
+    router.push('/');
+  } catch (error) {
+    console.log(error );
   }
 };
 </script>

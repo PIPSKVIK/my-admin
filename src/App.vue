@@ -4,6 +4,8 @@ import { onMounted } from "vue";
 import { AppDrowerMenu } from "@/components/NavigationMenu";
 import { AppHeaderMenu } from "@/components/HeaderMenu";
 import { windowResize } from "@/helpers";
+import { onBeforeMount } from 'vue'
+import { useStore } from 'vuex'
 
 const triggerSize = 1200;
 const { showDrowerIcon } = windowResize(triggerSize);
@@ -13,6 +15,11 @@ onMounted(() => {
     ? (showDrowerIcon.value = false)
     : (showDrowerIcon.value = true);
 });
+
+const store = useStore()
+onBeforeMount(() => {
+  store.dispatch('auth/fetchUser')
+})
 </script>
 
 <template>

@@ -1,12 +1,3 @@
-<script setup>
-import { ref } from "vue";
-import {
-  AppColorMode,
-  AppHeaderSearch,
-  AppNotification
-} from "@/components/HeaderMenu";
-</script>
-
 <template>
   <header class="app-header">
     <div class="app-header__wraper">
@@ -14,10 +5,31 @@ import {
       <div class="app-header__right">
         <AppColorMode />
         <AppNotification />
+        <span class="app-header__user-info">{{ userEmail }}</span>
+        <BaseButton class="ml-1" color="yellow" @click="logOut">
+          Log out
+        </BaseButton>
       </div>
     </div>
   </header>
 </template>
+
+<script setup>
+import { ref, computed } from "vue";
+import {
+  AppColorMode,
+  AppHeaderSearch,
+  AppNotification,
+} from "@/components/HeaderMenu";
+import { BaseButton } from "@/components/Ui";
+import { useStore } from "vuex";
+
+const store = useStore();
+const userEmail = computed(() => store.state.auth.user?.email)
+const logOut = async () => {
+  await store.dispatch("auth/logout");
+};
+</script>
 
 <style lang="scss" scoped>
 $b: ".app-header";
@@ -55,6 +67,10 @@ $b: ".app-header";
 
   &__right {
     display: flex;
+    align-items: center;
+  }
+  &__user-info {
+    font-size: 0.9rem;
   }
 }
 </style>
