@@ -20,6 +20,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.btn-reset {
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
 .seporator {
   display: block;
   max-width: 100%;

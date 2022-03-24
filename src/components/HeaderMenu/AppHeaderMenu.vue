@@ -6,9 +6,17 @@
         <AppColorMode />
         <AppNotification />
         <span class="app-header__user-info">{{ userEmail }}</span>
-        <BaseButton class="ml-1" color="yellow" @click="logOut">
-          Log out
-        </BaseButton>
+        <transition name="fade">
+          <BaseButton
+            class="ml-1 mr-1"
+            color="yellow"
+            @click="logOut"
+            v-if="isLoggedIn"
+          >
+            Log out
+          </BaseButton>
+        </transition>
+        <AppNavProfileIcon />
       </div>
     </div>
   </header>
@@ -19,13 +27,15 @@ import { ref, computed } from "vue";
 import {
   AppColorMode,
   AppHeaderSearch,
-  AppNotification,
+  AppNotification
 } from "@/components/HeaderMenu";
+import { AppNavProfileIcon } from "@/components/NavigationMenu";
 import { BaseButton } from "@/components/Ui";
 import { useStore } from "vuex";
 
 const store = useStore();
-const userEmail = computed(() => store.state.auth.user?.email)
+const userEmail = computed(() => store.state.auth.user?.email);
+const isLoggedIn = computed(() => store.state.auth.isLoggedIn);
 const logOut = async () => {
   await store.dispatch("auth/logout");
 };
