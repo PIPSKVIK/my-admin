@@ -1,27 +1,3 @@
-<script setup>
-import { RouterView } from "vue-router";
-import { onMounted } from "vue";
-import { AppDrowerMenu } from "@/components/NavigationMenu";
-import { AppHeaderMenu } from "@/components/HeaderMenu";
-import { windowResize } from "@/helpers";
-import { onBeforeMount } from 'vue'
-import { useStore } from 'vuex'
-
-const triggerSize = 1200;
-const { showDrowerIcon } = windowResize(triggerSize);
-
-onMounted(() => {
-  window.innerWidth <= triggerSize
-    ? (showDrowerIcon.value = false)
-    : (showDrowerIcon.value = true);
-});
-
-const store = useStore()
-onBeforeMount(() => {
-  store.dispatch('auth/fetchUser')
-})
-</script>
-
 <template>
   <div id="app" class="app">
     <AppDrowerMenu />
@@ -39,6 +15,29 @@ onBeforeMount(() => {
     </main>
   </div>
 </template>
+
+<script setup>
+import { RouterView } from "vue-router";
+import { onMounted, onBeforeMount } from "vue";
+import { AppDrowerMenu } from "@/components/NavigationMenu";
+import { AppHeaderMenu } from "@/components/HeaderMenu";
+import { windowResize } from "@/helpers";
+import { useStore } from 'vuex'
+
+const triggerSize = 1200;
+const { showDrowerIcon } = windowResize(triggerSize);
+
+onMounted(() => {
+  window.innerWidth <= triggerSize
+    ? (showDrowerIcon.value = false)
+    : (showDrowerIcon.value = true);
+});
+
+const store = useStore()
+onBeforeMount(() => {
+  store.dispatch('auth/fetchUser')
+})
+</script>
 
 <style lang="scss" scoped>
 $b: ".app";
@@ -84,7 +83,6 @@ $m: ".app-main";
     height: 100%;
   }
 }
-
 // route - transition
 .route-enter-from {
   opacity: 0;

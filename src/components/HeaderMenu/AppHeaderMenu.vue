@@ -3,20 +3,14 @@
     <div class="app-header__wraper">
       <AppHeaderSearch />
       <div class="app-header__right">
-        <AppColorMode />
-        <AppNotification />
-        <span class="app-header__user-info">{{ displayName }}</span>
-        <transition name="fade">
-          <BaseButton
-            class="ml-1 mr-1"
-            color="yellow"
-            @click="logOut"
-            v-if="isLoggedIn"
-          >
-            Log out
-          </BaseButton>
-        </transition>
-        <AppNavProfileIcon />
+        <AppColorMode class="mr-1" />
+        <AppNotification class="mr-1" />
+        <div class="app-header__profile-elem">
+          <AppNavProfileIcon @click.stop="trigger" />
+          <transition name="fade">
+            <AppNavProfileMenu class="app-header__profile-elem-menu" v-if="isVisible" />
+          </transition>
+        </div>
       </div>
     </div>
   </header>
@@ -29,16 +23,10 @@ import {
   AppHeaderSearch,
   AppNotification
 } from "@/components/HeaderMenu";
-import { AppNavProfileIcon } from "@/components/NavigationMenu";
-import { BaseButton } from "@/components/Ui";
-import { useStore } from "vuex";
+import { AppNavProfileIcon, AppNavProfileMenu } from "@/components/NavigationMenu";
+import { close } from "@/helpers";
 
-const store = useStore();
-const displayName = computed(() => store.state.auth.user?.displayName);
-const isLoggedIn = computed(() => store.state.auth.isLoggedIn);
-const logOut = async () => {
-  await store.dispatch("auth/logout");
-};
+const { isVisible, trigger } = close(".app-header__profile-elem-menu");
 </script>
 
 <style lang="scss" scoped>
@@ -81,6 +69,14 @@ $b: ".app-header";
   }
   &__user-info {
     font-size: 0.9rem;
+  }
+  &__profile-elem {
+    position: relative;
+  }
+  &__profile-elem-menu {
+    position: absolute;
+    right: 0;
+    top: 60px;
   }
 }
 </style>

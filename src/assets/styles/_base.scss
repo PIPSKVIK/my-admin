@@ -42,6 +42,62 @@ body {
 }
 
 // marging / padding
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.mb-2 {
+  margin-bottom: 2rem;
+}
+.mb-3 {
+  margin-bottom: 3rem;
+}
+.mr-1 {
+  margin-right: 1rem;
+}
+.mr-2 {
+  margin-right: 2rem;
+}
+.mr-3 {
+  margin-right: 3rem;
+}
+.ml-1 {
+  margin-left: 1rem;
+}
+
+.pb-1 {
+  padding-bottom: 1rem;
+}
+.pr-1 {
+  padding-right: 1rem;
+}
+.pl-1 {
+  padding-left: 1rem;
+}
+.pt-1 {
+  padding-top: 1rem;
+}
+
+.mb-desktop-mb-1 {
+  @include md-desktop {
+    margin-bottom: 1rem;
+  }
+}
+.mb-desktop-mb-2 {
+  @include md-desktop {
+    margin-bottom: 2rem;
+  }
+}
+
+.mr-res {
+  @include sm-tablets {
+    margin-right: 0;
+  }
+  @include md-desktop {
+    margin-right: 0;
+  }
+}
+
+// text
 h1 {
   font-size: 1.5rem;
   @include sm-tablets {
@@ -78,7 +134,6 @@ h6 {
     font-size: 0.7rem;
   }
 }
-
 .p-1 {
   font-size: 1rem;
   @include sm-tablets {
@@ -114,48 +169,6 @@ h6 {
   font-size: 0.6rem;
   @include sm-tablets {
     font-size: 0.5rem;
-  }
-}
-
-.mb-1 {
-  margin-bottom: 1rem;
-}
-.mb-2 {
-  margin-bottom: 2rem;
-}
-.mb-3 {
-  margin-bottom: 3rem;
-}
-.mr-1 {
-  margin-right: 1rem;
-}
-.mr-2 {
-  margin-right: 2rem;
-}
-.mr-3 {
-  margin-right: 3rem;
-}
-.ml-1 {
-  margin-left: 1rem;
-}
-
-.mb-desktop-mb-1 {
-  @include md-desktop {
-    margin-bottom: 1rem;
-  }
-}
-.mb-desktop-mb-2 {
-  @include md-desktop {
-    margin-bottom: 2rem;
-  }
-}
-
-.mr-res {
-  @include sm-tablets {
-    margin-right: 0;
-  }
-  @include md-desktop {
-    margin-right: 0;
   }
 }
 

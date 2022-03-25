@@ -12,11 +12,13 @@
   --color-white-soft: #f8f8f8;
   --color-white-mute: #f2f2f2;
 
+  // radius
   --radius-small: 2px;
   --radius-default: 5px;
   --radius-big: 10px;
   --radius-full: 50%;
 
+  // shadow
   --box-shadow-drop-menu: 0 5px 6px -3px rgb(19 17 32 / 20%),
     0 3px 16px 2px rgb(19 17 32 / 12%), 0 9px 12px 1px rgb(19 17 32 / 14%);
 
@@ -51,8 +53,12 @@
 
   // profile-icon-image
   --color-profile-img: #e0cffe;
+  --color-profile-img-active-event: #ba95fa;
   --color-profile-online: #56ca00;
   --color-profile-offline: #ff4c51;
+
+  // border-color
+  --color-border: rgba(236, 232, 255, 0.3);
 }
 
 [data-theme="light"] {
