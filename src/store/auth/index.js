@@ -46,7 +46,7 @@ const actions = {
     await updateProfile(auth.currentUser, {
       displayName: name
     }).then(() => {
-      console.log('update');
+      // console.log('update');
     }).catch((error) => {
       console.log(error);
     })
@@ -65,7 +65,6 @@ const actions = {
       } else {
         commit("setUser", user);
         commit("changeLogStatus", true);
-        console.log(user);
       }
     });
   },

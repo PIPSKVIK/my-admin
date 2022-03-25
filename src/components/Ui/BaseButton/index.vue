@@ -1,5 +1,8 @@
 <template>
-  <button :class="['base-button', colorElement, sizeElement]" v-bind="$attrs">
+  <button
+    :class="['base-button', colorElement, sizeElement, disabled]"
+    v-bind="$attrs"
+  >
     <slot />
     <BaseLoader
       size="20"
@@ -16,20 +19,29 @@ import { BaseLoader } from "@/components/Ui";
 const props = defineProps({
   color: {
     type: String,
-    default: "",
+    default: ""
   },
   size: {
     type: String,
-    default: "",
+    default: ""
   },
   isLoading: {
     type: Boolean,
-    default: false,
+    default: false
   },
+  disabled: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const colorElement = computed(() => `base-button__${props.color}`);
 const sizeElement = computed(() => `base-button__${props.size}`);
+const disabled = computed(() => {
+  return {
+    "base-button__disabled": props.disabled
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -55,6 +67,14 @@ $b: ".base-button";
   &:focus {
     outline: 2px solid var(--btn-color);
     outline-offset: 2px;
+  }
+
+  &__disabled {
+    background-color: var(--btn-color-disabled)!important;
+    cursor: default;
+    &:focus {
+      outline-color: var(--btn-color-disabled)!important;
+    }
   }
 
   &__green {
