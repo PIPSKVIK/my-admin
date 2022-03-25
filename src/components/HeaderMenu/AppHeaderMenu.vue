@@ -5,7 +5,7 @@
       <div class="app-header__right">
         <AppColorMode />
         <AppNotification />
-        <span class="app-header__user-info">{{ userEmail }}</span>
+        <span class="app-header__user-info">{{ displayName }}</span>
         <transition name="fade">
           <BaseButton
             class="ml-1 mr-1"
@@ -34,7 +34,7 @@ import { BaseButton } from "@/components/Ui";
 import { useStore } from "vuex";
 
 const store = useStore();
-const userEmail = computed(() => store.state.auth.user?.email);
+const displayName = computed(() => store.state.auth.user?.displayName);
 const isLoggedIn = computed(() => store.state.auth.isLoggedIn);
 const logOut = async () => {
   await store.dispatch("auth/logout");

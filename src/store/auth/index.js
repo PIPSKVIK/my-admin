@@ -2,12 +2,13 @@ import { auth } from "@/firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  updateProfile,
 } from "firebase/auth";
 
 const state = () => ({
   user: null,
-  isLoggedIn: false
+  isLoggedIn: false,
 });
 
 const mutations = {
@@ -19,14 +20,12 @@ const mutations = {
   },
   changeLogStatus(state, payload) {
     state.isLoggedIn = payload;
-  }
+  },
 };
 
 const actions = {
-  async signup(context, { email, password, name }) {
-    const res = await createUserWithEmailAndPassword(auth, email, password)
-    console.log('res', res);
-    res.user.updateProfile({ displayName: 'eqweqweqw' })
+  async signup(context, { email, password }) {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
     if (res) {
       context.commit("setUser", res.user);
     } else {
@@ -35,12 +34,22 @@ const actions = {
   },
 
   async signin(context, { email, password }) {
-    const res = await signInWithEmailAndPassword(auth, email, password);
-    if (res) {
-      context.commit("setUser", res.user);
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
+    if (user) {
+      context.commit("setUser", user.user);
     } else {
       throw new Error("not compleat login");
     }
+  },
+
+  async updateName(context, { name }) {
+    await updateProfile(auth.currentUser, {
+      displayName: name
+    }).then(() => {
+      console.log('update');
+    }).catch((error) => {
+      console.log(error);
+    })
   },
 
   async logout(context) {
@@ -49,7 +58,7 @@ const actions = {
   },
 
   async fetchUser({ commit }) {
-    await auth.onAuthStateChanged(user => {
+    await auth.onAuthStateChanged((user) => {
       if (user === null) {
         commit("clearUser");
         commit("changeLogStatus", false);
@@ -59,12 +68,12 @@ const actions = {
         console.log(user);
       }
     });
-  }
+  },
 };
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
 };

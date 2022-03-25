@@ -47,8 +47,10 @@ const formSubmit = async () => {
     await store.dispatch("auth/signup", {
       email: email.value,
       password: password.value,
-      name: name.value
     });
+    await store.dispatch('auth/updateName', {
+      name: name.value,
+    })
     isLoading.value = false;
     router.push("/");
   } catch (error) {
