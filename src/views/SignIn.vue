@@ -40,16 +40,24 @@ const store = useStore();
 const isLoading = ref(false);
 
 const formSubmit = async () => {
-  isLoading.value = true
+  isLoading.value = true;
   try {
     await store.dispatch("auth/signin", {
       email: email.value,
-      password: password.value,
+      password: password.value
     });
-    isLoading.value = false
+    isLoading.value = false;
+    store.dispatch(
+      "notification/addSuccessNotification",
+      "You are logged in =)"
+    );
     router.push("/");
   } catch (error) {
-    console.log(error);
+    store.dispatch("notification/addDangerNotification", "Invalid data");
+  } finally {
+    isLoading.value = false;
+    email.value = "";
+    password.value = "";
   }
 };
 </script>

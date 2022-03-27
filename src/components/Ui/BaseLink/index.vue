@@ -1,11 +1,9 @@
 <template>
   <router-link
     :to="to"
-    :class="[
-      'base-link',
-      { 'drower-menu-link': drowerMenu }
-    ]"
+    :class="['base-link', { 'drower-menu-link': drowerMenu }]"
   >
+    <slot name="icon" />
     <slot />
   </router-link>
 </template>
@@ -14,27 +12,30 @@
 defineProps({
   to: {
     type: String,
-    default: "#",
+    default: "#"
   },
   drowerMenu: {
     type: Boolean,
-    default: false,
+    default: false
   }
 });
 </script>
 
 <style lang="scss" scoped>
-$b: '.base-link';
+$b: ".base-link";
 
 #{$b} {
   text-decoration: none;
-  font-size: 1.2rem;
-  padding: 0.2rem 1rem;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  color: var(--color-text-soft);
+  display: flex;
+  align-items: center;
   @include anim-default;
 
   &:hover {
-    background-color: #333052;
+    background-color: var(--base-link-color-hover);
   }
 
   &.drower-menu-link {

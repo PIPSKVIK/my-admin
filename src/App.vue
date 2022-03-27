@@ -13,6 +13,7 @@
         </div>
       </div>
     </main>
+    <BaseToastList />
   </div>
 </template>
 
@@ -21,8 +22,9 @@ import { RouterView } from "vue-router";
 import { onMounted, onBeforeMount } from "vue";
 import { AppDrowerMenu } from "@/components/NavigationMenu";
 import { AppHeaderMenu } from "@/components/HeaderMenu";
+import { BaseToastList } from "@/components/Ui";
 import { windowResize } from "@/helpers";
-import { useStore } from 'vuex'
+import { useStore } from "vuex";
 
 const triggerSize = 1200;
 const { showDrowerIcon } = windowResize(triggerSize);
@@ -33,10 +35,10 @@ onMounted(() => {
     : (showDrowerIcon.value = true);
 });
 
-const store = useStore()
+const store = useStore();
 onBeforeMount(() => {
-  store.dispatch('auth/fetchUser')
-})
+  store.dispatch("auth/fetchUser");
+});
 </script>
 
 <style lang="scss" scoped>

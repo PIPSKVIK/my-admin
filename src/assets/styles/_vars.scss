@@ -1,9 +1,11 @@
 :root {
+  // background
   --color-background: #28243d;
   --color-background-soft: #312d4b;
   --color-background-soft-hover: #3d3957;
   --color-background-dark: #1f1d31;
 
+  // text
   --color-text: #e7e3fc;
   --color-text-soft: #e7e3fcad;
   --color-text-black: #000000;
@@ -41,6 +43,9 @@
   --btn-color-blue-hover: #747bff;
   --btn-color-disabled: rgb(129, 129, 129);
 
+  // base-link
+  --base-link-color-hover: #686774;
+
   // input - outline color
   --input-outline: #9155fd;
   --input-disable: #484747;
@@ -60,6 +65,12 @@
 
   // border-color
   --color-border: rgba(236, 232, 255, 0.3);
+
+  // status color
+  --success: #10b981;
+  --warning: #fbbf24;
+  --info: #818cf8;
+  --danger: #dc2626;
 }
 
 [data-theme="light"] {
@@ -76,6 +87,7 @@
   --color-separator: rgba(94,86,105,.14);
   --input-disable: #c9c9c9;
   --color-error: #ff0000;
+  --base-link-color-hover: #d6d6d6;
 }
 
 // Usage Media

@@ -3,7 +3,7 @@ import { useRouter } from "vue-router";
 import { onMounted } from "vue";
 import { windowResize } from "@/helpers";
 import { btnLinks } from "@/constants/drawerMenuLinks";
-import { BaseLink, BaseIcon } from '@/components/Ui'
+import { BaseLink } from '@/components/Ui'
 import { HomeIcon } from '@/components/icons'
 
 const router = useRouter();
@@ -52,13 +52,6 @@ onMounted(() => {
       </div>
     </div>
   </nav>
-  <!-- <BaseIcon
-    viewBox="0 0 24 24"
-    width="16"
-    height="16"
-  >
-    <HomeIcon />
-  </BaseIcon> -->
 </template>
 
 <style lang="scss" scoped>

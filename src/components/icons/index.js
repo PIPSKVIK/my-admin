@@ -1,5 +1,3 @@
-import HomeIcon from './HomeIcon.vue';
+import HomeIcon from "./HomeIcon.vue";
 
-export {
-  HomeIcon
-}
+export { HomeIcon };

@@ -34,9 +34,9 @@ import { BaseField, BaseButton, BaseLoader } from "@/components/Ui";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-const name = ref("");
 const email = ref("");
 const password = ref("");
+const name = ref("");
 const store = useStore();
 const router = useRouter();
 const isLoading = ref(false);
@@ -46,15 +46,21 @@ const formSubmit = async () => {
   try {
     await store.dispatch("auth/signup", {
       email: email.value,
-      password: password.value,
+      password: password.value
     });
-    await store.dispatch('auth/updateName', {
-      name: name.value,
-    })
+    await store.dispatch("auth/updateName", {
+      name: name.value
+    });
     isLoading.value = false;
+    store.dispatch("notification/addSuccessNotification", "You signed up");
     router.push("/");
   } catch (error) {
-    console.log(error);
+    store.dispatch("notification/addDangerNotification", "Something went wrong");
+  } finally {
+    isLoading.value = false;
+    email.value = "";
+    password.value = "";
+    name.value = "";
   }
 };
 </script>
