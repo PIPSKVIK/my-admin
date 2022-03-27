@@ -1,14 +1,16 @@
-import { auth } from "@/firebase/config";
+import { auth, db } from "@/firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
+  updateProfile
 } from "firebase/auth";
+import { ref, set, onValue } from "firebase/database";
 
 const state = () => ({
   user: null,
   isLoggedIn: false,
+  userInfo: null,
 });
 
 const mutations = {
@@ -21,11 +23,28 @@ const mutations = {
   changeLogStatus(state, payload) {
     state.isLoggedIn = payload;
   },
+  setUserInfo(state, payload) {
+    state.userInfo = payload;
+  },
 };
 
 const actions = {
+  async getUserInfo(context) {
+    const uid = await context.dispatch("getUid");
+    const info = ref(db, `users/${uid}/info`);
+    onValue(info, (snapshot) => {
+      const data = snapshot.val();
+      context.commit('setUserInfo', data)
+    })
+  },
+
   async signup(context, { email, password }) {
     const res = await createUserWithEmailAndPassword(auth, email, password);
+    const uid = await context.dispatch("getUid");
+    set(ref(db, `users/${uid}/info`), {
+      profile_picture: "imageUrl",
+      bill: "150000"
+    });
     if (res) {
       context.commit("setUser", res.user);
     } else {
@@ -45,11 +64,13 @@ const actions = {
   async updateName(context, { name }) {
     await updateProfile(auth.currentUser, {
       displayName: name
-    }).then(() => {
-      // console.log('update');
-    }).catch((error) => {
-      console.log(error);
     })
+      .then(res => {
+        // console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
 
   async logout(context) {
@@ -58,7 +79,7 @@ const actions = {
   },
 
   async fetchUser({ commit }) {
-    await auth.onAuthStateChanged((user) => {
+    await auth.onAuthStateChanged(user => {
       if (user === null) {
         commit("clearUser");
         commit("changeLogStatus", false);
@@ -68,11 +89,16 @@ const actions = {
       }
     });
   },
+
+  getUid() {
+    const user = auth.currentUser;
+    return user ? user.uid : null;
+  }
 };
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions,
+  actions
 };

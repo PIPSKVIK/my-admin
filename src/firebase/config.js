@@ -1,9 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCJtDbGhXWMiQtKC8OcBNBFRazDq5IUyk4",
   authDomain: "my-admin-5717f.firebaseapp.com",
+  databaseURL: "https://my-admin-5717f-default-rtdb.firebaseio.com",
   projectId: "my-admin-5717f",
   storageBucket: "my-admin-5717f.appspot.com",
   messagingSenderId: "393944510274",
@@ -11,11 +13,11 @@ const firebaseConfig = {
 };
 
 // init firebase
-initializeApp(firebaseConfig)
+initializeApp(firebaseConfig);
 
 // init firebase auth
-const auth = getAuth()
+const auth = getAuth();
+// init data base
+const db = getDatabase();
 
-export {
-	auth
-}
+export { auth, db };

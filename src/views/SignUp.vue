@@ -55,7 +55,10 @@ const formSubmit = async () => {
     store.dispatch("notification/addSuccessNotification", "You signed up");
     router.push("/");
   } catch (error) {
-    store.dispatch("notification/addDangerNotification", "Something went wrong");
+    store.dispatch(
+      "notification/addDangerNotification",
+      "Something went wrong"
+    );
   } finally {
     isLoading.value = false;
     email.value = "";

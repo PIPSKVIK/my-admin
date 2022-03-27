@@ -4,7 +4,8 @@ import {
   HomePage,
   MyNotifications,
   SignIn,
-  SignUp
+  SignUp,
+  Profile
 } from "../views";
 
 const router = createRouter({
@@ -34,6 +35,11 @@ const router = createRouter({
       path: "/signup",
       name: "SignUp",
       component: SignUp
+    },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: Profile,
     }
   ]
 });

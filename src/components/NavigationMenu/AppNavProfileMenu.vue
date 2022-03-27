@@ -40,7 +40,7 @@ import { useRouter } from "vue-router";
 
 const links = ref([
   { name: 'Settings', icon: 'setting', path: '#' },
-  { name: 'Profile', icon: 'profile', path: '#' },
+  { name: 'Profile', icon: 'profile', path: '/profile' },
 ]);
 const router = useRouter();
 const store = useStore();
