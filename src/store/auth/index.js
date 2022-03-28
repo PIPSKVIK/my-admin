@@ -3,14 +3,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile
+  updateProfile,
 } from "firebase/auth";
-import { ref, set, onValue } from "firebase/database";
+import { ref, set, onValue, child, get, getDatabase } from "firebase/database";
 
 const state = () => ({
   user: null,
   isLoggedIn: false,
-  userInfo: null,
 });
 
 const mutations = {
@@ -23,28 +22,25 @@ const mutations = {
   changeLogStatus(state, payload) {
     state.isLoggedIn = payload;
   },
-  setUserInfo(state, payload) {
-    state.userInfo = payload;
-  },
 };
 
 const actions = {
   async getUserInfo(context) {
     const uid = await context.dispatch("getUid");
-    const info = ref(db, `users/${uid}/info`);
-    onValue(info, (snapshot) => {
-      const data = snapshot.val();
-      context.commit('setUserInfo', data)
+    const dbRef = ref(getDatabase());
+    await get(child(dbRef, `users/${uid}/info`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        context.commit('setUserInfo', snapshot.val())
+      } else {
+        console.log("No data available")
+      }
+    }).catch((err) => {
+      console.log(err);
     })
   },
 
   async signup(context, { email, password }) {
     const res = await createUserWithEmailAndPassword(auth, email, password);
-    const uid = await context.dispatch("getUid");
-    set(ref(db, `users/${uid}/info`), {
-      profile_picture: "imageUrl",
-      bill: "150000"
-    });
     if (res) {
       context.commit("setUser", res.user);
     } else {
@@ -63,12 +59,12 @@ const actions = {
 
   async updateName(context, { name }) {
     await updateProfile(auth.currentUser, {
-      displayName: name
+      displayName: name,
     })
-      .then(res => {
+      .then((res) => {
         // console.log(res);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   },
@@ -79,13 +75,15 @@ const actions = {
   },
 
   async fetchUser({ commit }) {
-    await auth.onAuthStateChanged(user => {
+    await auth.onAuthStateChanged((user) => {
       if (user === null) {
         commit("clearUser");
         commit("changeLogStatus", false);
+        localStorage.setItem('login', JSON.stringify(false))
       } else {
         commit("setUser", user);
         commit("changeLogStatus", true);
+        localStorage.setItem('login', JSON.stringify(true))
       }
     });
   },
@@ -93,12 +91,12 @@ const actions = {
   getUid() {
     const user = auth.currentUser;
     return user ? user.uid : null;
-  }
+  },
 };
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
 };

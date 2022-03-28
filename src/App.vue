@@ -19,7 +19,7 @@
 
 <script setup>
 import { RouterView } from "vue-router";
-import { onMounted, onBeforeMount } from "vue";
+import { onMounted } from "vue";
 import { AppDrowerMenu } from "@/components/NavigationMenu";
 import { AppHeaderMenu } from "@/components/HeaderMenu";
 import { BaseToastList } from "@/components/Ui";
@@ -36,7 +36,7 @@ onMounted(() => {
 });
 
 const store = useStore();
-onBeforeMount(() => {
+onMounted(() => {
   store.dispatch("auth/fetchUser");
 });
 </script>

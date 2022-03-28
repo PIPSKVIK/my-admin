@@ -14,11 +14,6 @@ import "primevue/resources/themes/mdc-dark-indigo/theme.css"; //theme
 import "primevue/resources/primevue.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 
-app.use(router);
-app.use(PrimeVue);
-app.use(ToastService);
-app.use(store);
-
 // __________Prime__________
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
@@ -37,4 +32,8 @@ app.component("Badge", Badge);
 app.component("Avatar", Avatar);
 // __________Prime__________
 
+app.use(router);
+app.use(PrimeVue);
+app.use(ToastService);
+app.use(store);
 app.mount("#app");

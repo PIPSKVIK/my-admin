@@ -1,12 +1,19 @@
 <template>
   <button class="nav-profile-icon btn-reset">
-    <div class="nav-profile-icon__item">
+    <div :class="[
+      'nav-profile-icon__item',
+      { 'nav-profile-icon__item--profile': profile }
+    ]">
       <img
-        class="nav-profile-icon__item-img"
+        :class="[
+          'nav-profile-icon__item-img',
+          { 'nav-profile-icon__item-img--profile': profile }
+        ]"
         src="https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/1.e2938115.png"
         alt="img"
       />
       <div
+        v-if="!profile"
         :class="[
           'nav-profile-icon__item-online-status',
           { 'nav-profile-icon__item-online-status--offline': !isLoggedIn }
@@ -26,6 +33,10 @@ defineProps({
   offlineStat: {
     type: Boolean,
     default: false
+  },
+  profile: {
+    type: Boolean,
+    default: false
   }
 });
 </script>
@@ -41,8 +52,11 @@ $b: ".nav-profile-icon";
     background-color: var(--color-profile-img);
     position: relative;
     @include anim-default;
-    &:active {
-      opacity: 0.8;
+
+    &--profile {
+      width: 120px;
+      height: 120px;
+      border-radius: var(--radius-default);
     }
   }
   &__item-img {
@@ -50,6 +64,10 @@ $b: ".nav-profile-icon";
     height: auto;
     object-fit: cover;
     border-radius: var(--radius-full);
+
+    &--profile {
+      border-radius: var(--radius-default);
+    }
   }
   &__item-online-status {
     position: absolute;

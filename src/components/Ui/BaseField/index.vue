@@ -21,7 +21,7 @@
       :id="name"
       :type="type"
       :disabled="disabled"
-      :placeholder="name"
+      :placeholder="placeholder"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
     />
@@ -54,6 +54,10 @@ defineProps({
   inputSize: {
     type: [Number, String,],
     default: ''
+  },
+  placeholder: {
+    type: String,
+    default: ""
   }
 });
 </script>
