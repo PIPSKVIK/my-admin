@@ -15,7 +15,9 @@
               :key="key"
               class="profile-info__body-item"
             >
-              <span class="profile-info__body-item-title s-1">{{ key }}: </span>
+              <span class="profile-info__body-item-title s-1"
+                >{{ key }}:
+              </span>
               <span class="profile-info__body-item-value s-1">
                 {{ item || "..." }}
               </span>
@@ -98,12 +100,12 @@ const userInfo = computed(() => store.getters["userInfo/getUserInfo"]);
 const isLoading = ref(false);
 
 const LastName = ref(userInfo.value?.LastName);
-const phone = ref(userInfo.value?.phone || "");
-const language = ref(userInfo.value?.language || "");
-const country = ref(userInfo.value?.country || "");
-const gender = ref(userInfo.value?.gender || "");
-const description = ref(userInfo.value?.description || "");
-const website = ref(userInfo.value?.website || "");
+const phone = ref(userInfo.value?.phone);
+const language = ref(userInfo.value?.language);
+const country = ref(userInfo.value?.country);
+const gender = ref(userInfo.value?.gender);
+const description = ref(userInfo.value?.description);
+const website = ref(userInfo.value?.website);
 
 const formSubmit = async () => {
   const formData = {
@@ -113,7 +115,7 @@ const formSubmit = async () => {
     country: country.value,
     gender: gender.value,
     description: description.value,
-    website: website.value,
+    website: website.value
   };
   isLoading.value = true;
   store.dispatch("notification/addSuccessNotification", "add info");
