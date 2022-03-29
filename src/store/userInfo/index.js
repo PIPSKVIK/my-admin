@@ -3,7 +3,7 @@ import { ref, set, onValue, get, child } from "firebase/database";
 
 const state = () => ({
   userInfo: null,
-  userTimeline: [],
+  userTimeline: null,
 });
 
 const mutations = {
@@ -26,8 +26,8 @@ const actions = {
       const dbRef = ref(db);
       get(child(dbRef, `users/${user.uid}/activity-tymeline`)).then((snapshot) => {
         if (snapshot.exists()) {
-          console.log(snapshot.val());
-          context.commit("GET_USR_TIMELINE", snapshot.val())
+          const arr = Object.keys(snapshot.val()).map((key => ({ ...snapshot.val()[key], id: key })))
+          context.commit("GET_USR_TIMELINE", arr.reverse())
         } else {
           console.log("No data available");
         }
@@ -79,6 +79,10 @@ const getters = {
       return state.userInfo;
     }
   },
+
+  getUserTimeline(state) {
+    return state.userTimeline
+  }
 };
 
 export default {

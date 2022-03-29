@@ -2,35 +2,29 @@
   <div class="activity-timeline">
     <h3 class="activity-timeline__title mb-1">User Activity Timeline</h3>
     <ul class="activity-timeline__list-wrapper">
-      <li class="activity-timeline__item timeline">
+      <BaseLoader v-if="!timelines" />
+      <li
+        v-for="item in timelines"
+        :key="item.id"
+        class="activity-timeline__item timeline"
+        v-else
+      >
         <div class="timeline__pseudo"></div>
-        <div class="timeline__content">text</div>
-      </li>
-      <li class="activity-timeline__item timeline">
-        <div class="timeline__pseudo"></div>
-        <div class="timeline__content">text</div>
-      </li>
-      <li class="activity-timeline__item timeline">
-        <div class="timeline__pseudo"></div>
-        <div class="timeline__content">text</div>
-      </li>
-      <li class="activity-timeline__item timeline">
-        <div class="timeline__pseudo"></div>
-        <div class="timeline__content">text</div>
+        <div class="timeline__content">
+          <span class="mr-1 s-1">{{ new Date(item.timeline).toLocaleDateString() }}</span>
+          <span class="s-1">{{ new Date(item.timeline).toLocaleTimeString() }}</span>
+        </div>
       </li>
     </ul>
-
-    {{ displayName }}
   </div>
 </template>
 
 <script setup>
 import { onMounted, computed } from 'vue';
 import { useStore } from "vuex";
+import { BaseLoader } from '@/components/Ui'
 const store = useStore();
-
-const displayName = computed(() => store.state.userInfo.userTimeline);
-// const timelines = computed(() => store.getters["userInfo/getUserTimeline"]);
+const timelines = computed(() => store.getters["userInfo/getUserTimeline"]);
 
 const getUserTimeline = async () => {
   await store.dispatch("userInfo/getUserTimeline");
@@ -78,7 +72,7 @@ $b: ".activity-timeline";
     &__pseudo {
       position: absolute;
       left: -1px;
-      top: 18px;
+      top: 13px;
       width: 12px;
       height: 12px;
       background-color: var(--color-profile-online);
@@ -97,6 +91,10 @@ $b: ".activity-timeline";
     }
     &__content {
       margin-left: 2rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 }
