@@ -1,8 +1,9 @@
 import { auth, db } from "@/firebase/config";
-import { ref, set, onValue } from "firebase/database";
+import { ref, set, onValue, get, child } from "firebase/database";
 
 const state = () => ({
-  userInfo: null
+  userInfo: null,
+  userTimeline: null,
 });
 
 const mutations = {
@@ -12,10 +13,29 @@ const mutations = {
 
   CLEAR_USER_INFO(state) {
     state.userInfo = null;
-  }
+  },
+
+  GET_USR_TIMELINE(state) {
+    state.userTimeline = state;
+  },
 };
 
 const actions = {
+  getUserTimeline(context) {
+    auth.onAuthStateChanged((user) => {
+      const dbRef = ref(db);
+      get(child(dbRef, `users/${user.uid}/activity-tymeline`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+    })
+  },
+
   async setUserData(
     context,
     { LastName, phone, language, country, gender, description, website }
@@ -28,15 +48,15 @@ const actions = {
       country,
       gender,
       description,
-      website
+      website,
     });
   },
 
   async getUserData(context) {
-    await auth.onAuthStateChanged(user => {
+    await auth.onAuthStateChanged((user) => {
       if (user) {
         const info = ref(db, `users/${user.uid}/info`);
-        onValue(info, snapshot => {
+        onValue(info, (snapshot) => {
           const data = snapshot.val();
           context.commit("UPDATE_INFO", data);
         });
@@ -49,7 +69,7 @@ const actions = {
   async getUid() {
     const user = auth.currentUser;
     return user ? user.uid : null;
-  }
+  },
 };
 
 const getters = {
@@ -57,7 +77,7 @@ const getters = {
     if (localStorage.getItem("login")) {
       return state.userInfo;
     }
-  }
+  },
 };
 
 export default {
@@ -65,5 +85,5 @@ export default {
   state,
   mutations,
   actions,
-  getters
+  getters,
 };

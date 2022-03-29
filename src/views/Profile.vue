@@ -9,6 +9,7 @@
         </div>
         <div class="profile-info__body">
           <h3>Details:</h3>
+          <BaseLoader class="profile-info__body-loader" :visible="!userInfo" />
           <ul class="profile-info__body-list">
             <li
               v-for="(item, key) in userInfo"
@@ -27,6 +28,9 @@
             Edit Profile
           </BaseButton>
         </div>
+      </div>
+      <div class="profile-page__right">
+        <UserProfileActivityTimeline />
       </div>
     </div>
     <BaseLoader full :visible="isLoading" />
@@ -108,6 +112,7 @@
 <script setup>
 import { close } from "@/helpers";
 import { BaseField, BaseButton, BaseLoader, BaseModal } from "@/components/Ui";
+import { UserProfileActivityTimeline } from '@/components/UserProfile'
 import { AppNavProfileIcon } from "@/components/NavigationMenu";
 import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
@@ -191,6 +196,12 @@ $b: ".profile-page";
       padding-top: 1rem;
       border-bottom: 1px solid var(--color-border);
       padding-bottom: 1rem;
+      position: relative;
+      min-height: 262px;
+      &-loader {
+        position: absolute;
+        @include center-abs();
+      }
     }
     &__body-item-value {
       color: var(--color-text-soft);
