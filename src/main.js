@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { auth } from "@/firebase/config";
 
 import PrimeVue from "primevue/config";
 import ToastService from "primevue/toastservice";
@@ -32,8 +33,15 @@ app.component("Badge", Badge);
 app.component("Avatar", Avatar);
 // __________Prime__________
 
+
 app.use(router);
 app.use(PrimeVue);
 app.use(ToastService);
 app.use(store);
-app.mount("#app");
+let initApp
+
+auth.onAuthStateChanged(() => {
+  if (!initApp) {
+    initApp = app.mount("#app");
+  }
+})
