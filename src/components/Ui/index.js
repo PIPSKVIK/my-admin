@@ -6,6 +6,7 @@ import BaseLink from "./BaseLink/index.vue";
 import BaseIcon from "./BaseIcon/index.vue";
 import BaseButtonIcon from "./BaseButtonIcon/index.vue";
 import BaseToastList from "./BaseToastList/index.vue";
+import BaseModal from "./BaseModal/index.vue";
 
 export {
   BaseField,
@@ -15,5 +16,6 @@ export {
   BaseLink,
   BaseIcon,
   BaseButtonIcon,
-  BaseToastList
+  BaseToastList,
+  BaseModal,
 };

@@ -49,23 +49,23 @@
 defineProps({
   svgName: {
     type: String,
-    default: ""
+    default: "",
   },
   width: {
     type: [Number, String],
-    default: "20"
+    default: "20",
   },
   height: {
     type: [Number, String],
-    default: "20"
+    default: "20",
   },
   fill: {
     type: String,
-    default: "currentColor"
+    default: "currentColor",
   },
   className: {
     type: String,
-    default: ""
-  }
+    default: "",
+  },
 });
 </script>

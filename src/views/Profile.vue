@@ -15,80 +15,99 @@
               :key="key"
               class="profile-info__body-item"
             >
-              <span class="profile-info__body-item-title s-1"
-                >{{ key }}:
-              </span>
+              <span class="profile-info__body-item-title s-1">{{ key }}: </span>
               <span class="profile-info__body-item-value s-1">
                 {{ item || "..." }}
               </span>
             </li>
           </ul>
         </div>
-        <div class="profile-info__footer"></div>
-      </div>
-      <div class="profile-page__right profile-form">
-        <form>
-          <BaseField
-            class="mb-2"
-            name="last name"
-            v-model="LastName"
-            inputSize="0.5"
-            :placeholder="userInfo?.LastName || '...'"
-          />
-          <BaseField
-            class="mb-2"
-            name="phone"
-            v-model="phone"
-            inputSize="0.5"
-            :placeholder="userInfo?.phone || '...'"
-          />
-          <BaseField
-            class="mb-2"
-            name="language"
-            v-model="language"
-            inputSize="0.5"
-            :placeholder="userInfo?.language || '...'"
-          />
-          <BaseField
-            class="mb-2"
-            name="country"
-            v-model="country"
-            inputSize="0.5"
-            :placeholder="userInfo?.country || '...'"
-          />
-          <BaseField
-            class="mb-2"
-            name="gender"
-            v-model="gender"
-            inputSize="0.5"
-            :placeholder="userInfo?.gender || '...'"
-          />
-          <BaseField
-            class="mb-2"
-            name="description"
-            v-model="description"
-            inputSize="0.5"
-            :placeholder="userInfo?.description || '...'"
-          />
-          <BaseField
-            class="mb-2"
-            name="website"
-            v-model="website"
-            inputSize="0.5"
-            :placeholder="userInfo?.website || '...'"
-          />
-          <BaseButton size="full" @click.prevent="formSubmit">
-            update info
+        <div class="profile-info__footer">
+          <BaseButton @click.stop="trigger">
+            Edit Profile
           </BaseButton>
-        </form>
+        </div>
       </div>
     </div>
     <BaseLoader full :visible="isLoading" />
+    <BaseModal
+      :modalShow="isVisible"
+      @closeModal="trigger"
+      modalSize="md"
+      class="profile-page__profile-modal"
+    >
+      <template #header>
+        <h2 class="profile-page__form-title">Edit User Information</h2>
+      </template>
+      <template #body>
+        <form class="profile-page__form">
+          <div class="profile-page__form-fields">
+            <div class="profile-page__form-fields-left">
+              <BaseField
+                class="mb-2"
+                name="last name"
+                v-model="LastName"
+                inputSize="0.5"
+                :placeholder="userInfo?.LastName || '...'"
+              />
+              <BaseField
+                class="mb-2"
+                name="phone"
+                v-model="phone"
+                inputSize="0.5"
+                :placeholder="userInfo?.phone || '...'"
+              />
+              <BaseField
+                class="mb-2"
+                name="language"
+                v-model="language"
+                inputSize="0.5"
+                :placeholder="userInfo?.language || '...'"
+              />
+            </div>
+            <div class="profile-page__form-fields-right">
+              <BaseField
+                class="mb-2"
+                name="country"
+                v-model="country"
+                inputSize="0.5"
+                :placeholder="userInfo?.country || '...'"
+              />
+              <BaseField
+                class="mb-2"
+                name="gender"
+                v-model="gender"
+                inputSize="0.5"
+                :placeholder="userInfo?.gender || '...'"
+              />
+              <BaseField
+                class="mb-2"
+                name="description"
+                v-model="description"
+                inputSize="0.5"
+                :placeholder="userInfo?.description || '...'"
+              />
+              <BaseField
+                class="mb-2"
+                name="website"
+                v-model="website"
+                inputSize="0.5"
+                :placeholder="userInfo?.website || '...'"
+              />
+            </div>
+          </div>
+          <BaseButton size="sm" @click.prevent="formSubmit">
+            update info
+          </BaseButton>
+        </form>
+      </template>
+    </BaseModal>
   </section>
 </template>
 
 <script setup>
-import { BaseField, BaseButton, BaseLoader } from "@/components/Ui";
+import { close } from "@/helpers";
+import { BaseField, BaseButton, BaseLoader, BaseModal } from "@/components/Ui";
 import { AppNavProfileIcon } from "@/components/NavigationMenu";
 import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
@@ -97,8 +116,11 @@ const store = useStore();
 const displayName = computed(() => store.state.auth.user?.displayName);
 const userInfo = computed(() => store.getters["userInfo/getUserInfo"]);
 
+const { isVisible, trigger } = close(".profile-page__profile-modal");
+
 const isLoading = ref(false);
 
+const editProfileModal = ref(false);
 const LastName = ref(userInfo.value?.LastName);
 const phone = ref(userInfo.value?.phone);
 const language = ref(userInfo.value?.language);
@@ -115,7 +137,7 @@ const formSubmit = async () => {
     country: country.value,
     gender: gender.value,
     description: description.value,
-    website: website.value
+    website: website.value,
   };
   isLoading.value = true;
   store.dispatch("notification/addSuccessNotification", "add info");
@@ -177,6 +199,25 @@ $b: ".profile-page";
     &__footer {
       padding-top: 2rem;
     }
+  }
+
+  &__form {
+
+  }
+  &__form-title {
+    text-align: center;
+    color: var(--color-text-soft);
+  }
+  &__form-fields {
+    display: flex;
+  }
+  &__form-fields-left {
+    flex: 1;
+    margin-right: 1rem;
+
+  }
+  &__form-fields-right {
+    flex: 1;
   }
 
   .profile-form {
