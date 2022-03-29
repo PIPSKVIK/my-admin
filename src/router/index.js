@@ -5,7 +5,8 @@ import {
   MyNotifications,
   SignIn,
   SignUp,
-  Profile
+  Profile,
+  SettingPage
 } from "../views";
 
 const router = createRouter({
@@ -40,6 +41,11 @@ const router = createRouter({
       path: "/profile",
       name: "Profile",
       component: Profile,
+    },
+    {
+      path: "/setting",
+      name: "Setting",
+      component: SettingPage
     }
   ]
 });

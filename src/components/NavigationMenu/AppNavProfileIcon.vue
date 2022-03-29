@@ -57,6 +57,7 @@ $b: ".nav-profile-icon";
       width: 120px;
       height: 120px;
       border-radius: var(--radius-default);
+      cursor: default;
     }
   }
   &__item-img {

@@ -8,7 +8,11 @@
         <div class="app-header__profile-elem">
           <AppNavProfileIcon @click.stop="trigger" />
           <transition name="fade">
-            <AppNavProfileMenu class="app-header__profile-elem-menu" v-if="isVisible" />
+            <AppNavProfileMenu
+              class="app-header__profile-elem-menu"
+              v-if="isVisible"
+              @closeProfileMenu="trigger"
+            />
           </transition>
         </div>
       </div>
@@ -21,9 +25,12 @@ import { ref, computed } from "vue";
 import {
   AppColorMode,
   AppHeaderSearch,
-  AppNotification
+  AppNotification,
 } from "@/components/HeaderMenu";
-import { AppNavProfileIcon, AppNavProfileMenu } from "@/components/NavigationMenu";
+import {
+  AppNavProfileIcon,
+  AppNavProfileMenu,
+} from "@/components/NavigationMenu";
 import { close } from "@/helpers";
 
 const { isVisible, trigger } = close(".app-header__profile-elem-menu");

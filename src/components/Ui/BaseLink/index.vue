@@ -2,6 +2,7 @@
   <router-link
     :to="to"
     :class="['base-link', { 'drower-menu-link': drowerMenu }]"
+    exact
   >
     <slot name="icon" />
     <slot />
@@ -33,6 +34,10 @@ $b: ".base-link";
   display: flex;
   align-items: center;
   @include anim-default;
+
+  &.router-link-active {
+    background-color: var(--base-link-color-hover);
+  }
 
   &:hover {
     background-color: var(--base-link-color-hover);

@@ -11,6 +11,7 @@
         v-for="(link, idx) in links"
         :key="idx"
         :to="link.path"
+        @click="$emit('closeProfileMenu')"
       >
         <template #icon>
           <BaseIcon :svgName="link.icon" className="mr-1" />
@@ -39,7 +40,7 @@ import { AppNavProfileIcon } from "@/components/NavigationMenu";
 import { useRouter } from "vue-router";
 
 const links = ref([
-  { name: 'Settings', icon: 'setting', path: '#' },
+  { name: 'Settings', icon: 'setting', path: '/setting' },
   { name: 'Profile', icon: 'profile', path: '/profile' },
 ]);
 const router = useRouter();
