@@ -91,19 +91,13 @@
                 placeholder="gender"
               />
               <BaseField
-                class="mb-2"
+                class="mb-1"
                 name="website"
                 v-model="website"
                 inputSize="0.5"
                 placeholder="website"
               />
-              <BaseField
-                class="mb-2"
-                name="avatar"
-                v-model="avatar"
-                inputSize="0.5"
-                placeholder="avatar"
-              />
+              <BaseDropdown :options="options" @selectedItem="selectedItem" />
             </div>
           </div>
           <BaseButton size="sm" @click.prevent="formSubmit">
@@ -117,7 +111,7 @@
 
 <script setup>
 import { close } from "@/helpers";
-import { BaseField, BaseButton, BaseLoader, BaseModal } from "@/components/Ui";
+import { BaseField, BaseButton, BaseLoader, BaseModal, BaseDropdown } from "@/components/Ui";
 import { UserProfileActivityTimeline } from "@/components/UserProfile";
 import { AppNavProfileIcon } from "@/components/NavigationMenu";
 import { computed, onMounted, ref, watch } from "vue";
@@ -139,6 +133,16 @@ const gender = ref("");
 const description = ref("");
 const website = ref("");
 const avatar = ref("");
+
+const options = [
+  { name: "logo1", value: 1 },
+  { name: "logo2", value: 2 },
+  { name: "logo3", value: 3 }
+];
+
+function selectedItem(item) {
+  avatar.value = item.value
+}
 
 watch(userInfo, (value) => {
   LastName.value = value?.LastName;

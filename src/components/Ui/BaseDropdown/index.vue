@@ -72,7 +72,7 @@ const userImage = computed(() => {
 $b: ".base-dropdown";
 
 #{$b} {
-  width: 300px;
+  width: 100%;
   background-color: transparent;
   border: 1px solid var(--color-text-soft);
   padding: 0.5rem;
