@@ -33,11 +33,15 @@
 </template>
 
 <script setup>
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, onBeforeMount, ref, defineEmits } from "vue";
 import { BaseButton, BaseLink, BaseIcon } from "@/components/Ui";
 import { useStore } from "vuex";
 import { AppNavProfileIcon } from "@/components/NavigationMenu";
 import { useRouter } from "vue-router";
+
+const emit = defineEmits([
+  'closeProfileMenu',
+])
 
 const links = ref([
   { name: 'Settings', icon: 'setting', path: '/setting' },
@@ -46,11 +50,10 @@ const links = ref([
 const router = useRouter();
 const store = useStore();
 const displayName = computed(() => store.state.auth.user?.displayName);
-const logOut = async () => {
-  if (!displayName.value === false) {
-    await store.dispatch("auth/logout");
-    router.push("/signin");
-  }
+const logOut = () => {
+  router.push("/signin");
+  store.dispatch("auth/logout");
+  emit('closeProfileMenu')
 };
 onBeforeMount(() => {
   store.dispatch("auth/fetchUser");

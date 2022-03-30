@@ -39,7 +39,7 @@ const actions = {
 
   async setUserData(
     context,
-    { LastName, phone, language, country, gender, description, website }
+    { LastName, phone, language, country, gender, description, website, avatar }
   ) {
     const uid = await context.dispatch("getUid");
     await set(ref(db, `users/${uid}/info`), {
@@ -50,6 +50,7 @@ const actions = {
       gender,
       description,
       website,
+      avatar,
     });
   },
 

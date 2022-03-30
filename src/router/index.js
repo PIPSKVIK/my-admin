@@ -41,6 +41,11 @@ const router = createRouter({
       path: "/profile",
       name: "Profile",
       component: Profile,
+      beforeEnter: (to, from) => {
+        if (!localStorage.getItem("login") && to.name !== 'SignIn') {
+          return { name: 'SignIn' }
+        }
+      }
     },
     {
       path: "/setting",

@@ -5,14 +5,15 @@
       <p class="signup__form-subtitle mb-2">
         Make your app management easy and fun!
       </p>
-      <BaseField class="mb-2" name="UserName" inputSize="1" v-model="name" />
-      <BaseField class="mb-2" name="email" inputSize="1" v-model="email" />
+      <BaseField class="mb-2" name="UserName" inputSize="1" v-model="name" placeholder="name" />
+      <BaseField class="mb-2" name="email" inputSize="1" v-model="email" placeholder="email" />
       <BaseField
         class="mb-1"
         name="password"
         inputSize="1"
         v-model="password"
         type="password"
+        placeholder="password"
       />
       <BaseButton class="mb-2" size="full" @click.prevent="formSubmit">
         Sign Up

@@ -5,13 +5,14 @@
       <p class="mb-2 signin__form-subtitle">
         Please sign-in to your account and start the adventure
       </p>
-      <BaseField class="mb-2" name="email" v-model="email" inputSize="1" />
+      <BaseField class="mb-2" name="email" v-model="email" inputSize="1" placeholder="email" />
       <BaseField
         class="mb-1"
         name="password"
         v-model="password"
         inputSize="1"
         type="password"
+        placeholder="password"
       />
       <BaseButton class="mb-1" size="full" @click.prevent="formSubmit">
         Sign In

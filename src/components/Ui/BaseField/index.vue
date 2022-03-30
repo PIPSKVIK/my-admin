@@ -11,12 +11,14 @@
     >
       {{ name }}
     </label>
-    <input
+    <component
+      :is="multiline ? 'textarea' : 'input'"
       :style="{ 'padding': `${inputSize}rem` }"
       :class="[
         'base-input__input',
         { disabled: disabled },
-        { error: error }
+        { error: error },
+        { 'base-input__input-multiline': multiline }
       ]"
       :id="name"
       :type="type"
@@ -58,6 +60,10 @@ defineProps({
   placeholder: {
     type: String,
     default: ""
+  },
+  multiline: {
+    type: Boolean,
+    default: false
   }
 });
 </script>
@@ -109,6 +115,10 @@ $b: ".base-input";
         outline-color: var(--color-error);
       }
     }
+  }
+
+  &__input-multiline {
+    height: 100px;
   }
 }
 </style>

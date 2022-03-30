@@ -1,22 +1,25 @@
 <template>
   <button class="nav-profile-icon btn-reset">
-    <div :class="[
-      'nav-profile-icon__item',
-      { 'nav-profile-icon__item--profile': profile }
-    ]">
+    <div
+      :class="[
+        'nav-profile-icon__item',
+        { 'nav-profile-icon__item--profile': profile },
+      ]"
+    >
       <img
+        ref="img"
         :class="[
           'nav-profile-icon__item-img',
-          { 'nav-profile-icon__item-img--profile': profile }
+          { 'nav-profile-icon__item-img--profile': profile },
         ]"
-        src="https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/1.e2938115.png"
+        :src="selectImage ? selectImage : loaderImg"
         alt="img"
       />
       <div
         v-if="!profile"
         :class="[
           'nav-profile-icon__item-online-status',
-          { 'nav-profile-icon__item-online-status--offline': !isLoggedIn }
+          { 'nav-profile-icon__item-online-status--offline': !isLoggedIn },
         ]"
       ></div>
     </div>
@@ -24,20 +27,46 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, watch, ref, onMounted } from "vue";
 import { useStore } from "vuex";
+import { logo1, logo2, logo3 } from "@/assets/images/profileLogos";
+import loaderImg from "@/assets/images/svg/loading.svg";
 
 const store = useStore();
 const isLoggedIn = computed(() => store.state.auth.isLoggedIn);
-defineProps({
+
+const props = defineProps({
   offlineStat: {
     type: Boolean,
-    default: false
+    default: false,
   },
   profile: {
     type: Boolean,
-    default: false
+    default: false,
+  },
+  profileImg: {
+    type: [Number, String],
+  },
+});
+
+const userInfo = computed(() => store.getters["userInfo/getUserInfo"]);
+
+const selectImage = computed(() => {
+  if (userInfo.value?.avatar == 1) {
+    return logo1;
+  } else if (userInfo.value?.avatar == 2) {
+    return logo2;
+  } else if (userInfo.value?.avatar == 3) {
+    return logo3;
   }
+});
+
+const getUserIngo = async () => {
+  await store.dispatch("userInfo/getUserData");
+};
+
+onMounted(() => {
+  getUserIngo();
 });
 </script>
 

@@ -24,9 +24,7 @@
           </ul>
         </div>
         <div class="profile-info__footer">
-          <BaseButton @click.stop="trigger">
-            Edit Profile
-          </BaseButton>
+          <BaseButton @click.stop="trigger"> Edit Profile </BaseButton>
         </div>
       </div>
       <div class="profile-page__right">
@@ -52,21 +50,22 @@
                 name="last name"
                 v-model="LastName"
                 inputSize="0.5"
-                :placeholder="userInfo?.LastName || '...'"
+                placeholder="last name"
               />
               <BaseField
                 class="mb-2"
                 name="phone"
                 v-model="phone"
                 inputSize="0.5"
-                :placeholder="userInfo?.phone || '...'"
+                placeholder="phone"
               />
               <BaseField
                 class="mb-2"
-                name="language"
-                v-model="language"
+                name="description"
+                v-model="description"
                 inputSize="0.5"
-                :placeholder="userInfo?.language || '...'"
+                placeholder="description"
+                multiline
               />
             </div>
             <div class="profile-page__form-fields-right">
@@ -75,28 +74,35 @@
                 name="country"
                 v-model="country"
                 inputSize="0.5"
-                :placeholder="userInfo?.country || '...'"
+                placeholder="country"
+              />
+              <BaseField
+                class="mb-2"
+                name="language"
+                v-model="language"
+                inputSize="0.5"
+                placeholder="language"
               />
               <BaseField
                 class="mb-2"
                 name="gender"
                 v-model="gender"
                 inputSize="0.5"
-                :placeholder="userInfo?.gender || '...'"
-              />
-              <BaseField
-                class="mb-2"
-                name="description"
-                v-model="description"
-                inputSize="0.5"
-                :placeholder="userInfo?.description || '...'"
+                placeholder="gender"
               />
               <BaseField
                 class="mb-2"
                 name="website"
                 v-model="website"
                 inputSize="0.5"
-                :placeholder="userInfo?.website || '...'"
+                placeholder="website"
+              />
+              <BaseField
+                class="mb-2"
+                name="avatar"
+                v-model="avatar"
+                inputSize="0.5"
+                placeholder="avatar"
               />
             </div>
           </div>
@@ -112,27 +118,37 @@
 <script setup>
 import { close } from "@/helpers";
 import { BaseField, BaseButton, BaseLoader, BaseModal } from "@/components/Ui";
-import { UserProfileActivityTimeline } from '@/components/UserProfile'
+import { UserProfileActivityTimeline } from "@/components/UserProfile";
 import { AppNavProfileIcon } from "@/components/NavigationMenu";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
+const { isVisible, trigger } = close(".profile-page__profile-modal");
 
 const displayName = computed(() => store.state.auth.user?.displayName);
 const userInfo = computed(() => store.getters["userInfo/getUserInfo"]);
 
-const { isVisible, trigger } = close(".profile-page__profile-modal");
-
 const isLoading = ref(false);
 
 const editProfileModal = ref(false);
-const LastName = ref(userInfo.value?.LastName);
-const phone = ref(userInfo.value?.phone);
-const language = ref(userInfo.value?.language);
-const country = ref(userInfo.value?.country);
-const gender = ref(userInfo.value?.gender);
-const description = ref(userInfo.value?.description);
-const website = ref(userInfo.value?.website);
+const LastName = ref("");
+const phone = ref("");
+const language = ref("");
+const country = ref("");
+const gender = ref("");
+const description = ref("");
+const website = ref("");
+const avatar = ref("");
+
+watch(userInfo, (value) => {
+  LastName.value = value?.LastName;
+  phone.value = value?.phone;
+  language.value = value?.language;
+  country.value = value?.country;
+  gender.value = value?.gender;
+  description.value = value?.description;
+  (website.value = value?.website), (avatar.value = value?.avatar);
+});
 
 const formSubmit = async () => {
   const formData = {
@@ -143,9 +159,10 @@ const formSubmit = async () => {
     gender: gender.value,
     description: description.value,
     website: website.value,
+    avatar: avatar.value,
   };
   isLoading.value = true;
-  store.dispatch("notification/addSuccessNotification", "add info");
+  store.dispatch("notification/addSuccessNotification", "Update info");
   try {
     await store.dispatch("userInfo/setUserData", formData);
   } catch (error) {
@@ -155,6 +172,7 @@ const formSubmit = async () => {
     );
   } finally {
     isLoading.value = false;
+    isVisible.value = false;
   }
 };
 
@@ -213,7 +231,6 @@ $b: ".profile-page";
   }
 
   &__form {
-
   }
   &__form-title {
     text-align: center;
@@ -225,7 +242,6 @@ $b: ".profile-page";
   &__form-fields-left {
     flex: 1;
     margin-right: 1rem;
-
   }
   &__form-fields-right {
     flex: 1;
