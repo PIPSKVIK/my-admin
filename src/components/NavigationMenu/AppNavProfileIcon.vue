@@ -7,7 +7,6 @@
       ]"
     >
       <img
-        ref="img"
         :class="[
           'nav-profile-icon__item-img',
           { 'nav-profile-icon__item-img--profile': profile },
@@ -27,7 +26,7 @@
 </template>
 
 <script setup>
-import { computed, watch, ref, onMounted } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { logo1, logo2, logo3 } from "@/assets/images/profileLogos";
 import loaderImg from "@/assets/images/svg/loading.svg";
@@ -43,9 +42,6 @@ const props = defineProps({
   profile: {
     type: Boolean,
     default: false,
-  },
-  profileImg: {
-    type: [Number, String],
   },
 });
 

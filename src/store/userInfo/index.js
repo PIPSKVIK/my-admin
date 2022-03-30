@@ -24,17 +24,22 @@ const actions = {
   getUserTimeline(context) {
     auth.onAuthStateChanged((user) => {
       const dbRef = ref(db);
-      get(child(dbRef, `users/${user.uid}/activity-tymeline`)).then((snapshot) => {
-        if (snapshot.exists()) {
-          const arr = Object.keys(snapshot.val()).map((key => ({ ...snapshot.val()[key], id: key })))
-          context.commit("GET_USR_TIMELINE", arr.reverse())
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-    })
+      get(child(dbRef, `users/${user.uid}/activity-tymeline`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            const arr = Object.keys(snapshot.val()).map((key) => ({
+              ...snapshot.val()[key],
+              id: key,
+            }));
+            context.commit("GET_USR_TIMELINE", arr.reverse());
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
   },
 
   async setUserData(
@@ -82,8 +87,8 @@ const getters = {
   },
 
   getUserTimeline(state) {
-    return state.userTimeline
-  }
+    return state.userTimeline;
+  },
 };
 
 export default {
