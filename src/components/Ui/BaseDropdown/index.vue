@@ -24,7 +24,7 @@
           @click="selectOption(item)"
         >
           <div class="drop-options__image-wrap mr-1">
-            <img :src="userImage" alt="" />
+            <img :src="item.url" alt="" />
           </div>
           <div class="drop-options__select">
             <span class="s-1">{{ item.name }}</span>
@@ -37,33 +37,31 @@
 
 <script setup>
 import { BaseIcon } from "@/components/Ui";
-import { logo1, logo2, logo3 } from "@/assets/images/profileLogos";
+// import { logo1, logo2, logo3 } from "@/assets/images/profileLogos";
 import { ref, computed, defineProps, defineEmits } from "vue";
 
+const emit = defineEmits(["selectedItem"]);
 const props = defineProps({
   options: {
     type: Array,
     default: () => []
   }
 });
-
-const emit = defineEmits(["selectedItem"]);
+const open = ref(false);
+const selected = ref("Lol");
 
 function selectOption(option) {
   selected.value = option.name;
   emit("selectedItem", option);
 }
 
-const open = ref(false);
-const selected = ref("logo1");
-
 const userImage = computed(() => {
-  if (selected.value === "logo1") {
-    return logo1;
-  } else if (selected.value === "logo2") {
-    return logo2;
-  } else if (selected.value === "logo3") {
-    return logo3;
+  if (selected.value === "Lol") {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/6.60bb3fc7.png";
+  } else if (selected.value === "Kek") {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/2.80504cd9.png";
+  } else if (selected.value === "foo") {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/1.e2938115.png";
   }
 });
 </script>

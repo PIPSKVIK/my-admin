@@ -4,7 +4,9 @@
   </section>
 </template>
 
-<script setup></script>
+<script setup>
+const imgUrl = new URL('./img.png', import.meta.url)
+</script>
 
 <style lang="scss" scoped>
 $b: ".home-page";

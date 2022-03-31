@@ -49,11 +49,11 @@ const userInfo = computed(() => store.getters["userInfo/getUserInfo"]);
 
 const selectImage = computed(() => {
   if (userInfo.value?.avatar == 1) {
-    return logo1;
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/6.60bb3fc7.png";
   } else if (userInfo.value?.avatar == 2) {
-    return logo2;
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/2.80504cd9.png";
   } else if (userInfo.value?.avatar == 3) {
-    return logo3;
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/1.e2938115.png";
   }
 });
 

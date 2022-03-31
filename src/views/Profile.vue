@@ -135,9 +135,9 @@ const website = ref("");
 const avatar = ref("");
 
 const options = [
-  { name: "logo1", value: 1 },
-  { name: "logo2", value: 2 },
-  { name: "logo3", value: 3 }
+  { url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/6.60bb3fc7.png", value: 1, name: 'Lol' },
+  { url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/2.80504cd9.png", value: 2, name: 'Kek' },
+  { url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/1.e2938115.png", value: 3, name: 'foo' }
 ];
 
 function selectedItem(item) {
