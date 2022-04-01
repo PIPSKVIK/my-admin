@@ -74,6 +74,9 @@
 
   // overflow-color
   --bag-overflow: rgba(33, 33, 33, 0.46);
+
+  // timer-color
+  --color-timer: #00ff66;
 }
 
 [data-theme="light"] {
@@ -91,6 +94,7 @@
   --input-disable: #c9c9c9;
   --color-error: #ff0000;
   --base-link-color-hover: #d6d6d6;
+  --color-timer: #000000;
 }
 
 // Usage Media

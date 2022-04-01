@@ -27,7 +27,7 @@ function getNow() {
 $b: ".real-time";
 
 #{$b} {
-  color: var(--btn-color-blue);
+  color: var(--color-timer);
   font-size: 1rem;
   font-weight: 600;
 }

@@ -7,6 +7,8 @@ import BaseIcon from "./BaseIcon/index.vue";
 import BaseButtonIcon from "./BaseButtonIcon/index.vue";
 import BaseToastList from "./BaseToastList/index.vue";
 import BaseModal from "./BaseModal/index.vue";
+import BaseCheckbox from "./BaseCheckbox/index.vue";
+import BaseLabel from "./BaseLabel/index.vue";
 
 export {
   BaseField,
@@ -18,4 +20,6 @@ export {
   BaseButtonIcon,
   BaseToastList,
   BaseModal,
+  BaseCheckbox,
+  BaseLabel,
 };

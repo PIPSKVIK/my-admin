@@ -1,11 +1,23 @@
 <template>
   <section class="home-page">
     <h1 class="home-page__title">Home Page</h1>
+
+    <BaseCheckbox
+      class="mr-4"
+      id="checkbox-1"
+      v-model="checkbox"
+    >
+      Checkbox1
+    </BaseCheckbox>
+    <div>{{ checkbox }}</div>
   </section>
 </template>
 
 <script setup>
-const imgUrl = new URL('./img.png', import.meta.url)
+import { ref } from 'vue';
+import { BaseCheckbox } from '@/components/Ui';
+
+const checkbox = ref(false);
 </script>
 
 <style lang="scss" scoped>
