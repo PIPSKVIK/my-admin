@@ -9,14 +9,19 @@
         </div>
         <div class="profile-info__body">
           <h3>Details:</h3>
-          <BaseLoader class="profile-info__body-loader" :visible="!userInfo" />
+          <BaseLoader
+            class="profile-info__body-loader"
+            :visible="!userInfo"
+          />
           <ul class="profile-info__body-list">
             <li
               v-for="(item, key) in userInfo"
               :key="key"
               class="profile-info__body-item"
             >
-              <span class="profile-info__body-item-title s-1">{{ key }}: </span>
+              <span class="profile-info__body-item-title s-1"
+                >{{ key }}:
+              </span>
               <span class="profile-info__body-item-value s-1">
                 {{ item || "..." }}
               </span>
@@ -97,7 +102,11 @@
                 inputSize="0.5"
                 placeholder="website"
               />
-              <BaseDropdown :options="options" @selectedItem="selectedItem" />
+              <ImageDropDown
+                :options="options"
+                @selectedItem="selectedItem"
+                :currentSelect="avatar"
+              />
             </div>
           </div>
           <BaseButton size="sm" @click.prevent="formSubmit">
@@ -111,7 +120,13 @@
 
 <script setup>
 import { close } from "@/helpers";
-import { BaseField, BaseButton, BaseLoader, BaseModal, BaseDropdown } from "@/components/Ui";
+import {
+  BaseField,
+  BaseButton,
+  BaseLoader,
+  BaseModal
+} from "@/components/Ui";
+import { ImageDropDown } from "../components/UiAdmin";
 import { UserProfileActivityTimeline } from "@/components/UserProfile";
 import { AppNavProfileIcon } from "@/components/NavigationMenu";
 import { computed, onMounted, ref, watch } from "vue";
@@ -135,16 +150,41 @@ const website = ref("");
 const avatar = ref("");
 
 const options = [
-  { url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/6.60bb3fc7.png", value: 1, name: 'Lol' },
-  { url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/2.80504cd9.png", value: 2, name: 'Kek' },
-  { url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/1.e2938115.png", value: 3, name: 'foo' }
+  {
+    url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/6.60bb3fc7.png",
+    value: 1
+  },
+  {
+    url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/2.80504cd9.png",
+    value: 2
+  },
+  {
+    url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/1.e2938115.png",
+    value: 3
+  },
+  {
+    url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/8.527b8f8b.png",
+    value: 4
+  },
+  {
+    url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/5.449c175c.png",
+    value: 5
+  },
+  {
+    url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/7.40de7798.png",
+    value: 6
+  },
+  {
+    url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/3.4b40af12.png",
+    value: 7
+  }
 ];
 
 function selectedItem(item) {
-  avatar.value = item.value
+  avatar.value = item.value;
 }
 
-watch(userInfo, (value) => {
+watch(userInfo, value => {
   LastName.value = value?.LastName;
   phone.value = value?.phone;
   language.value = value?.language;
@@ -163,7 +203,7 @@ const formSubmit = async () => {
     gender: gender.value,
     description: description.value,
     website: website.value,
-    avatar: avatar.value,
+    avatar: avatar.value
   };
   isLoading.value = true;
   store.dispatch("notification/addSuccessNotification", "Update info");

@@ -12,7 +12,7 @@
       <img :src="userImage" alt="" />
     </div>
     <div class="base-dropdown__select">
-      <span class="s-1">{{ selected }}</span>
+      <span class="s-1">---------</span>
     </div>
 
     <transition name="fade">
@@ -27,7 +27,7 @@
             <img :src="item.url" alt="" />
           </div>
           <div class="drop-options__select">
-            <span class="s-1">{{ item.name }}</span>
+            <span class="s-1">---------</span>
           </div>
         </div>
       </div>
@@ -37,31 +37,41 @@
 
 <script setup>
 import { BaseIcon } from "@/components/Ui";
-// import { logo1, logo2, logo3 } from "@/assets/images/profileLogos";
 import { ref, computed, defineProps, defineEmits } from "vue";
-
 const emit = defineEmits(["selectedItem"]);
 const props = defineProps({
   options: {
     type: Array,
     default: () => []
+  },
+  currentSelect: {
+    type: [Number, String],
+    required: true,
   }
 });
 const open = ref(false);
-const selected = ref("Lol");
+const selected = ref(props.currentSelect);
 
 function selectOption(option) {
-  selected.value = option.name;
+  selected.value = option.value;
   emit("selectedItem", option);
 }
 
 const userImage = computed(() => {
-  if (selected.value === "Lol") {
+  if (selected.value == 1) {
     return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/6.60bb3fc7.png";
-  } else if (selected.value === "Kek") {
+  } else if (selected.value == 2) {
     return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/2.80504cd9.png";
-  } else if (selected.value === "foo") {
+  } else if (selected.value == 3) {
     return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/1.e2938115.png";
+  } else if (selected.value == 4) {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/8.527b8f8b.png";
+  } else if (selected.value == 5) {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/5.449c175c.png";
+  } else if (selected.value == 6) {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/7.40de7798.png";
+  } else if (selected.value == 7) {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/3.4b40af12.png";
   }
 });
 </script>

@@ -11,23 +11,23 @@
 </template>
 
 <script setup>
-import loadingIcon from '@/components/icons/loadingIcon.vue'
+import loadingIcon from "@/components/icons/loadingIcon.vue";
+import { defineProps } from "vue";
 
 const props = defineProps({
   visible: {
     type: Boolean,
-    default: true,
+    default: true
   },
   size: {
     type: [Number, String],
-    default: 80,
+    default: 80
   },
   full: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
-
 </script>
 
 <style lang="scss" scoped>

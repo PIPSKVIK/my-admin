@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, defineProps } from "vue";
 import { BaseLoader } from "@/components/Ui";
 
 const props = defineProps({
@@ -42,6 +42,11 @@ const disabled = computed(() => {
     "base-button__disabled": props.disabled
   }
 });
+</script>
+<script>
+  export default {
+    name: 'BaseButton'
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, defineProps } from "vue";
 import { useStore } from "vuex";
 import { logo1, logo2, logo3 } from "@/assets/images/profileLogos";
 import loaderImg from "@/assets/images/svg/loading.svg";
@@ -54,6 +54,14 @@ const selectImage = computed(() => {
     return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/2.80504cd9.png";
   } else if (userInfo.value?.avatar == 3) {
     return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/1.e2938115.png";
+  } else if (userInfo.value?.avatar == 4) {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/8.527b8f8b.png";
+  } else if (userInfo.value?.avatar == 5) {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/5.449c175c.png";
+  } else if (userInfo.value?.avatar == 6) {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/7.40de7798.png";
+  } else if (userInfo.value?.avatar == 7) {
+    return "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/3.4b40af12.png";
   }
 });
 

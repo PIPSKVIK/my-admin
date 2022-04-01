@@ -1,5 +1,11 @@
+<template>
+  <router-link :to="to" class="tab-link" :class="classStyle">
+    <slot />
+  </router-link>
+</template>
+
 <script setup>
-import { computed } from "vue";
+import { computed, defineProps } from "vue";
 
 const props = defineProps({
   to: {
@@ -18,12 +24,6 @@ const classStyle = computed(() => {
   };
 });
 </script>
-
-<template>
-  <router-link :to="to" class="tab-link" :class="classStyle">
-    <slot />
-  </router-link>
-</template>
 
 <style lang="scss" scoped>
 $b: ".tab-link";

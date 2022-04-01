@@ -67,6 +67,11 @@ defineProps({
   }
 });
 </script>
+<script>
+  export default {
+    name: 'BaseField'
+  }
+</script>
 
 <style lang="scss" scoped>
 $b: ".base-input";
