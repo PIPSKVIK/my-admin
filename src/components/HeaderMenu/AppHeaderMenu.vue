@@ -1,7 +1,12 @@
 <template>
   <header class="app-header">
     <div class="app-header__wraper">
-      <RealeTimeView />
+      <div class="app-header__left">
+        <router-link to="/" class="app-header__left-main-logo mr-2">
+          <BaseIcon svgName="main-logo" width="50" height="50" />
+        </router-link>
+        <RealeTimeView class="app-header__left-time" />
+      </div>
       <div class="app-header__right">
         <AppColorMode class="mr-1" />
         <AppNotification class="mr-1" />
@@ -22,11 +27,9 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { RealeTimeView } from '@/components/UiAdmin';
-import {
-  AppColorMode,
-  AppNotification,
-} from "@/components/HeaderMenu";
+import { RealeTimeView } from "@/components/UiAdmin";
+import { BaseIcon } from "@/components/Ui";
+import { AppColorMode, AppNotification } from "@/components/HeaderMenu";
 import {
   AppNavProfileIcon,
   AppNavProfileMenu,
@@ -70,6 +73,21 @@ $b: ".app-header";
     }
   }
 
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+  &__left-time {
+    @include sm-mobile {
+      display: none;
+    }
+  }
+  &__left-main-logo {
+    @include anim-default;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
   &__right {
     display: flex;
     align-items: center;
