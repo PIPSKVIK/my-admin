@@ -1,7 +1,7 @@
 <template>
   <header class="app-header">
     <div class="app-header__wraper">
-      <AppHeaderSearch />
+      <RealeTimeView />
       <div class="app-header__right">
         <AppColorMode class="mr-1" />
         <AppNotification class="mr-1" />
@@ -22,9 +22,9 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { RealeTimeView } from '@/components/UiAdmin';
 import {
   AppColorMode,
-  AppHeaderSearch,
   AppNotification,
 } from "@/components/HeaderMenu";
 import {

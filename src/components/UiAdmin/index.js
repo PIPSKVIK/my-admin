@@ -1,3 +1,4 @@
 import ImageDropDown from "./ImageDropDown.vue";
+import RealeTimeView from './RealeTimeView.vue'
 
-export { ImageDropDown };
+export { ImageDropDown, RealeTimeView };
