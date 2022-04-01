@@ -56,6 +56,7 @@ const actions = {
       description,
       website,
       avatar,
+      bill: 100000,
     });
   },
 

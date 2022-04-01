@@ -39,7 +39,7 @@ onMounted(() => {
 $b: ".activity-timeline";
 
 #{$b} {
-  min-width: 472px;
+  width: 100%;
   padding: 1rem;
   margin-right: 1rem;
   background-color: var(--color-background-soft);

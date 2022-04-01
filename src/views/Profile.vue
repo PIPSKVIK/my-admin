@@ -282,6 +282,10 @@ $b: ".profile-page";
     }
   }
 
+  &__right {
+    width: 100%;
+  }
+
   &__form {
   }
   &__form-title {
