@@ -12,7 +12,7 @@
       <img :src="userImage" alt="" />
     </div>
     <div class="base-dropdown__select">
-      <span class="s-1">---------</span>
+      <!-- <span class="s-1">---------</span> -->
     </div>
 
     <transition name="fade">
@@ -27,7 +27,7 @@
             <img :src="item.url" alt="" />
           </div>
           <div class="drop-options__select">
-            <span class="s-1">---------</span>
+            <!-- <span class="s-1">---------</span> -->
           </div>
         </div>
       </div>

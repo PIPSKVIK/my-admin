@@ -109,9 +109,14 @@
               />
             </div>
           </div>
-          <BaseButton size="sm" @click.prevent="formSubmit">
-            update info
-          </BaseButton>
+          <div class="profile-page__form-actions">
+            <BaseCheckbox id="checkbox-1" v-model="checked">
+              confirm form
+            </BaseCheckbox>
+            <BaseButton size="sm" @click.prevent="formSubmit" :disabled="!checked">
+              update info
+            </BaseButton>
+          </div>
         </form>
       </template>
     </BaseModal>
@@ -124,7 +129,8 @@ import {
   BaseField,
   BaseButton,
   BaseLoader,
-  BaseModal
+  BaseModal,
+  BaseCheckbox
 } from "@/components/Ui";
 import { ImageDropDown } from "../components/UiAdmin";
 import { UserProfileActivityTimeline } from "@/components/UserProfile";
@@ -148,6 +154,7 @@ const gender = ref("");
 const description = ref("");
 const website = ref("");
 const avatar = ref("");
+const checked = ref(false);
 
 const options = [
   {
@@ -217,6 +224,7 @@ const formSubmit = async () => {
   } finally {
     isLoading.value = false;
     isVisible.value = false;
+    checked.value = false;
   }
 };
 
@@ -289,6 +297,12 @@ $b: ".profile-page";
   }
   &__form-fields-right {
     flex: 1;
+  }
+  &__form-actions {
+    display: flex;
+    margin-top: 1rem;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .profile-form {

@@ -66,6 +66,10 @@ $b: ".base-button";
   font-weight: 600;
   transition: background-color 0.2s ease;
 
+  &__disabled {
+    pointer-events:none;
+  }
+
   &:hover {
     background-color: var(--btn-color-hover);
   }

@@ -119,12 +119,12 @@ const checkboxEmit = computed({
 
   &__icon {
     border-radius: var(--radius-default);
-    border: 1px solid var(--input-outline);
+    border: 2px solid var(--input-outline);
     outline: none;
     position: absolute;
     top: 50%;
     right: 0;
-    margin-top: -0.9rem;
+    margin-top: -0.7rem;
     display: flex;
     align-items: center;
     justify-content: center;
