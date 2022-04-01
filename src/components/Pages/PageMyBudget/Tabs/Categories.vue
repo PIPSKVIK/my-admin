@@ -42,6 +42,7 @@ $b: ".categories";
 
 #{$b} {
   display: flex;
+  padding: 3rem;
   @include md-desktop {
     flex-direction: column;
   }
