@@ -6,6 +6,9 @@ import ToastService from "primevue/toastservice";
 import App from "./App.vue";
 import router from "./router";
 import store from "@/store";
+
+import VueTheMask from 'vue-the-mask'
+
 const app = createApp(App);
 
 // __________Import Global SCSS files__________
@@ -33,15 +36,15 @@ app.component("Badge", Badge);
 app.component("Avatar", Avatar);
 // __________Prime__________
 
-
+app.use(VueTheMask)
 app.use(router);
 app.use(PrimeVue);
 app.use(ToastService);
 app.use(store);
-let initApp
+let initApp;
 
 auth.onAuthStateChanged(() => {
   if (!initApp) {
     initApp = app.mount("#app");
   }
-})
+});

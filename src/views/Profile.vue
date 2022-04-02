@@ -63,6 +63,7 @@
                 v-model="phone"
                 inputSize="0.5"
                 placeholder="phone"
+                v-mask="['# (###) ### ## ##']"
               />
               <BaseField
                 class="mb-2"
@@ -113,7 +114,11 @@
             <BaseCheckbox id="checkbox-1" v-model="checked">
               confirm form
             </BaseCheckbox>
-            <BaseButton size="sm" @click.prevent="formSubmit" :disabled="!checked">
+            <BaseButton
+              size="sm"
+              @click.prevent="formSubmit"
+              :disabled="!checked"
+            >
               update info
             </BaseButton>
           </div>
