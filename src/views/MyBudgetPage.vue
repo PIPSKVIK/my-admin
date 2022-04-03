@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onBeforeMount } from "vue";
+import { ref, watch, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { AppTabLink } from "@/components/UiAdmin/Buttons";
@@ -101,7 +101,7 @@ watch(
   { immediate: true }
 );
 
-onBeforeMount(() => {
+onMounted(() => {
   store.dispatch("auth/fetchUser");
 });
 </script>

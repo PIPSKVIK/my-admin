@@ -1,8 +1,16 @@
 <template>
   <div class="counter-view">
     <div class="counter-view__left">
-      <h3 class="mb-1">Currency account</h3>
-      <p class="pb-1 counter-view__left-bill">12.0 Rub</p>
+      <h3>Currency account</h3>
+      <div class="pb-1 pt-1 counter-view__left-bill">
+        <span>USD - {{ USD }}</span>
+      </div>
+      <div class="pb-1 pt-1 counter-view__left-bill">
+        <span>RUB - {{ bill?.bill }}</span>
+      </div>
+      <BaseButtonIcon class="counter-view__left-refresh-btn" @click="updateCureency">
+        <BaseIcon svgName="refresh" />
+      </BaseButtonIcon>
     </div>
     <div class="counter-view__right">
       <h3 class="mb-1">Exchange rates</h3>
@@ -19,10 +27,41 @@
         </ul>
       </div>
     </div>
+    <BaseLoader full :visible="isLoading" />
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { BaseLoader, BaseButtonIcon, BaseIcon } from "@/components/Ui";
+import { onMounted, ref, computed, onBeforeMount } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+const currency = ref(null);
+const isLoading = ref(false);
+const bill = computed(() => store.state.userInfo.userInfo);
+const USD = computed(() =>
+  Math.floor(bill.value?.bill / currency.value?.quotes?.USDRUB)
+);
+const updateCureency = async () => {
+  isLoading.value = true;
+  try {
+    currency.value = await store.dispatch("userInfo/fetchCurrency");
+    store.dispatch(
+      "notification/addSuccessNotification",
+      "Data updated"
+    );
+  } catch (error) {
+    store.dispatch("notification/addDangerNotification", "Invalid data");
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+onBeforeMount(() => {
+  updateCureency();
+});
+</script>
 
 <style lang="scss" scoped>
 $b: ".counter-view";
@@ -34,9 +73,10 @@ $b: ".counter-view";
   }
 
   &__left {
+    position: relative;
     border-radius: var(--radius-default);
     padding: 1rem;
-    background-color: var(--color-interface-blue);
+    box-shadow: var(--box-shadow-wrapper);
     flex: 1;
     margin-right: 1rem;
     color: var(--color-white-soft);
@@ -45,21 +85,27 @@ $b: ".counter-view";
       margin-bottom: 1rem;
     }
   }
+  &__left-refresh-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
   &__left-bill {
-    border-bottom: 1px solid var(--color-text);
+    border-bottom: 1px solid var(--color-border);
   }
 
   &__right {
     border-radius: var(--radius-default);
     padding: 1rem;
-    background-color: var(--color-interface-orange);
+    box-shadow: var(--box-shadow-drop-menu);
+    box-shadow: var(--box-shadow-wrapper);
     flex: 3;
     color: var(--color-white-soft);
   }
   .exchange {
     &__header {
       display: flex;
-      border-bottom: 1px solid var(--color-separator-dark);
+      border-bottom: 1px solid var(--color-border);
       padding-bottom: 1rem;
       & li {
         width: 30%;
@@ -67,7 +113,7 @@ $b: ".counter-view";
     }
     &__row {
       display: flex;
-      border-bottom: 1px solid var(--color-separator-dark);
+      border-bottom: 1px solid var(--color-border);
       padding: 1rem 0;
       & li {
         width: 30%;

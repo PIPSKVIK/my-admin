@@ -233,11 +233,11 @@ const formSubmit = async () => {
   }
 };
 
-const getUserIngo = async () => {
+const getUserInfo = async () => {
   await store.dispatch("userInfo/getUserData");
 };
 onMounted(() => {
-  getUserIngo();
+  getUserInfo();
 });
 </script>
 
