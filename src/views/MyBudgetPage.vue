@@ -49,7 +49,9 @@
         </AppTabLink>
       </div>
       <div class="my-budget__body">
-        <component :is="tabs[currentTab]"></component>
+        <transition name="routeY" mode="out-in">
+          <component :is="tabs[currentTab]"></component>
+        </transition>
       </div>
     </div>
   </section>

@@ -13,7 +13,6 @@
         <span>{{ USD }} / USD</span>
       </div>
       <div
-
         :class="[
           'pb-1 pt-1 counter-view__left-bill',
           { 'counter-view__left-bill--disabled': !currency }
