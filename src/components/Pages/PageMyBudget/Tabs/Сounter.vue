@@ -34,7 +34,9 @@
         ]"
         @click="updateCureency"
       >
-        <BaseIcon svgName="refresh" />
+        <BaseTolltip text="to get data">
+          <BaseIcon svgName="refresh" />
+        </BaseTolltip>
       </BaseButtonIcon>
     </div>
     <div class="counter-view__right">
@@ -57,7 +59,7 @@
 </template>
 
 <script setup>
-import { BaseLoader, BaseButtonIcon, BaseIcon } from "@/components/Ui";
+import { BaseLoader, BaseButtonIcon, BaseIcon, BaseTolltip } from "@/components/Ui";
 import { onMounted, ref, computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 
