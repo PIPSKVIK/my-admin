@@ -50,3 +50,13 @@
   50%  { transform: translateX(-1rem); }
   100% { transform: translateX(0); }
 }
+
+.anin-spin {
+  animation : spin 2s linear;
+}
+@keyframes spin { 
+  100% { 
+    -webkit-transform: rotate(360deg); 
+    transform:rotate(360deg); 
+  } 
+}

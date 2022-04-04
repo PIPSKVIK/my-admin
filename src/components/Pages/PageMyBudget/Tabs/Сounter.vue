@@ -2,11 +2,23 @@
   <div class="counter-view">
     <div class="counter-view__left">
       <h3>Currency account</h3>
-      <div class="pb-1 pt-1 counter-view__left-bill" v-if="bill">
+      <div
+        :class="[
+          'pb-1 pt-1 counter-view__left-bill',
+          { 'counter-view__left-bill--disabled': !currency }
+        ]"
+        v-if="bill"
+      >
         <span>Balans: {{ bill.bill }} RUB = </span>
         <span>{{ USD }} / USD</span>
       </div>
-      <div class="pb-1 pt-1 counter-view__left-bill">
+      <div
+
+        :class="[
+          'pb-1 pt-1 counter-view__left-bill',
+          { 'counter-view__left-bill--disabled': !currency }
+        ]"
+      >
         <span v-if="currency">
           Rate-1$ = {{ currency.quotes.USDRUB }}
         </span>
@@ -16,7 +28,10 @@
         <BaseIcon svgName="arrow-right" fill="#ff4c51" />
       </div>
       <BaseButtonIcon
-        class="counter-view__left-refresh-btn"
+        :class="[
+          'counter-view__left-refresh-btn',
+          { 'anin-spin': spinRefreshBtn }
+        ]"
         @click="updateCureency"
       >
         <BaseIcon svgName="refresh" />
@@ -46,6 +61,7 @@ import { BaseLoader, BaseButtonIcon, BaseIcon } from "@/components/Ui";
 import { onMounted, ref, computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 
+const spinRefreshBtn = ref(false);
 const store = useStore();
 const currency = ref(null);
 const isLoading = ref(false);
@@ -55,6 +71,7 @@ const USD = computed(() =>
 );
 const updateCureency = async () => {
   isLoading.value = true;
+  spinRefreshBtn.value = true;
   try {
     currency.value = await store.dispatch("userInfo/fetchCurrency");
     store.dispatch(
@@ -65,6 +82,9 @@ const updateCureency = async () => {
     store.dispatch("notification/addDangerNotification", "Invalid data");
   } finally {
     isLoading.value = false;
+    setTimeout(() => {
+      spinRefreshBtn.value = false;
+    }, 2000)
   }
 }
 </script>
@@ -100,11 +120,15 @@ $b: ".counter-view";
     position: absolute;
     top: 1rem;
     right: 1rem;
+    transition: all 2s ease;
   }
   &__left-bill {
     border-bottom: 1px solid var(--color-border);
     color: var(--info);
     font-weight: 600;
+    &--disabled {
+      opacity: 0.3;
+    }
   }
 
   &__right {
