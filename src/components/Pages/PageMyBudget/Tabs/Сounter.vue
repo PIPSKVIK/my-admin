@@ -13,7 +13,7 @@
         <span v-else>Click Update info</span>
       </div>
       <div v-if="!currency" class="counter-view__left-arrow anim-move-right">
-        <BaseIcon svgName="arrow-right" />
+        <BaseIcon svgName="arrow-right" fill="#ff4c51" />
       </div>
       <BaseButtonIcon
         class="counter-view__left-refresh-btn"

@@ -123,11 +123,10 @@
     viewBox="0 0 24 24"
     width="24"
     height="24"
-    :fill="fill"
   >
     <path
       d="M1.0625 12.0117H21.5938M21.5938 12.0117L14.535 4.89844M21.5938 12.0117L14.535 19.1005"
-      stroke="black"
+      :stroke="fill"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
