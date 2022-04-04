@@ -11,6 +11,7 @@ import BaseCheckbox from "./BaseCheckbox/index.vue";
 import BaseLabel from "./BaseLabel/index.vue";
 import BaseRadio from "./BaseRadio/index.vue";
 import BaseTolltip from './BaseTolltip/index.vue';
+import BaseDropdown from "./BaseDropdown/index.vue";
 
 export {
   BaseField,
@@ -26,4 +27,5 @@ export {
   BaseLabel,
   BaseRadio,
   BaseTolltip,
+  BaseDropdown,
 };
