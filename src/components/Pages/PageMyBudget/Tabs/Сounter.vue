@@ -6,8 +6,14 @@
         <span>Balans: {{ bill.bill }} RUB = </span>
         <span>{{ USD }} / USD</span>
       </div>
-      <div class="pb-1 pt-1 counter-view__left-bill" v-if="currency">
-        Rate-1$ = {{ currency.quotes.USDRUB }}
+      <div class="pb-1 pt-1 counter-view__left-bill">
+        <span v-if="currency">
+          Rate-1$ = {{ currency.quotes.USDRUB }}
+        </span>
+        <span v-else>Click Update info</span>
+      </div>
+      <div v-if="!currency" class="counter-view__left-arrow anim-move-right">
+        <BaseIcon svgName="arrow-right" />
       </div>
       <BaseButtonIcon
         class="counter-view__left-refresh-btn"
@@ -61,10 +67,6 @@ const updateCureency = async () => {
     isLoading.value = false;
   }
 }
-
-onBeforeMount(() => {
-  updateCureency();
-});
 </script>
 
 <style lang="scss" scoped>
@@ -88,6 +90,11 @@ $b: ".counter-view";
       margin-right: 0;
       margin-bottom: 1rem;
     }
+  }
+  &__left-arrow {
+    position: absolute;
+    top: 1rem;
+    right: 3rem;
   }
   &__left-refresh-btn {
     position: absolute;

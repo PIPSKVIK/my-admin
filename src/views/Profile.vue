@@ -19,8 +19,8 @@
               :key="key"
               class="profile-info__body-item"
             >
-              <span class="profile-info__body-item-title s-1"
-                >{{ key }}:
+              <span class="profile-info__body-item-title s-1">
+                {{ key }}:
               </span>
               <span class="profile-info__body-item-value s-1">
                 {{ item || "..." }}
@@ -96,13 +96,14 @@
                 inputSize="0.5"
                 placeholder="language"
               />
-              <BaseField
-                class="mb-2"
-                name="gender"
-                v-model="gender"
-                inputSize="0.5"
-                placeholder="gender"
-              />
+              <div class="mb-2">
+                <BaseRadio class="mr-1" id="radio-1" value="male" v-model="gender">
+                  male
+                </BaseRadio>
+                <BaseRadio id="radio-2" value="female" v-model="gender">
+                  female
+                </BaseRadio>
+              </div>
               <BaseField
                 class="mb-1"
                 name="website"
@@ -142,7 +143,8 @@ import {
   BaseButton,
   BaseLoader,
   BaseModal,
-  BaseCheckbox
+  BaseCheckbox,
+  BaseRadio
 } from "@/components/Ui";
 import { ImageDropDown } from "../components/UiAdmin";
 import { UserProfileActivityTimeline } from "@/components/UserProfile";
@@ -162,7 +164,7 @@ const LastName = ref("");
 const phone = ref("");
 const language = ref("");
 const country = ref("");
-const gender = ref("");
+const gender = ref("male");
 const description = ref("");
 const website = ref("");
 const avatar = ref("");
