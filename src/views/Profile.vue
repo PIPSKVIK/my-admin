@@ -67,6 +67,13 @@
               />
               <BaseField
                 class="mb-2"
+                name="bill"
+                v-model="bill"
+                inputSize="0.5"
+                placeholder="bill"
+              />
+              <BaseField
+                class="mb-2"
                 name="description"
                 v-model="description"
                 inputSize="0.5"
@@ -160,6 +167,7 @@ const description = ref("");
 const website = ref("");
 const avatar = ref("");
 const checked = ref(false);
+const bill = ref('');
 
 const options = [
   {
@@ -204,6 +212,7 @@ watch(userInfo, value => {
   gender.value = value?.gender;
   description.value = value?.description;
   (website.value = value?.website), (avatar.value = value?.avatar);
+  bill.value = value?.bill;
 });
 
 const formSubmit = async () => {
@@ -215,7 +224,8 @@ const formSubmit = async () => {
     gender: gender.value,
     description: description.value,
     website: website.value,
-    avatar: avatar.value
+    avatar: avatar.value,
+    bill: bill.value,
   };
   isLoading.value = true;
   store.dispatch("notification/addSuccessNotification", "Update info");

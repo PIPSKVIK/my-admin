@@ -2,13 +2,17 @@
   <div class="counter-view">
     <div class="counter-view__left">
       <h3>Currency account</h3>
-      <div class="pb-1 pt-1 counter-view__left-bill">
-        <span>USD - {{ USD }}</span>
+      <div class="pb-1 pt-1 counter-view__left-bill" v-if="bill">
+        <span>Balans: {{ bill.bill }} RUB = </span>
+        <span>{{ USD }} / USD</span>
       </div>
-      <div class="pb-1 pt-1 counter-view__left-bill">
-        <span>RUB - {{ bill?.bill }}</span>
+      <div class="pb-1 pt-1 counter-view__left-bill" v-if="currency">
+        Rate-1$ = {{ currency.quotes.USDRUB }}
       </div>
-      <BaseButtonIcon class="counter-view__left-refresh-btn" @click="updateCureency">
+      <BaseButtonIcon
+        class="counter-view__left-refresh-btn"
+        @click="updateCureency"
+      >
         <BaseIcon svgName="refresh" />
       </BaseButtonIcon>
     </div>
@@ -92,6 +96,8 @@ $b: ".counter-view";
   }
   &__left-bill {
     border-bottom: 1px solid var(--color-border);
+    color: var(--info);
+    font-weight: 600;
   }
 
   &__right {

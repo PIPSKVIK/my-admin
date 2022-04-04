@@ -60,7 +60,8 @@ const actions = {
       gender,
       description,
       website,
-      avatar
+      avatar,
+      bill
     }
   ) {
     const uid = await context.dispatch("getUid");
@@ -73,7 +74,7 @@ const actions = {
       description,
       website,
       avatar,
-      bill: 100000
+      bill,
     });
   },
 
