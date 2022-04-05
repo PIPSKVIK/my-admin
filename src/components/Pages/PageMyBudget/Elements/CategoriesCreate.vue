@@ -1,7 +1,12 @@
 <template>
   <div class="categories__create">
     <form class="categories__create-form">
-      <BaseField class="mb-2" name="name" v-model="name" placeholder="name" />
+      <BaseField
+        class="mb-2"
+        name="name"
+        v-model="name"
+        placeholder="name"
+      />
       <BaseField
         class="mb-1"
         name="limit"
@@ -36,7 +41,7 @@ const options = ref([
   { name: "important", value: "danger" },
   { name: "middle", value: "info" },
   { name: "low", value: "success" },
-  { name: "minor", value: "warning" },
+  { name: "minor", value: "warning" }
 ]);
 
 function selectOption(value) {
@@ -48,7 +53,7 @@ const formSubmit = () => {
   const formData = {
     name: name.value,
     limit: limit.value,
-    priority: priority.value,
+    priority: priority.value
   };
   emits("createCategory", formData);
   name.value = "";

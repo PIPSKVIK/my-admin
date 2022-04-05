@@ -6,10 +6,16 @@
       <span class="categories-list__item">Priority</span>
     </div>
     <div class="categories-list__body-wrapper">
-      <transition-group  name="list" tag="ul">
-        <li v-for="c in categories" :key="c.id" class="categories-list__body">
+      <transition-group name="list" tag="ul">
+        <li
+          v-for="c in categories"
+          :key="c.id"
+          class="categories-list__body"
+        >
           <span class="categories-list__item s-1">{{ c.name }}</span>
-          <span class="categories-list__item s-1">{{ c.limit }}</span>
+          <span class="categories-list__item s-1">
+            {{ new Intl.NumberFormat().format(c.limit) }}
+          </span>
           <BaseChip :name="c.priority.name" :type="c.priority.value" />
           <div class="categories-list__body-actions" v-if="!disableBtn">
             <BaseButtonIcon class="mr-1" @click.stop="editCategory(c)">
@@ -17,7 +23,7 @@
                 <BaseIcon svgName="edit" />
               </BaseTolltip>
             </BaseButtonIcon>
-            <BaseButtonIcon @click.stop="deleteCategory(c.id)">
+            <BaseButtonIcon @click.stop="deleteCategory(c)">
               <BaseTolltip text="delete">
                 <BaseIcon svgName="delete" />
               </BaseTolltip>
@@ -26,31 +32,65 @@
         </li>
       </transition-group>
     </div>
+    <BaseModal
+      :modalShow="isVisible"
+      @closeModal="isVisible = false"
+      class="create-category-delete-modal"
+    >
+      <template #header>
+        <h3 class="mb-1 categories-list__modal-header">
+          {{ currentDeletecategory.name }}
+        </h3>
+        <p class="mb-1">Are you sure you want to delete a category?</p>
+      </template>
+      <template #body>
+        <div class="categories-list__modal-btn">
+          <BaseButton color="red" @click="deleteCategoryModal">Delete</BaseButton>
+          <BaseButton color="green" @click="isVisible = false">Close</BaseButton>
+        </div>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
-import { BaseIcon, BaseButtonIcon, BaseTolltip, BaseLoader, BaseChip } from "@/components/Ui";
+import { defineProps, defineEmits, ref } from "vue";
+import {
+  BaseIcon,
+  BaseButtonIcon,
+  BaseTolltip,
+  BaseLoader,
+  BaseChip,
+  BaseModal,
+  BaseButton
+} from "@/components/Ui";
+import { close } from "@/helpers";
 
+const { isVisible, trigger } = close(".create-category-delete-modal");
 const emits = defineEmits(["deleteCategory", "editCategory"]);
+const currentDeletecategory = ref("");
 
 const props = defineProps({
   categories: {
     type: Array,
-    required: true,
+    required: true
   },
   disableBtn: {
     type: Boolean,
-    default: false,
+    default: false
   }
 });
 
-const editCategory = (id) => {
-  emits("editCategory", id)
+const deleteCategoryModal = () => {
+  emits("deleteCategory", currentDeletecategory.value.id);
+  isVisible.value = false;
+}
+const editCategory = id => {
+  emits("editCategory", id);
 };
-const deleteCategory = (category) => {
-  emits("deleteCategory", category)
+const deleteCategory = category => {
+  isVisible.value = true;
+  currentDeletecategory.value = category;
 };
 </script>
 
@@ -80,8 +120,6 @@ $b: ".categories-list";
   }
   &__body-wrapper {
     padding-top: 1rem;
-    max-height: 200px;
-    overflow: scroll;
   }
   &__body-actions {
     display: flex;
@@ -89,6 +127,17 @@ $b: ".categories-list";
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  &__modal-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__modal-header {
+    color: var(--btn-color-blue);
+    text-transform: uppercase;
+    font-weight: 600;
   }
 }
 </style>

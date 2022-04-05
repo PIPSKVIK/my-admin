@@ -35,6 +35,7 @@
             placeholder="limit"
             class="mb-1"
             v-model="currentCategory.limit"
+            type="number"
           />
           <BaseDropdown
             class="mb-1"
@@ -47,7 +48,7 @@
             size="full"
             @click.prevent="editCategoryForm"
           >
-            Create category
+            Edit category
           </BaseButton>
         </form>
       </template>
