@@ -12,17 +12,6 @@
         <span>Balans: {{ bill.bill }} RUB = </span>
         <span>{{ USD }} / USD</span>
       </div>
-      <div
-        :class="[
-          'pb-1 pt-1 counter-view__left-bill',
-          { 'counter-view__left-bill--disabled': !currency }
-        ]"
-      >
-        <span v-if="currency">
-          Rate-1$ = {{ currency.quotes.USDRUB }}
-        </span>
-        <span v-else>Click Update info</span>
-      </div>
       <div v-if="!currency" class="counter-view__left-arrow anim-move-right">
         <BaseIcon svgName="arrow-right" fill="#ff4c51" />
       </div>
@@ -40,17 +29,21 @@
     </div>
     <div class="counter-view__right">
       <h3 class="mb-1">Exchange rates</h3>
-      <div class="counter-view__right-exchange exchange">
+      <div class="counter-view__right-exchange exchange" v-if="currency">
         <ul class="exchange__header">
           <li><span>currencies</span></li>
           <li><span>courses</span></li>
-          <li><span>date</span></li>
         </ul>
-        <ul class="exchange__row">
-          <li><span>rub</span></li>
-          <li><span>1212</span></li>
-          <li><span>12.12.12</span></li>
+        <ul class="exchange__row"
+          v-for="(q, key ) in currency.quotes"
+          :key="q"
+        >
+          <li><span>{{ key }}</span></li>
+          <li><span>{{ q }}</span></li>
         </ul>
+      </div>
+      <div v-else>
+        <span>Opdate info</span>
       </div>
     </div>
     <BaseLoader full :visible="isLoading" />

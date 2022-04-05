@@ -1,5 +1,6 @@
 <template>
-  <div id="app" class="app">
+  <BaseLoader full :visible="isLoading" />
+  <div id="app" class="app" v-if="!isLoading">
     <AppDrowerMenu />
     <AppHeaderMenu />
     <main class="app-main" :class="{ 'app-main--hide': !showDrowerIcon }">
@@ -19,15 +20,16 @@
 
 <script setup>
 import { RouterView } from "vue-router";
-import { onMounted, onBeforeMount } from "vue";
+import { onMounted, onBeforeMount, ref } from "vue";
 import { AppDrowerMenu } from "@/components/NavigationMenu";
 import { AppHeaderMenu } from "@/components/HeaderMenu";
-import { BaseToastList } from "@/components/Ui";
+import { BaseToastList, BaseLoader } from "@/components/Ui";
 import { windowResize } from "@/helpers";
 import { useStore } from "vuex";
 
 const triggerSize = 1200;
 const { showDrowerIcon } = windowResize(triggerSize);
+const isLoading = ref(true);
 
 onMounted(() => {
   window.innerWidth <= triggerSize
@@ -38,6 +40,9 @@ onMounted(() => {
 const store = useStore();
 onBeforeMount(() => {
   store.dispatch("auth/fetchUser");
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 500)
 });
 </script>
 
@@ -54,7 +59,6 @@ $m: ".app-main";
   min-height: 100vh;
   max-width: 100%;
   position: relative;
-  overflow: hidden;
 }
 
 #{$m} {

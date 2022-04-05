@@ -37,6 +37,7 @@ $b: ".base-tolltip";
     padding: 0.2rem 0.3rem;
     border-radius: var(--radius-default);
     white-space: nowrap;
+    z-index: 1000;
   }
 }
 </style>

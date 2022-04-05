@@ -1,9 +1,12 @@
 <template>
   <div class="base-dropdown">
     <div class="base-dropdown__button" @click="trigger">
-      <span>{{ selectItem ? selectItem : 'select item' }}</span>
+      <span>{{ selectItem ? selectItem : "select item" }}</span>
       <div
-        :class="['base-dropdown__button-icon', { 'base-dropdown__button-icon-rotate': isVisible }]"
+        :class="[
+          'base-dropdown__button-icon',
+          { 'base-dropdown__button-icon-rotate': isVisible },
+        ]"
       >
         <BaseIcon svgName="arrow" />
       </div>
@@ -24,24 +27,27 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, defineEmits } from "vue";
 import { BaseIcon } from "@/components/Ui";
 import { close } from "@/helpers";
 
+const emits = defineEmits(["selectOption"]);
 const props = defineProps({
   options: {
     type: Array,
     default: () => [],
     required: true,
-  }
-})
+  },
+});
 
-const selectItem = ref('');
+const selectItem = ref("");
 const { isVisible, trigger } = close(".base-dropdown");
+
 const selectOptionHandler = (value) => {
   selectItem.value = value.name;
   isVisible.value = false;
-}
+  emits("selectOption", value);
+};
 </script>
 
 <style lang="scss" scoped>

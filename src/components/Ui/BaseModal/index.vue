@@ -2,10 +2,10 @@
   <transition name="fade">
     <div class="base-modal" v-if="modalShow">
       <div class="base-modal__modal-mask">
-        <div 
+        <div
           :class="[
             'base-modal__modal-container',
-            `base-modal__modal-container--${modalSize}`
+            `base-modal__modal-container--${modalSize}`,
           ]"
         >
           <BaseButtonIcon
@@ -39,8 +39,8 @@ defineProps({
   },
   modalSize: {
     type: String,
-    default: ""
-  }
+    default: "",
+  },
 });
 </script>
 
@@ -72,7 +72,7 @@ $b: ".base-modal";
     &--full {
       width: 100%;
     }
-    &--md{
+    &--md {
       width: 50%;
     }
     &--sm {
@@ -90,7 +90,6 @@ $b: ".base-modal";
     margin-bottom: 2rem;
   }
   &__modal-body {
-    margin-bottom: 2rem;
   }
 }
 </style>
