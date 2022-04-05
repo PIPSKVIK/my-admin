@@ -12,6 +12,7 @@ import BaseLabel from "./BaseLabel/index.vue";
 import BaseRadio from "./BaseRadio/index.vue";
 import BaseTolltip from './BaseTolltip/index.vue';
 import BaseDropdown from "./BaseDropdown/index.vue";
+import BaseChip from './BaseChip/index.vue';
 
 export {
   BaseField,
@@ -28,4 +29,5 @@ export {
   BaseRadio,
   BaseTolltip,
   BaseDropdown,
+  BaseChip,
 };

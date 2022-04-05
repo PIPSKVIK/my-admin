@@ -9,10 +9,7 @@
         </div>
         <div class="profile-info__body">
           <h3>Details:</h3>
-          <BaseLoader
-            class="profile-info__body-loader"
-            :visible="!userInfo"
-          />
+          <BaseLoader class="profile-info__body-loader" :visible="!userInfo" />
           <ul class="profile-info__body-list">
             <li
               v-for="(item, key) in userInfo"
@@ -33,7 +30,11 @@
         </div>
       </div>
       <div class="profile-page__right">
-        <UserProfileActivityTimeline />
+        <UserProfileActivityTimeline class="mb-1" />
+        <div>
+          <h2 class="mb-1">My budget categories</h2>
+          <CategoriesList :categories="categories" disableBtn />
+        </div>
       </div>
     </div>
     <BaseLoader full :visible="isLoading" />
@@ -97,7 +98,12 @@
                 placeholder="language"
               />
               <div class="mb-2">
-                <BaseRadio class="mr-1" id="radio-1" value="male" v-model="gender">
+                <BaseRadio
+                  class="mr-1"
+                  id="radio-1"
+                  value="male"
+                  v-model="gender"
+                >
                   male
                 </BaseRadio>
                 <BaseRadio id="radio-2" value="female" v-model="gender">
@@ -144,11 +150,12 @@ import {
   BaseLoader,
   BaseModal,
   BaseCheckbox,
-  BaseRadio
+  BaseRadio,
 } from "@/components/Ui";
 import { ImageDropDown } from "../components/UiAdmin";
 import { UserProfileActivityTimeline } from "@/components/UserProfile";
 import { AppNavProfileIcon } from "@/components/NavigationMenu";
+import { CategoriesList } from "@/components/Pages/PageMyBudget/Elements";
 import { computed, onMounted, ref, watch } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
@@ -156,6 +163,7 @@ const { isVisible, trigger } = close(".profile-page__profile-modal");
 
 const displayName = computed(() => store.state.auth.user?.displayName);
 const userInfo = computed(() => store.getters["userInfo/getUserInfo"]);
+const categories = computed(() => store.getters["categoryes/getCategories"]);
 
 const isLoading = ref(false);
 
@@ -169,44 +177,44 @@ const description = ref("");
 const website = ref("");
 const avatar = ref("");
 const checked = ref(false);
-const bill = ref('');
+const bill = ref("");
 
 const options = [
   {
     url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/6.60bb3fc7.png",
-    value: 1
+    value: 1,
   },
   {
     url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/2.80504cd9.png",
-    value: 2
+    value: 2,
   },
   {
     url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/1.e2938115.png",
-    value: 3
+    value: 3,
   },
   {
     url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/8.527b8f8b.png",
-    value: 4
+    value: 4,
   },
   {
     url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/5.449c175c.png",
-    value: 5
+    value: 5,
   },
   {
     url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/7.40de7798.png",
-    value: 6
+    value: 6,
   },
   {
     url: "https://demos.themeselection.com/materio-vuetify-vuejs-admin-template/demo-3/img/3.4b40af12.png",
-    value: 7
-  }
+    value: 7,
+  },
 ];
 
 function selectedItem(item) {
   avatar.value = item.value;
 }
 
-watch(userInfo, value => {
+watch(userInfo, (value) => {
   LastName.value = value?.LastName;
   phone.value = value?.phone;
   language.value = value?.language;
@@ -250,6 +258,7 @@ const getUserInfo = async () => {
 };
 onMounted(() => {
   getUserInfo();
+  store.dispatch("categoryes/getCategory");
 });
 </script>
 

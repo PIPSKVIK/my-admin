@@ -14,6 +14,7 @@
           >
             <BaseIcon svgName="close" />
           </BaseButtonIcon>
+          <span class="base-modal__modal-close-helper s-1">Esc</span>
           <div class="base-modal__modal-header" v-if="$slots.header">
             <slot name="header" />
           </div>
@@ -84,6 +85,14 @@ $b: ".base-modal";
     position: absolute;
     right: 1rem;
     top: 1rem;
+  }
+  &__modal-close-helper {
+    position: absolute;
+    padding: 0 0.2rem;
+    right: 3rem;
+    top: 1rem;
+    border: 2px solid var(--info);
+    border-radius: var(--radius-default);
   }
 
   &__modal-header {

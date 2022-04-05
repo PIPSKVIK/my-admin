@@ -14,18 +14,34 @@
       />
     </div>
     <BaseModal
-      :modalShow="showEditModal"
+      :modalShow="isVisible"
       @closeModal="closeModalEditCategory"
       modalSize="sm"
+      class="categories__edit-modal"
     >
       <template #header>
         <span>Edit Category {{ currentCategory.name }}</span>
       </template>
       <template #body>
         <form>
-          <BaseField name="name" placeholder="name" class="mb-2" v-model="currentCategory.name" />
-          <BaseField name="limit" placeholder="limit" class="mb-2" v-model="currentCategory.limit" />
-          <BaseField name="priority" placeholder="priority" class="mb-1" v-model="currentCategory.priority" />
+          <BaseField
+            name="name"
+            placeholder="name"
+            class="mb-2"
+            v-model="currentCategory.name"
+          />
+          <BaseField
+            name="limit"
+            placeholder="limit"
+            class="mb-1"
+            v-model="currentCategory.limit"
+          />
+          <BaseDropdown
+            class="mb-1"
+            :options="options"
+            :selectItem="currentCategory.priority.name"
+            @selectOption="selectOption"
+          />
           <BaseButton
             type="submit"
             size="full"
@@ -40,19 +56,45 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import { useStore } from "vuex";
 import {
   CategoriesCreate,
   CategoriesList,
 } from "@/components/Pages/PageMyBudget/Elements";
-import { BaseLoader, BaseModal, BaseField, BaseButton } from "@/components/Ui";
+import {
+  BaseLoader,
+  BaseModal,
+  BaseField,
+  BaseButton,
+  BaseDropdown,
+} from "@/components/Ui";
+import { close } from "@/helpers";
 
+const { isVisible, trigger } = close(".categories__edit-modal");
 const store = useStore();
 const isLoading = ref(false);
 const categories = computed(() => store.getters["categoryes/getCategories"]);
 const showEditModal = ref(false);
 const currentCategory = ref("");
+
+const options = ref([
+  { name: "important", value: "danger" },
+  { name: "middle", value: "info" },
+  { name: "low", value: "success" },
+  { name: "minor", value: "warning" },
+]);
+
+watch(isVisible, (count) => {
+  if (!count) {
+    getCategory();
+  }
+});
+
+function selectOption(value) {
+  currentCategory.value.priority.name = value.name;
+  currentCategory.value.priority.value = value.value;
+}
 
 const getCategory = async () => {
   await store.dispatch("categoryes/getCategory");
@@ -96,18 +138,15 @@ const deleteCategory = async (id) => {
 
 const editCategoryShowModal = (category) => {
   currentCategory.value = category;
-  showEditModal.value = true;
+  isVisible.value = true;
 };
 
 const editCategoryForm = async () => {
   isLoading.value = true;
   try {
     await store.dispatch("categoryes/updateCategory", currentCategory.value);
-    showEditModal.value = false;
-    store.dispatch(
-      "notification/addSuccessNotification",
-      "Category updated"
-    );
+    isVisible.value = false;
+    store.dispatch("notification/addSuccessNotification", "Category updated");
   } catch (error) {
     store.dispatch(
       "notification/addDangerNotification",
@@ -119,9 +158,8 @@ const editCategoryForm = async () => {
 };
 
 const closeModalEditCategory = () => {
-  showEditModal.value = false;
-  getCategory();
-}
+  isVisible.value = false;
+};
 
 onMounted(() => {
   getCategory();
@@ -143,11 +181,15 @@ $b: ".categories";
     @include md-desktop {
       margin-right: 0;
       margin-bottom: 1rem;
+      width: 100%;
     }
   }
 
   &__list {
     width: 60%;
+    @include md-desktop {
+      width: 100%;
+    }
   }
 }
 </style>

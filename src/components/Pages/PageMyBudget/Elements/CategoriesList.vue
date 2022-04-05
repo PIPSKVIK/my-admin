@@ -10,14 +10,14 @@
         <li v-for="c in categories" :key="c.id" class="categories-list__body">
           <span class="categories-list__item s-1">{{ c.name }}</span>
           <span class="categories-list__item s-1">{{ c.limit }}</span>
-          <span class="categories-list__item s-1">{{ c.priority }}</span>
-          <div class="categories-list__body-actions">
-            <BaseButtonIcon class="mr-1" @click="editCategory(c)">
+          <BaseChip :name="c.priority.name" :type="c.priority.value" />
+          <div class="categories-list__body-actions" v-if="!disableBtn">
+            <BaseButtonIcon class="mr-1" @click.stop="editCategory(c)">
               <BaseTolltip text="edit">
                 <BaseIcon svgName="edit" />
               </BaseTolltip>
             </BaseButtonIcon>
-            <BaseButtonIcon @click="deleteCategory(c.id)">
+            <BaseButtonIcon @click.stop="deleteCategory(c.id)">
               <BaseTolltip text="delete">
                 <BaseIcon svgName="delete" />
               </BaseTolltip>
@@ -31,7 +31,7 @@
 
 <script setup>
 import { defineProps, defineEmits } from "vue";
-import { BaseIcon, BaseButtonIcon, BaseTolltip, BaseLoader } from "@/components/Ui";
+import { BaseIcon, BaseButtonIcon, BaseTolltip, BaseLoader, BaseChip } from "@/components/Ui";
 
 const emits = defineEmits(["deleteCategory", "editCategory"]);
 
@@ -40,6 +40,10 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  disableBtn: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const editCategory = (id) => {
@@ -58,6 +62,7 @@ $b: ".categories-list";
   padding: 1rem;
   box-shadow: var(--box-shadow-wrapper);
   color: var(--color-white-soft);
+  background-color: var(--color-background-soft);
 
   &__item {
     display: inline-block;

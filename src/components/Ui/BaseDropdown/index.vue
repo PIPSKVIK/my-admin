@@ -1,7 +1,7 @@
 <template>
   <div class="base-dropdown">
     <div class="base-dropdown__button" @click="trigger">
-      <span>{{ selectItem ? selectItem : "select item" }}</span>
+      <span>{{ selectItem }}</span>
       <div
         :class="[
           'base-dropdown__button-icon',
@@ -38,13 +38,16 @@ const props = defineProps({
     default: () => [],
     required: true,
   },
+  selectItem: {
+    type: String,
+    default: "Select Item"
+  }
 });
 
-const selectItem = ref("");
+const selectItemLocal = ref("");
 const { isVisible, trigger } = close(".base-dropdown");
 
 const selectOptionHandler = (value) => {
-  selectItem.value = value.name;
   isVisible.value = false;
   emits("selectOption", value);
 };
@@ -54,6 +57,8 @@ const selectOptionHandler = (value) => {
 $b: ".base-dropdown";
 
 #{$b} {
+  width: 100%;
+  position: relative;
   &__button {
     width: 100%;
     background-color: transparent;
@@ -85,6 +90,9 @@ $b: ".base-dropdown";
     margin-top: 0.1rem;
     border-radius: 0 0 var(--radius-default) var(--radius-default);
     box-shadow: var(--box-shadow-drop-menu);
+    position: absolute;
+    width: 100%;
+    top: 50px;
   }
   &__menu-item {
     cursor: pointer;
