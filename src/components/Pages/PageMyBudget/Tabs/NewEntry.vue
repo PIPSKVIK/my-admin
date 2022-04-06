@@ -7,6 +7,7 @@
           @selectOption="selectOption"
           :selectItem="state.selectItem"
           class="mb-1"
+          :error="selectItemValid"
         />
         <div class="mb-2">
           <BaseRadio
@@ -49,7 +50,7 @@
 		<!-- RIGHT -->
 		<div class="new-entry__right">
 			<code>
-				{{ state }}
+				<!-- {{ userInfo }} -->
 			</code>
 		</div>
   </div>
@@ -57,24 +58,32 @@
 
 <script setup>
 import { BaseDropdown, BaseRadio, BaseField, BaseButton } from "@/components/Ui";
-import { ref, reactive, onMounted, computed } from "vue";
+import { ref, reactive, onMounted, computed, watch } from "vue";
 import { useStore } from "vuex";
 
 const state = reactive({
-  selectItem: "selectItem",
+  selectItem: "",
   facilities: "income",
   sum: 1,
   description: "",
 });
+const selectItemValid = ref(false);
 const store = useStore();
-const selectItem = ref("selectItem");
+// const selectItem = ref("");
 const categories = computed(() => store.getters["categoryes/getCategories"]);
+const userBill = computed(() => store.getters["userInfo/getUserInfo"]?.bill);
 
 function selectOption(value) {
   state.selectItem = value.name;
 }
 function createNewEntry() {
-	console.log('Create new entry');
+  state.selectItem === '' ? selectItemValid.value = true : selectItemValid.value = false;
+
+  if (userBill.value > 0) {
+    console.log('go');
+  } else {
+    console.log('no');
+  }
 }
 
 onMounted(() => {

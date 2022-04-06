@@ -72,6 +72,7 @@ $h: ".app-header";
   will-change: box-shadow, transform !important;
   border-radius: 0 var(--radius-big) var(--radius-big) 0;
   z-index: 100;
+  position: fixed;
 
   &--hide {
     transform: translateX(-70%);

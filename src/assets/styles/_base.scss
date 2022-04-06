@@ -1,5 +1,10 @@
 @import "./media";
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
 html {
   font-size: var(--root-font-size);
   scroll-behavior: smooth;

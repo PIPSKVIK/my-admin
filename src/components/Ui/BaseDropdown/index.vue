@@ -49,7 +49,7 @@ const props = defineProps({
     default: "Select Item"
   },
   error: {
-    type: [Boolean, String, Array, Number],
+    type: Boolean,
     default: false,
   }
 });
@@ -71,6 +71,7 @@ $b: ".base-dropdown";
   position: relative;
   &__button {
     width: 100%;
+    min-height: 3rem;
     background-color: transparent;
     border: 1px solid var(--color-text-soft);
     padding: 0.5rem;
