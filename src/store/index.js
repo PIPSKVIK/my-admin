@@ -4,6 +4,7 @@ import notification from "./notification";
 import userInfo from "./userInfo";
 import budget from "./budget";
 import categoryes from "./categoryes";
+import budgetRecords from "./budgetRecords";
 
 export default createStore({
   modules: {
@@ -11,6 +12,7 @@ export default createStore({
     notification,
     userInfo,
     budget,
-    categoryes
-  }
+    categoryes,
+    budgetRecords,
+  },
 });

@@ -107,6 +107,7 @@ $b: ".base-dropdown";
     position: absolute;
     width: 100%;
     top: 50px;
+    z-index: 10000;
   }
   &__menu-item {
     cursor: pointer;
