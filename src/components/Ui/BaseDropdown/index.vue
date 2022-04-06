@@ -1,6 +1,12 @@
 <template>
   <div class="base-dropdown">
-    <div class="base-dropdown__button" @click="trigger">
+    <div
+      :class="[
+        'base-dropdown__button',
+        { 'base-dropdown__button--error': error }
+      ]"
+      @click="trigger"
+    >
       <span>{{ selectItem }}</span>
       <div
         :class="[
@@ -41,6 +47,10 @@ const props = defineProps({
   selectItem: {
     type: String,
     default: "Select Item"
+  },
+  error: {
+    type: [Boolean, String, Array, Number],
+    default: false,
   }
 });
 
@@ -72,6 +82,10 @@ $b: ".base-dropdown";
     justify-content: space-between;
     cursor: pointer;
     position: relative;
+    
+    &--error {
+      border-color: var(--danger);
+    }
   }
   &__button-icon {
     position: absolute;

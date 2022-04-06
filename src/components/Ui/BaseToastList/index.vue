@@ -1,13 +1,15 @@
 <template>
   <section class="toast-list">
-    <BaseToast
-			v-for="{ id, type, message } in notifications"
-			:key="id"
-			:type="type"
-			@remove="removeNotification(id)"
-		>
-      {{ message }}
-    </BaseToast>
+    <transition-group name="listRight" tag="div">
+      <BaseToast
+        v-for="{ id, type, message } in notifications"
+        :key="id"
+        :type="type"
+        @remove="removeNotification(id)"
+      >
+        {{ message }}
+      </BaseToast>
+    </transition-group>
   </section>
 </template>
 

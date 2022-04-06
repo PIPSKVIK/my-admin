@@ -4,15 +4,30 @@
       <BaseField
         class="mb-2"
         name="name"
-        v-model="name"
+        :error="v$.name.$errors.length"
+        v-model="v$.name.$model"
         placeholder="name"
-      />
+      >
+        <template #error>
+          <div v-for="error of v$.name.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </div>
+        </template>
+      </BaseField>
       <BaseField
         class="mb-1"
         name="limit"
-        v-model="limit"
+        :error="v$.limit.$errors.length"
+        v-model="v$.limit.$model"
         placeholder="limit"
-      />
+        type="number"
+      >
+        <template #error>
+          <div v-for="error of v$.limit.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </div>
+        </template>
+      </BaseField>
       <BaseDropdown
         class="mb-1"
         :options="options"
@@ -27,15 +42,26 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
+import useVuelidate from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
+import { ref, defineEmits, reactive } from "vue";
 import { BaseField, BaseButton, BaseDropdown } from "@/components/Ui";
 
 const emits = defineEmits(["createCategory"]);
 
-const name = ref("");
-const limit = ref("");
-const priority = ref("");
+const state = reactive({
+  name: '',
+  limit: '',
+  priority: '',
+});
+
+const rules = {
+  name: { required },
+  limit: { required },
+};
 const selectItem = ref("selectItem");
+
+const v$ = useVuelidate(rules, state);
 
 const options = ref([
   { name: "important", value: "danger" },
@@ -45,20 +71,24 @@ const options = ref([
 ]);
 
 function selectOption(value) {
-  priority.value = value;
+  state.priority = value;
   selectItem.value = value.name;
 }
 
 const formSubmit = () => {
+  v$.value.$validate();
+  if (v$.value.$invalid) return;
+
   const formData = {
-    name: name.value,
-    limit: limit.value,
-    priority: priority.value
+    name: state.name,
+    limit: state.limit,
+    priority: state.priority
   };
   emits("createCategory", formData);
-  name.value = "";
-  limit.value = "";
-  priority.value = "";
+  v$.value.$reset();
+  state.name = "";
+  state.limit = "";
+  state.priority = "";
   selectItem.value = "selectItem";
 };
 </script>

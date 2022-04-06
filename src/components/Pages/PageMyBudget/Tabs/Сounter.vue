@@ -5,7 +5,7 @@
       <div
         :class="[
           'pb-1 pt-1 counter-view__left-bill',
-          { 'counter-view__left-bill--disabled': !currency }
+          { 'counter-view__left-bill--disabled': !currency },
         ]"
         v-if="bill"
       >
@@ -18,7 +18,7 @@
       <BaseButtonIcon
         :class="[
           'counter-view__left-refresh-btn',
-          { 'anin-spin': spinRefreshBtn }
+          { 'anin-spin': spinRefreshBtn },
         ]"
         @click="updateCureency"
       >
@@ -34,12 +34,13 @@
           <li><span>currencies</span></li>
           <li><span>courses</span></li>
         </ul>
-        <ul class="exchange__row"
-          v-for="(q, key ) in currency.quotes"
-          :key="q"
-        >
-          <li><span>{{ key }}</span></li>
-          <li><span>{{ q }}</span></li>
+        <ul class="exchange__row" v-for="(q, key) in currency.quotes" :key="q">
+          <li>
+            <span>{{ key }}</span>
+          </li>
+          <li>
+            <span>{{ q }}</span>
+          </li>
         </ul>
       </div>
       <div v-else>
@@ -51,7 +52,12 @@
 </template>
 
 <script setup>
-import { BaseLoader, BaseButtonIcon, BaseIcon, BaseTolltip } from "@/components/Ui";
+import {
+  BaseLoader,
+  BaseButtonIcon,
+  BaseIcon,
+  BaseTolltip,
+} from "@/components/Ui";
 import { onMounted, ref, computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 
@@ -68,19 +74,16 @@ const updateCureency = async () => {
   spinRefreshBtn.value = true;
   try {
     currency.value = await store.dispatch("userInfo/fetchCurrency");
-    store.dispatch(
-      "notification/addSuccessNotification",
-      "Data updated"
-    );
+    store.dispatch("notification/addSuccessNotification", "Data updated");
   } catch (error) {
     store.dispatch("notification/addDangerNotification", "Invalid data");
   } finally {
     isLoading.value = false;
     setTimeout(() => {
       spinRefreshBtn.value = false;
-    }, 2000)
+    }, 2000);
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

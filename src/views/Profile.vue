@@ -72,6 +72,7 @@
                 v-model="bill"
                 inputSize="0.5"
                 placeholder="bill"
+                type="number"
               />
               <BaseField
                 class="mb-2"
