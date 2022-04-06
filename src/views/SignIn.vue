@@ -5,23 +5,43 @@
       <p class="mb-2 signin__form-subtitle">
         Please sign-in to your account and start the adventure
       </p>
-      <BaseField class="mb-2" name="email" v-model="email" inputSize="1" placeholder="email" />
+      <BaseField
+        class="mb-2"
+        name="email"
+        :error="v$.email.$errors.length"
+        v-model="v$.email.$model"
+        inputSize="1"
+        placeholder="email"
+      >
+        <template #error>
+          <div v-for="error of v$.email.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </div>
+        </template>
+      </BaseField>
       <BaseField
         class="mb-1"
         name="password"
-        v-model="password"
+        :error="v$.password.$errors.length"
+        v-model.number="v$.password.$model"
         inputSize="1"
         type="password"
         placeholder="password"
-      />
+      >
+        <template #error>
+          <div v-for="error of v$.password.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </div>
+        </template>
+      </BaseField>
       <BaseButton class="mb-1" size="full" @click.prevent="formSubmit">
         Sign In
       </BaseButton>
       <div class="signin__redirect">
         <span class="mr-1">New on our platform?</span>
-        <router-link class="signin__redirect-link" to="/signup"
-          >Create an account</router-link
-        >
+        <router-link class="signin__redirect-link" to="/signup">
+          Create an account
+        </router-link>
       </div>
     </form>
     <BaseLoader full :visible="isLoading" />
@@ -29,23 +49,37 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import useVuelidate from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
+import { ref, reactive } from "vue";
 import { BaseField, BaseButton, BaseLoader } from "@/components/Ui";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-const email = ref("");
-const password = ref("");
+const state = reactive({
+  email: "",
+  password: "",
+});
 const router = useRouter();
 const store = useStore();
 const isLoading = ref(false);
 
+const rules = {
+  email: { required, email },
+  password: { required },
+};
+
+const v$ = useVuelidate(rules, state);
+
 const formSubmit = async () => {
+  v$.value.$validate();
+  if (v$.value.$invalid) return;
+
   isLoading.value = true;
   try {
     await store.dispatch("auth/signin", {
-      email: email.value,
-      password: password.value
+      email: state.email,
+      password: state.password,
     });
     isLoading.value = false;
     store.dispatch(
@@ -56,9 +90,10 @@ const formSubmit = async () => {
   } catch (error) {
     store.dispatch("notification/addDangerNotification", "Invalid data");
   } finally {
+    v$.value.$reset();
     isLoading.value = false;
-    email.value = "";
-    password.value = "";
+    state.email = "";
+    state.password = "";
   }
 };
 </script>

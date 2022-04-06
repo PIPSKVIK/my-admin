@@ -9,7 +9,8 @@
       v-if="name"
       :for="name"
     >
-      {{ name }}
+      <span class="mr-1">{{ name }}</span>
+      <slot name="error" />
     </label>
     <component
       :is="multiline ? 'textarea' : 'input'"
@@ -46,7 +47,7 @@ defineProps({
     required: true
   },
   error: {
-    type: Boolean,
+    type: [Boolean, Number, Array, String],
     default: false
   },
   type: {
@@ -84,6 +85,7 @@ $b: ".base-input";
     top: -22px;
     position: absolute;
     font-size: 0.8rem;
+    display: flex;
 
     &.disabled {
       color: var(--input-disable);

@@ -5,17 +5,55 @@
       <p class="signup__form-subtitle mb-2">
         Make your app management easy and fun!
       </p>
-      <BaseField class="mb-2" name="UserName" inputSize="1" v-model="name" placeholder="name" />
-      <BaseField class="mb-2" name="email" inputSize="1" v-model="email" placeholder="email" />
+      <BaseField
+        class="mb-2"
+        name="UserName"
+        inputSize="1"
+        :error="v$.name.$errors.length"
+        v-model="v$.name.$model"
+        placeholder="UserName"
+      >
+        <template #error>
+          <div v-for="error of v$.name.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </div>
+        </template>
+      </BaseField>
+      <BaseField
+        class="mb-2"
+        name="email"
+        inputSize="1"
+        :error="v$.email.$errors.length"
+        v-model="v$.email.$model"
+        placeholder="email"
+      >
+        <template #error>
+          <div v-for="error of v$.email.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </div>
+        </template>
+      </BaseField>
       <BaseField
         class="mb-1"
         name="password"
         inputSize="1"
-        v-model="password"
+        :error="v$.password.$errors.length"
+        v-model="v$.password.$model"
         type="password"
         placeholder="password"
-      />
-      <BaseButton class="mb-2" size="full" @click.prevent="formSubmit">
+      >
+        <template #error>
+          <div v-for="error of v$.password.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </div>
+        </template>
+      </BaseField>
+      <BaseButton
+        type="submit"
+        class="mb-2"
+        size="full"
+        @click.prevent="formSubmit"
+      >
         Sign Up
       </BaseButton>
       <div class="signup__redirect">
@@ -30,27 +68,48 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import useVuelidate from "@vuelidate/core";
+import { required, email, minLength, maxLength } from "@vuelidate/validators";
+import { ref, reactive } from "vue";
 import { BaseField, BaseButton, BaseLoader } from "@/components/Ui";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-const email = ref("");
-const password = ref("");
-const name = ref("");
+const state = reactive({
+  email: "",
+  password: "",
+  name: "",
+});
 const store = useStore();
 const router = useRouter();
 const isLoading = ref(false);
 
+const rules = {
+  name: {
+    required,
+    maxLength: maxLength(20),
+  },
+  email: { required, email },
+  password: {
+    required,
+    minLength: minLength(6),
+    maxLength: maxLength(20)
+  },
+};
+const v$ = useVuelidate(rules, state);
+
 const formSubmit = async () => {
+  v$.value.$validate();
+  if (v$.value.$invalid) return;
+
   isLoading.value = true;
   try {
     await store.dispatch("auth/signup", {
-      email: email.value,
-      password: password.value
+      email: state.email,
+      password: state.password,
     });
     await store.dispatch("auth/updateName", {
-      name: name.value
+      name: state.name,
     });
     isLoading.value = false;
     store.dispatch("notification/addSuccessNotification", "You signed up");
@@ -61,10 +120,11 @@ const formSubmit = async () => {
       "Something went wrong"
     );
   } finally {
+    v$.value.$reset();
     isLoading.value = false;
-    email.value = "";
-    password.value = "";
-    name.value = "";
+    state.email = "";
+    state.password = "";
+    state.name = "";
   }
 };
 </script>
