@@ -112,10 +112,11 @@ function createNewEntry() {
     : (selectItemValid.value = false);
   if (v$.value.$invalid) return;
 
-  if (userBill.value > 0 && state.facilities === "income") {
-    console.log("go");
+  if ( state.sum >= userBill.value && state.facilities === "outcome") {
+    // store.dispatch("notification/addDangerNotification", "Invalid data");
+    console.log('no');
   } else {
-    store.dispatch("notification/addDangerNotification", "Invalid data");
+    console.log('go');
   }
 }
 
