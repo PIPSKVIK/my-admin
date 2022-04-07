@@ -1,7 +1,7 @@
 <template>
   <BaseLoader full :visible="isLoading" />
   <div id="app" class="app" v-if="!isLoading">
-    <AppDrowerMenu />
+    <AppDrowerMenu @showDrowerIconTriger="showDrowerIconTriger" />
     <AppHeaderMenu />
     <main class="app-main" :class="{ 'app-main--hide': !showDrowerIcon }">
       <div class="app-main__wrap">
@@ -36,6 +36,11 @@ onMounted(() => {
     ? (showDrowerIcon.value = false)
     : (showDrowerIcon.value = true);
 });
+
+function showDrowerIconTriger(value) {
+  console.log(value);
+  showDrowerIcon.value = value;
+}
 
 const store = useStore();
 onBeforeMount(() => {

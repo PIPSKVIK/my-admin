@@ -79,7 +79,7 @@ function selectOption(value) {
 function createNewEntry() {
   state.selectItem === '' ? selectItemValid.value = true : selectItemValid.value = false;
 
-  if (userBill.value > 0) {
+  if (userBill.value > 0 && state.facilities === "income") {
     console.log('go');
   } else {
     console.log('no');

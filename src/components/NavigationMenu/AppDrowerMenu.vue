@@ -1,25 +1,3 @@
-<script setup>
-import { useRouter } from "vue-router";
-import { onMounted } from "vue";
-import { windowResize } from "@/helpers";
-import { btnLinks } from "@/constants/drawerMenuLinks";
-import { BaseLink } from '@/components/Ui'
-import { HomeIcon } from '@/components/icons'
-
-const router = useRouter();
-const triggerSize = 1200;
-const { showDrowerIcon } = windowResize(triggerSize);
-
-const drowerIconHandler = () => {
-  showDrowerIcon.value = !showDrowerIcon.value;
-};
-onMounted(() => {
-  window.innerWidth <= triggerSize
-    ? (showDrowerIcon.value = false)
-    : (showDrowerIcon.value = true);
-});
-</script>
-
 <template>
   <nav
     class="app-nav-drawer"
@@ -53,6 +31,31 @@ onMounted(() => {
     </div>
   </nav>
 </template>
+
+<script setup>
+import { useRouter } from "vue-router";
+import { onMounted, defineEmits } from "vue";
+import { windowResize } from "@/helpers";
+import { btnLinks } from "@/constants/drawerMenuLinks";
+import { BaseLink } from "@/components/Ui";
+import { HomeIcon } from "@/components/icons";
+
+const emits = defineEmits(["showDrowerIconTriger"]);
+
+const router = useRouter();
+const triggerSize = 1200;
+const { showDrowerIcon } = windowResize(triggerSize);
+
+const drowerIconHandler = () => {
+  showDrowerIcon.value = !showDrowerIcon.value;
+  emits("showDrowerIconTriger", showDrowerIcon.value)
+};
+onMounted(() => {
+  window.innerWidth <= triggerSize
+    ? (showDrowerIcon.value = false)
+    : (showDrowerIcon.value = true);
+});
+</script>
 
 <style lang="scss" scoped>
 $b: ".app-nav-drawer";
