@@ -38,7 +38,6 @@ onMounted(() => {
 });
 
 function showDrowerIconTriger(value) {
-  console.log(value);
   showDrowerIcon.value = value;
 }
 

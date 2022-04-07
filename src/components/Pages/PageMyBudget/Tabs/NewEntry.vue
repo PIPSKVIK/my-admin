@@ -28,36 +28,56 @@
           </BaseRadio>
         </div>
         <BaseField
-          v-model="state.sum"
+          :error="v$.sum.$errors.length"
+          v-model="v$.sum.$model"
           name="sum"
           placeholder="sum"
           type="number"
           class="mb-2"
         >
+          <template #error>
+            <div v-for="error of v$.sum.$errors" :key="error.$uid">
+              {{ error.$message }}
+            </div>
+          </template>
         </BaseField>
         <BaseField
-          v-model="state.description"
+          :error="v$.description.$errors.length"
+          v-model="v$.description.$model"
           name="description"
           placeholder="description"
           class="mb-1"
           multiline
-        ></BaseField>
-				<BaseButton type="submit" size="full" @click.prevent="createNewEntry">
-					Create
-				</BaseButton>
+        >
+          <template #error>
+            <div v-for="error of v$.description.$errors" :key="error.$uid">
+              {{ `${error.$message} - ${state.description.length}` }}
+            </div>
+          </template>
+        </BaseField>
+        <BaseButton
+          type="submit"
+          size="full"
+          @click.prevent="createNewEntry"
+        >
+          Create
+        </BaseButton>
       </form>
     </div>
-		<!-- RIGHT -->
-		<div class="new-entry__right">
-			<code>
-				<!-- {{ userInfo }} -->
-			</code>
-		</div>
+    <!-- RIGHT -->
+    <div class="new-entry__right"></div>
   </div>
 </template>
 
 <script setup>
-import { BaseDropdown, BaseRadio, BaseField, BaseButton } from "@/components/Ui";
+import useVuelidate from "@vuelidate/core";
+import { required, maxLength } from "@vuelidate/validators";
+import {
+  BaseDropdown,
+  BaseRadio,
+  BaseField,
+  BaseButton
+} from "@/components/Ui";
 import { ref, reactive, onMounted, computed, watch } from "vue";
 import { useStore } from "vuex";
 
@@ -65,8 +85,16 @@ const state = reactive({
   selectItem: "",
   facilities: "income",
   sum: 1,
-  description: "",
+  description: ""
 });
+const rules = {
+  sum: { required },
+  description: {
+    required,
+    maxLength: maxLength(40)
+  }
+};
+const v$ = useVuelidate(rules, state);
 const selectItemValid = ref(false);
 const store = useStore();
 // const selectItem = ref("");
@@ -76,58 +104,63 @@ const userBill = computed(() => store.getters["userInfo/getUserInfo"]?.bill);
 function selectOption(value) {
   state.selectItem = value.name;
 }
+
 function createNewEntry() {
-  state.selectItem === '' ? selectItemValid.value = true : selectItemValid.value = false;
+  v$.value.$validate();
+  state.selectItem === ""
+    ? (selectItemValid.value = true)
+    : (selectItemValid.value = false);
+  if (v$.value.$invalid) return;
 
   if (userBill.value > 0 && state.facilities === "income") {
-    console.log('go');
+    console.log("go");
   } else {
-    console.log('no');
+    console.log("no");
   }
 }
 
 onMounted(() => {
-	store.dispatch("categoryes/getCategory");
-})
+  store.dispatch("categoryes/getCategory");
+});
 </script>
 
 <style lang="scss" scoped>
 $b: ".new-entry";
 
 #{$b} {
-	display: flex;
-	width: 100%;
-	@include md-desktop {
-		flex-direction: column;
-	}
+  display: flex;
+  width: 100%;
+  @include md-desktop {
+    flex-direction: column;
+  }
 
   &__left {
     width: 40%;
-		margin-right: 1rem;
+    margin-right: 1rem;
     border-radius: var(--radius-default);
     padding: 1rem;
     box-shadow: var(--box-shadow-wrapper);
     color: var(--color-white-soft);
     background-color: var(--color-background-soft);
 
-		@include md-desktop {
-			margin-right: 0;
-			margin-bottom: 1rem;
-			width: 100%;
-		}
+    @include md-desktop {
+      margin-right: 0;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
   }
 
-	&__right {
-		width: 60%;
+  &__right {
+    width: 60%;
     border-radius: var(--radius-default);
     padding: 1rem;
     box-shadow: var(--box-shadow-wrapper);
     color: var(--color-white-soft);
     background-color: var(--color-background-soft);
 
-		@include md-desktop {
-			width: 100%;
-		}
-	}
+    @include md-desktop {
+      width: 100%;
+    }
+  }
 }
 </style>
