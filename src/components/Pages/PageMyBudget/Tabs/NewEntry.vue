@@ -115,7 +115,7 @@ function createNewEntry() {
   if (userBill.value > 0 && state.facilities === "income") {
     console.log("go");
   } else {
-    console.log("no");
+    store.dispatch("notification/addDangerNotification", "Invalid data");
   }
 }
 
