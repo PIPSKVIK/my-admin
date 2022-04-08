@@ -5,7 +5,7 @@
         <BaseDropdown
           :options="categories"
           @selectOption="selectOption"
-          :selectItem="state.selectItem"
+          :selectItem="state.category"
           class="mb-1"
           :error="selectItemValid"
         />
@@ -14,7 +14,7 @@
             class="mr-1"
             id="radio-1"
             value="income"
-            v-model="state.facilities"
+            v-model="state.type"
           >
             income
           </BaseRadio>
@@ -22,7 +22,7 @@
             class="mr-1"
             id="radio-2"
             value="outcome"
-            v-model="state.facilities"
+            v-model="state.type"
           >
             outcome
           </BaseRadio>
@@ -64,8 +64,10 @@
         </BaseButton>
       </form>
     </div>
-    <!-- RIGHT -->
+
     <div class="new-entry__right"></div>
+
+    <BaseLoader full :visible="isLoading" />
   </div>
 </template>
 
@@ -76,14 +78,17 @@ import {
   BaseDropdown,
   BaseRadio,
   BaseField,
-  BaseButton
+  BaseButton,
+  BaseLoader,
 } from "@/components/Ui";
 import { ref, reactive, onMounted, computed, watch } from "vue";
 import { useStore } from "vuex";
 
+const store = useStore();
+const isLoading = ref(false);
 const state = reactive({
-  selectItem: "",
-  facilities: "income",
+  category: "",
+  type: "income",
   sum: 1,
   description: ""
 });
@@ -94,29 +99,71 @@ const rules = {
     maxLength: maxLength(40)
   }
 };
-const v$ = useVuelidate(rules, state);
-const selectItemValid = ref(false);
-const store = useStore();
-// const selectItem = ref("");
+function selectOption(value) {
+  state.category = value.name;
+}
 const categories = computed(() => store.getters["categoryes/getCategories"]);
 const userBill = computed(() => store.getters["userInfo/getUserInfo"]?.bill);
+const userInfo = computed(() => store.getters["userInfo/getUserInfo"]);
 
-function selectOption(value) {
-  state.selectItem = value.name;
-}
+const v$ = useVuelidate(rules, state);
+const selectItemValid = ref(false);
+// Pay check
+const canCreateRecord = computed(() => {
+  if (state.type === "income") {
+    return true;
+  }
+  return +userBill.value >= state.sum;
+});
 
-function createNewEntry() {
+async function createNewEntry() {
+  // form validation
   v$.value.$validate();
   state.selectItem === ""
     ? (selectItemValid.value = true)
     : (selectItemValid.value = false);
   if (v$.value.$invalid) return;
 
-  if ( state.sum >= userBill.value && state.facilities === "outcome") {
-    // store.dispatch("notification/addDangerNotification", "Invalid data");
-    console.log('no');
+  if (canCreateRecord.value) {
+    isLoading.value = true;
+    try {
+      await store.dispatch("budgetRecords/createNewRecord", {
+        ...state,
+        date: new Date().toJSON()
+      });
+      const bill =
+        state.type === "income"
+          ? +userBill.value + +state.sum
+          : +userBill.value - +state.sum;
+
+      await store.dispatch("userInfo/setUserData", {
+        ...userInfo.value,
+        bill
+      });
+      store.dispatch(
+        "notification/addSuccessNotification",
+        "New record created! ☺️"
+      );
+    } catch (error) {
+      store.dispatch(
+        "notification/addDangerNotification",
+        "New record not created!"
+      );
+    } finally {
+      v$.value.$reset();
+      isLoading.value = false;
+      state.category = '';
+      state.type = "income";
+      state.sum = 1;
+      state.description = "";
+    }
+
+
   } else {
-    console.log('go');
+    store.dispatch(
+      "notification/addDangerNotification",
+      `Not enough money ${state.sum - +userBill.value}`
+    );
   }
 }
 

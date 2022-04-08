@@ -178,7 +178,7 @@ const description = ref("");
 const website = ref("");
 const avatar = ref("");
 const checked = ref(false);
-const bill = ref("");
+const bill = ref(1);
 
 const options = [
   {
