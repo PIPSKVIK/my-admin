@@ -10,9 +10,12 @@ import BaseModal from "./BaseModal/index.vue";
 import BaseCheckbox from "./BaseCheckbox/index.vue";
 import BaseLabel from "./BaseLabel/index.vue";
 import BaseRadio from "./BaseRadio/index.vue";
-import BaseTolltip from './BaseTolltip/index.vue';
+import BaseTolltip from "./BaseTolltip/index.vue";
 import BaseDropdown from "./BaseDropdown/index.vue";
-import BaseChip from './BaseChip/index.vue';
+import BaseChip from "./BaseChip/index.vue";
+import BaseDataTableApp from "./BaseDataTable/BaseDataTableApp.vue";
+import BaseDataTableHeader from "./BaseDataTable/BaseDataTableHeader.vue";
+import BaseDataTableItem from "./BaseDataTable/BaseDataTableItem.vue";
 
 export {
   BaseField,
@@ -30,4 +33,7 @@ export {
   BaseTolltip,
   BaseDropdown,
   BaseChip,
+  BaseDataTableApp,
+  BaseDataTableHeader,
+  BaseDataTableItem
 };
