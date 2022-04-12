@@ -1,10 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import {
-  MyBudgetPage,
   HomePage,
   MyNotifications,
   SignIn,
-  SignUp,
   Profile,
   SettingPage
 } from "../views";
@@ -18,11 +16,6 @@ const router = createRouter({
       component: HomePage
     },
     {
-      path: "/my-budget",
-      name: "MyBudget",
-      component: MyBudgetPage
-    },
-    {
       path: "/my-notifications",
       name: "MyNotifications",
       component: MyNotifications
@@ -33,19 +26,9 @@ const router = createRouter({
       component: SignIn
     },
     {
-      path: "/signup",
-      name: "SignUp",
-      component: SignUp
-    },
-    {
       path: "/profile",
       name: "Profile",
       component: Profile,
-      beforeEnter: (to, from) => {
-        if (!localStorage.getItem("login") && to.name !== 'SignIn') {
-          return { name: 'SignIn' }
-        }
-      }
     },
     {
       path: "/setting",

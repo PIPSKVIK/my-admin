@@ -3,7 +3,7 @@
     <div class="profile-menu__header header-item pb-1 pr-1">
       <AppNavProfileIcon class="mr-1 ml-1" />
       <span class="header-item__user-name">
-        {{ displayName ? displayName : "User not logged in" }}
+        User
       </span>
     </div>
     <div class="profile-menu__body">
@@ -24,7 +24,6 @@
         color="yellow"
         size="full"
         @click="logOut"
-        :disabled="!displayName"
       >
         Log out
       </BaseButton>
@@ -49,15 +48,10 @@ const links = ref([
 ]);
 const router = useRouter();
 const store = useStore();
-const displayName = computed(() => store.state.auth.user?.displayName);
+
 const logOut = () => {
-  router.push("/signin");
-  store.dispatch("auth/logout");
-  emit('closeProfileMenu')
-};
-onBeforeMount(() => {
-  store.dispatch("auth/fetchUser");
-});
+  console.log('Log out');
+}
 </script>
 
 <style lang="scss" scoped>

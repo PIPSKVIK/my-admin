@@ -1,3 +1,20 @@
+<template>
+  <div class="app-color">
+    <Button
+      v-if="lightMode"
+      @click="changeLightMode"
+      icon="pi pi-sun"
+      class="app-color__btn-sun p-button-rounded p-button-text"
+    />
+    <Button
+      v-else
+      @click="changeLightMode"
+      icon="pi pi-moon"
+      class="app-color__btn-moon p-button-rounded p-button-text"
+    />
+  </div>
+</template>
+
 <script setup>
 import { ref, onMounted } from "vue";
 
@@ -23,22 +40,6 @@ onMounted(() => {
   currentTheme === 'dark' ? lightMode.value = true : lightMode.value = false;
 });
 </script>
-<template>
-  <div class="app-color">
-    <Button
-      v-if="lightMode"
-      @click="changeLightMode"
-      icon="pi pi-sun"
-      class="app-color__btn-sun p-button-rounded p-button-text"
-    />
-    <Button
-      v-else
-      @click="changeLightMode"
-      icon="pi pi-moon"
-      class="app-color__btn-moon p-button-rounded p-button-text"
-    />
-  </div>
-</template>
 
 <style lang="scss" scoped>
 $b: ".app-color";

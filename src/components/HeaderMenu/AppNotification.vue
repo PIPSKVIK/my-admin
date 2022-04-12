@@ -1,24 +1,3 @@
-<script setup>
-import { useRouter } from "vue-router";
-import { AppHeaderDropMenu } from "@/components/HeaderMenu";
-import { close } from "@/helpers";
-
-const { isVisible, trigger } = close(".app-notification__drop");
-
-const router = useRouter();
-
-const pouterPush = () => {
-  router.push('/my-notifications');
-  isVisible.value = false;
-};
-
-const notListMock = [
-  { title: 'New user registered.', subtitle: '5 hours ago', date: 'Yesterday' },
-  { title: ' Congratulation John! 🎉', subtitle: 'Won the monthly best seller badge', date: 'Today' },
-  { title: 'New message received.', subtitle: 'You have 10 unread messages', date: '19 Mar' }
-]
-</script>
-
 <template>
   <div class="app-notification">
     <Button
@@ -62,6 +41,27 @@ const notListMock = [
     </transition>
   </div>
 </template>
+
+<script setup>
+import { useRouter } from "vue-router";
+import { AppHeaderDropMenu } from "@/components/HeaderMenu";
+import { close } from "@/helpers";
+
+const { isVisible, trigger } = close(".app-notification__drop");
+
+const router = useRouter();
+
+const pouterPush = () => {
+  router.push('/my-notifications');
+  isVisible.value = false;
+};
+
+const notListMock = [
+  { title: 'New user registered.', subtitle: '5 hours ago', date: 'Yesterday' },
+  { title: ' Congratulation John! 🎉', subtitle: 'Won the monthly best seller badge', date: 'Today' },
+  { title: 'New message received.', subtitle: 'You have 10 unread messages', date: '19 Mar' }
+]
+</script>
 
 <style lang="scss" scoped>
 $b: ".app-notification";

@@ -6,10 +6,6 @@ export const btnLinks = ref([
     path: "/",
   },
   {
-    label: "my-budget",
-    path: "/my-budget",
-  },
-  {
     label: "my-notifications",
     path: "/my-notifications",
   }

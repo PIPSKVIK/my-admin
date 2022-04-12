@@ -1,6 +1,5 @@
 <template>
-  <BaseLoader full :visible="isLoading" />
-  <div id="app" class="app" v-if="!isLoading">
+  <div id="app" class="app">
     <AppDrowerMenu @showDrowerIconTriger="showDrowerIconTriger" />
     <AppHeaderMenu />
     <main class="app-main" :class="{ 'app-main--hide': !showDrowerIcon }">
@@ -29,7 +28,6 @@ import { useStore } from "vuex";
 
 const triggerSize = 1200;
 const { showDrowerIcon } = windowResize(triggerSize);
-const isLoading = ref(true);
 
 onMounted(() => {
   window.innerWidth <= triggerSize
@@ -42,12 +40,6 @@ function showDrowerIconTriger(value) {
 }
 
 const store = useStore();
-onBeforeMount(() => {
-  store.dispatch("auth/fetchUser");
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 500)
-});
 </script>
 
 <style lang="scss" scoped>
