@@ -1,7 +1,12 @@
 @import "./media";
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
 html {
-  font-size: var(--root-font-size)px;
+  font-size: var(--root-font-size);
   scroll-behavior: smooth;
 }
 
@@ -20,6 +25,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.btn-reset {
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
 .seporator {
   display: block;
   max-width: 100%;
@@ -32,6 +46,76 @@ body {
   margin: 0;
 }
 
+.visually-hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
+}
+
+// marging / padding
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.mb-2 {
+  margin-bottom: 2rem;
+}
+.mb-3 {
+  margin-bottom: 3rem;
+}
+.mr-1 {
+  margin-right: 1rem;
+}
+.mr-2 {
+  margin-right: 2rem;
+}
+.mr-3 {
+  margin-right: 3rem;
+}
+.ml-1 {
+  margin-left: 1rem;
+}
+
+.pb-1 {
+  padding-bottom: 1rem;
+}
+.pr-1 {
+  padding-right: 1rem;
+}
+.pl-1 {
+  padding-left: 1rem;
+}
+.pt-1 {
+  padding-top: 1rem;
+}
+
+.mb-desktop-mb-1 {
+  @include md-desktop {
+    margin-bottom: 1rem;
+  }
+}
+.mb-desktop-mb-2 {
+  @include md-desktop {
+    margin-bottom: 2rem;
+  }
+}
+
+.mr-res {
+  @include sm-tablets {
+    margin-right: 0;
+  }
+  @include md-desktop {
+    margin-right: 0;
+  }
+}
+
+// text
 h1 {
   font-size: 1.5rem;
   @include sm-tablets {
@@ -68,7 +152,6 @@ h6 {
     font-size: 0.7rem;
   }
 }
-
 .p-1 {
   font-size: 1rem;
   @include sm-tablets {
@@ -104,5 +187,37 @@ h6 {
   font-size: 0.6rem;
   @include sm-tablets {
     font-size: 0.5rem;
+  }
+}
+
+// special class
+.input-res {
+  background-color: transparent;
+}
+.w-full {
+  width: 100%;
+}
+
+
+// reset input style
+.p-inputtext {
+  background-color: transparent;
+  border-color: var(--color-text-soft);
+  color: var(--color-text-soft);
+  width: 100%;
+  &:enabled,
+  &:focus {
+    box-shadow: var(--color-text-soft);
+  }
+}
+
+// reset input-label style
+.p-float-label input:focus ~ label, .p-float-label input.p-filled ~ label, .p-float-label textarea:focus ~ label, .p-float-label textarea.p-filled ~ label, .p-float-label .p-inputwrapper-focus ~ label, .p-float-label .p-inputwrapper-filled ~ label {
+  background-color: var(--color-background-soft);
+}
+
+.p-float-label {
+  label {
+    color: var(--color-text-soft);
   }
 }

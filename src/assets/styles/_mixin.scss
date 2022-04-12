@@ -54,6 +54,38 @@
   -webkit-appearance: none;
 }
 
+@mixin hoverFocusDisabled($rule: false) {
+  transition: opacity 0.3s;
+
+  &:focus {
+    &:not(:disabled) {
+      @if $rule {
+        #{$rule} {
+          outline: 2px solid var(--input-outline);
+          outline-offset: 2px;
+        }
+      } @else {
+        outline: 2px solid var(--input-outline);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  // @todo add hover state
+
+  &:disabled {
+    @if $rule {
+      #{$rule} {
+        opacity: 0.8 !important;
+        cursor: not-allowed !important;
+      }
+    } @else {
+      opacity: 0.8 !important;
+      cursor: not-allowed !important;
+    }
+  }
+}
+
 
 /// Дефолтная анимация для hover и тд.
 @mixin anim-default {

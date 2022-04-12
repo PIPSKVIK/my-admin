@@ -1,30 +1,88 @@
 :root {
+  // background
   --color-background: #28243d;
   --color-background-soft: #312d4b;
   --color-background-soft-hover: #3d3957;
   --color-background-dark: #1f1d31;
 
+  // text
   --color-text: #e7e3fc;
   --color-text-soft: #e7e3fcad;
+  --color-text-black: #000000;
 
   --color-white: #ffffff;
   --color-white-soft: #f8f8f8;
   --color-white-mute: #f2f2f2;
 
+  // radius
   --radius-small: 2px;
   --radius-default: 5px;
   --radius-big: 10px;
+  --radius-full: 50%;
 
+  // shadow
   --box-shadow-drop-menu: 0 5px 6px -3px rgb(19 17 32 / 20%),
     0 3px 16px 2px rgb(19 17 32 / 12%), 0 9px 12px 1px rgb(19 17 32 / 14%);
+  --box-shadow-wrapper: 0px 5px 10px 2px rgba(7, 7, 7, 0.41);
 
   --color-separator: rgba(231, 227, 252, 0.14);
+  --color-separator-dark: #8a6666;
 
   --root-font-size: 100;
   --font-size: 18px;
   --line-height: 1.6;
 
+  // btn
   --btn-color: #9155fd;
+  --btn-color-hover: #772efd;
+  --btn-color-green: #198754;
+  --btn-color-green-hover: #157347;
+  --btn-color-red: #dc3545;
+  --btn-color-red-hover: #bb2d3b;
+  --btn-color-yellow: #ffc107;
+  --btn-color-yellow-hover: #f5b801;
+  --btn-color-blue: #646cff; // perfect
+  --btn-color-blue-hover: #747bff;
+  --btn-color-disabled: rgb(129, 129, 129);
+
+  // base-link
+  --base-link-color-hover: #686774;
+
+  // input - outline color
+  --input-outline: #9155fd;
+  --input-disable: #484747;
+  --input-placeholder-color: rgb(172, 172, 172);
+
+  // status color
+  --color-error: #ee0252;
+
+  // loader color
+  --loader-color: #e33920;
+
+  // profile-icon-image
+  --color-profile-img: #e0cffe;
+  --color-profile-img-active-event: #ba95fa;
+  --color-profile-online: #56ca00;
+  --color-profile-offline: #ff4c51;
+
+  // border-color
+  --color-border: rgba(236, 232, 255, 0.3);
+
+  // status color
+  --success: #10b981;
+  --warning: #fbbf24;
+  --info: #818cf8;
+  --danger: #dc2626;
+
+  // overflow-color
+  --bag-overflow: rgba(33, 33, 33, 0.46);
+
+  // timer-color
+  --color-timer: #00ff66;
+
+  // default colors for interface
+  --color-interface-blue: #646cff;
+  --color-interface-orange: #ffae18;
 }
 
 [data-theme="light"] {
@@ -32,17 +90,17 @@
   --color-background-soft: #ffffff;
   --color-background-soft-hover: #f9f9fa;
   --color-background-dark: #1f1d31;
-
   --color-text: #313131;
   --color-text-soft: #1a1a1aad;
-
   --color-white: #000000;
   --color-white-soft: #3a3a3a;
   --color-white-mute: #2c2c2c;
-
   --box-shadow-drop-menu: 0 4px 14px 0 rgb(94 86 105 / 14%);
-
-  --color-separator: rgba(94,86,105,.14);;
+  --color-separator: rgba(94,86,105,.14);
+  --input-disable: #c9c9c9;
+  --color-error: #ff0000;
+  --base-link-color-hover: #d6d6d6;
+  --color-timer: #000000;
 }
 
 // Usage Media

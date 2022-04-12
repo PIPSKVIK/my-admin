@@ -1,9 +1,30 @@
+<template>
+  <div id="app" class="app">
+    <AppDrowerMenu @showDrowerIconTriger="showDrowerIconTriger" />
+    <AppHeaderMenu />
+    <main class="app-main" :class="{ 'app-main--hide': !showDrowerIcon }">
+      <div class="app-main__wrap">
+        <div class="app-main__wrap-container">
+          <RouterView v-slot="{ Component }">
+            <transition name="route" mode="out-in">
+              <component :is="Component"></component>
+            </transition>
+          </RouterView>
+        </div>
+      </div>
+    </main>
+    <BaseToastList />
+  </div>
+</template>
+
 <script setup>
 import { RouterView } from "vue-router";
-import { onMounted } from "vue";
+import { onMounted, onBeforeMount, ref } from "vue";
 import { AppDrowerMenu } from "@/components/NavigationMenu";
-import { AppHeaderMenu } from '@/components/HeaderMenu';
+import { AppHeaderMenu } from "@/components/HeaderMenu";
+import { BaseToastList, BaseLoader } from "@/components/Ui";
 import { windowResize } from "@/helpers";
+import { useStore } from "vuex";
 
 const triggerSize = 1200;
 const { showDrowerIcon } = windowResize(triggerSize);
@@ -13,21 +34,13 @@ onMounted(() => {
     ? (showDrowerIcon.value = false)
     : (showDrowerIcon.value = true);
 });
-</script>
 
-<template>
-  <div id="app" class="app">
-    <AppDrowerMenu />
-    <AppHeaderMenu />
-    <main class="app-main" :class="{ 'app-main--hide': !showDrowerIcon }">
-      <div class="app-main__wrap">
-        <div class="app-main__wrap-container">
-          <RouterView />
-        </div>
-      </div>
-    </main>
-  </div>
-</template>
+function showDrowerIconTriger(value) {
+  showDrowerIcon.value = value;
+}
+
+const store = useStore();
+</script>
 
 <style lang="scss" scoped>
 $b: ".app";
@@ -54,6 +67,9 @@ $m: ".app-main";
   width: 100%;
   &--hide {
     padding-left: 78px;
+    @include sm-mobile {
+      padding-left: 0;
+    }
   }
 
   &__wrap {

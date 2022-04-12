@@ -18,3 +18,99 @@
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
+
+// bounce
+.bounce-enter-active {
+  animation: bounce-in .3s;
+}
+.bounce-leave-active {
+  animation: bounce-in .3s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// route - transition - X
+.route-enter-from {
+  opacity: 0;
+  transform: translateX(100px);
+}
+.route-enter-active {
+  transition: all 0.3s ease-out;
+}
+.route-leave-to {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.route-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+// route - transition - Y
+.routeY-enter-from {
+  opacity: 0;
+  transform: translateY(-50px);
+}
+.routeY-enter-active {
+  transition: all 0.3s ease-out;
+}
+.routeY-leave-to {
+  opacity: 0;
+  transform: translateY(50px);
+}
+.routeY-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+
+.anim-move-right {
+  animation-name: anim-move-right;
+  animation-timing-function: linear;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+}
+@keyframes anim-move-right {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(-1rem); }
+  100% { transform: translateX(0); }
+}
+
+.anin-spin {
+  animation : spin 2s linear;
+}
+@keyframes spin { 
+  100% { 
+    -webkit-transform: rotate(360deg); 
+    transform:rotate(360deg); 
+  } 
+}
+
+// anim swipe top
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+// list swipe right
+.listRight-enter-active,
+.listRight-leave-active {
+  transition: all 0.5s ease;
+}
+.listRight-enter-from,
+.listRight-leave-to {
+  opacity: 0;
+  transform: translateX(200px);
+}

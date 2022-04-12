@@ -1,9 +1,18 @@
-<script setup></script>
-
 <template>
   <section class="home-page">
-    <h1>Home Page</h1>
+    <h1 class="home-page__title mb-2">Home Page</h1>
   </section>
 </template>
 
-<style lang="scss" scoped></style>
+<script setup></script>
+
+<style lang="scss" scoped>
+$b: ".home-page";
+
+#{$b} {
+  &__title {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
+</style>

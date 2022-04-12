@@ -1,27 +1,3 @@
-<script setup>
-import { useRouter } from "vue-router";
-import { onMounted } from "vue";
-import { windowResize } from "@/helpers";
-import { btnLinks } from "@/constants/drawerMenuLinks";
-
-const router = useRouter();
-const triggerSize = 1200;
-const { showDrowerIcon } = windowResize(triggerSize);
-
-const drowerIconHandler = () => {
-  showDrowerIcon.value = !showDrowerIcon.value;
-};
-const pouterPush = (urlName) => {
-  router.push({ name: urlName });
-};
-
-onMounted(() => {
-  window.innerWidth <= triggerSize
-    ? (showDrowerIcon.value = false)
-    : (showDrowerIcon.value = true);
-});
-</script>
-
 <template>
   <nav
     class="app-nav-drawer"
@@ -43,20 +19,43 @@ onMounted(() => {
         />
       </div>
       <div class="app-nav-drawer__content-items">
-        <Button
+        <BaseLink
           v-for="(link, idx) in btnLinks"
           :key="idx"
-          :label="link.label"
-          class="p-button-text p-button-help p-button-plain app-nav-drawer__content-items-link"
-          :icon="link.icon"
-          iconPos="right"
-          :disabled="!showDrowerIcon"
-          @click="pouterPush(link.url_name)"
-        />
+          :to="link.path"
+          drowerMenu
+        >
+          {{ link.label }}
+        </BaseLink>
       </div>
     </div>
   </nav>
 </template>
+
+<script setup>
+import { useRouter } from "vue-router";
+import { onMounted, defineEmits } from "vue";
+import { windowResize } from "@/helpers";
+import { btnLinks } from "@/constants/drawerMenuLinks";
+import { BaseLink } from "@/components/Ui";
+import { HomeIcon } from "@/components/icons";
+
+const emits = defineEmits(["showDrowerIconTriger"]);
+
+const router = useRouter();
+const triggerSize = 1200;
+const { showDrowerIcon } = windowResize(triggerSize);
+
+const drowerIconHandler = () => {
+  showDrowerIcon.value = !showDrowerIcon.value;
+  emits("showDrowerIconTriger", showDrowerIcon.value)
+};
+onMounted(() => {
+  window.innerWidth <= triggerSize
+    ? (showDrowerIcon.value = false)
+    : (showDrowerIcon.value = true);
+});
+</script>
 
 <style lang="scss" scoped>
 $b: ".app-nav-drawer";
@@ -76,9 +75,13 @@ $h: ".app-header";
   will-change: box-shadow, transform !important;
   border-radius: 0 var(--radius-big) var(--radius-big) 0;
   z-index: 100;
+  position: fixed;
 
   &--hide {
     transform: translateX(-70%);
+    @include sm-mobile {
+      transform: translateX(-100%);
+    }
   }
 
   &__container {
@@ -91,10 +94,12 @@ $h: ".app-header";
     padding: 20px 20px 8px 24px;
   }
 
-  &__content-items-link {
-    width: 100%;
-    padding-right: 30px;
-    color: var(--color-text);
+  &__content-items {
+    display: flex;
+    flex-direction: column;
+    & a:not(:last-child) {
+      margin-bottom: 0.2rem;
+    }
   }
 }
 </style>
